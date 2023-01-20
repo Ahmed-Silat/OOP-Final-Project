@@ -29,9 +29,9 @@ import javafx.stage.Stage;
 
 public class Cardiologist extends Application {
 
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	Stage stage;
 	Scene scene;
@@ -120,17 +120,14 @@ public class Cardiologist extends Application {
 		heading.setAlignment(Pos.CENTER);
 
 		// save Button
-		Button saveBtn = new Button();
+		Button saveBtn = new Button("Save");
 		saveBtn.setCursor(Cursor.HAND);
 		HBox save = new HBox(saveBtn);
+		saveBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		saveBtn.setTextFill(Color.AQUA);
 
-		Image imgsave = new Image("images/save-01.png");
-		ImageView viewsave = new ImageView(imgsave);
-		viewsave.setFitHeight(150);
-		viewsave.setFitWidth(150);
-		saveBtn.setGraphic(viewsave);
-		saveBtn.setPadding(new Insets(-40, -10, -40, 100));
-//		saveBtn.setStyle("-fx-background-color: transparent");
+		saveBtn.setStyle("-fx-background-color: blue;-fx-background-radius: 20px;");
+		saveBtn.setPadding(new Insets(10, 40, 10, 40));
 
 		DropShadow shadowsave = new DropShadow();
 		saveBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
@@ -148,17 +145,10 @@ public class Cardiologist extends Application {
 		});
 
 		// cancel button
-		Button cancelBtn = new Button();
+		Button cancelBtn = new Button("Cancel");
 		cancelBtn.setCursor(Cursor.HAND);
 		HBox cancel = new HBox(cancelBtn);
-
-		Image imgcancel = new Image("images/cancel.png");
-		ImageView viewcancel = new ImageView(imgcancel);
-		viewcancel.setFitHeight(150);
-		viewcancel.setFitWidth(150);
-		cancelBtn.setGraphic(viewcancel);
-		cancelBtn.setPadding(new Insets(-40, -20, -40, 5));
-//		cancelBtn.setStyle("-fx-background-color: transparent");
+		cancelBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 
 		DropShadow shadowcancel = new DropShadow();
 		cancelBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
@@ -177,22 +167,15 @@ public class Cardiologist extends Application {
 
 		HBox buttons = new HBox(20, saveBtn, cancelBtn);
 		buttons.setAlignment(Pos.CENTER);
-		buttons.setMargin(saveBtn, new Insets(50, 30, 0, -105));
-		buttons.setMargin(cancelBtn, new Insets(50, 30, 0, -50));
+		buttons.setMargin(saveBtn, new Insets(50, 2, 0, 0));
+		buttons.setMargin(cancelBtn, new Insets(50, 0, 0, 0));
 
 		// back button
-		Button backButton = new Button();
+		Button backButton = new Button("Go Back");
 		backButton.setCursor(Cursor.HAND);
 		HBox goBack = new HBox(backButton);
 		goBack.setMargin(backButton, new Insets(0, 100, 0, 0));
-
-		Image imgback = new Image("images/backbutton-01.png");
-		ImageView viewback = new ImageView(imgback);
-		viewback.setFitHeight(150);
-		viewback.setFitWidth(150);
-		backButton.setGraphic(viewback);
-		backButton.setPadding(new Insets(-40, -10, -40, -5));
-//		backButton.setStyle("-fx-background-color: transparent");
+		backButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 
 		DropShadow shadowback = new DropShadow();
 		backButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
