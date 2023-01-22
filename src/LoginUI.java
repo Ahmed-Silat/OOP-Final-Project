@@ -117,6 +117,8 @@ public class LoginUI extends Application {
 				SignUpUI signup = new SignUpUI();
 				try {
 					signup.start(login_stage);
+//					login_stage.setFullScreen(true);
+//					login_stage.setMaximized(true);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -172,13 +174,15 @@ public class LoginUI extends Application {
 
 		layout.setAlignment(Pos.CENTER);
 
-		layout.setStyle("-fx-background-color: #90B1D8,#3E7786");
+		layout.setStyle("-fx-background-color: #2B7490");
 
-		scene = new Scene(layout, 1000, 1000);
+		scene = new Scene(layout, 1800, 980);
 //		scene.setFill(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE, new Stop(0, Color.web("#90B1D8")),
 //				new Stop(1, Color.web("#3E7786"))));
 
 		login_stage.setTitle("Login-page");
+//		login_stage.setMaximized(true);
+		login_stage.setResizable(false);
 		login_stage.setScene(scene);
 		login_stage.show();
 	}

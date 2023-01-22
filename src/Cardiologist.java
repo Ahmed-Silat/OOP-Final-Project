@@ -16,8 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,9 +27,9 @@ import javafx.stage.Stage;
 
 public class Cardiologist extends Application {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 	Stage stage;
 	Scene scene;
@@ -43,49 +41,49 @@ public class Cardiologist extends Application {
 
 		Text mainHeading = new Text();
 		mainHeading.setText("CARDIOLOGIST\n");
-		mainHeading.setFont(Font.font("Helvetica", FontWeight.BOLD, 50));
-		mainHeading.setFill(Color.WHITE);
+		mainHeading.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
+		mainHeading.setFill(Color.WHITESMOKE);
 
 		Label lbl_patient = new Label("Patient ID");
 		lbl_patient.setTextFill(Color.WHITE);
-		lbl_patient.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		lbl_patient.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		TextField txt_patient = new TextField();
 		txt_patient.setPromptText("Enter Patient ID");
 
 		Label lbl_name = new Label("Name");
 		lbl_name.setTextFill(Color.WHITE);
-		lbl_name.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		lbl_name.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		TextField txt_name = new TextField();
 		txt_name.setPromptText("Enter Your Name");
 
 		Label lbl_father = new Label("Father Name");
 		lbl_father.setTextFill(Color.WHITE);
-		lbl_father.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		lbl_father.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		TextField txt_father = new TextField();
 		txt_father.setPromptText("Enter Father Name");
 
 		Label lbl_gender = new Label("Gender");
 		lbl_gender.setTextFill(Color.WHITE);
-		lbl_gender.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		lbl_gender.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		ToggleGroup rb_gp = new ToggleGroup();
 		RadioButton rb_male = new RadioButton("Male");
 		RadioButton rb_female = new RadioButton("Female");
 		rb_male.setToggleGroup(rb_gp);
 		rb_female.setToggleGroup(rb_gp);
 		rb_male.setTextFill(Color.WHITE);
-		rb_male.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		rb_male.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		rb_female.setTextFill(Color.WHITE);
-		rb_female.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		rb_female.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 
 		Label lbl_date = new Label("Date of Birth");
 		lbl_date.setTextFill(Color.WHITE);
-		lbl_date.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		lbl_date.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		DatePicker dob = new DatePicker();
 		dob.setPromptText("Enter DOB");
 
 		Label lbl_doctor = new Label("Doctor Name");
 		lbl_doctor.setTextFill(Color.WHITE);
-		lbl_doctor.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		lbl_doctor.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		ComboBox<String> dr_names = new ComboBox<>();
 		dr_names.setPromptText("Select Doctor");
 		dr_names.getItems().add("Dr. Ali Haider Naqvi");
@@ -96,18 +94,18 @@ public class Cardiologist extends Application {
 
 		Label lbl_disease = new Label("Disease History");
 		lbl_disease.setTextFill(Color.WHITE);
-		lbl_disease.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		lbl_disease.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		TextArea txt_disease = new TextArea();
 		txt_disease.setPromptText("Enter Your Disease");
 
 		HBox h1 = new HBox(75, lbl_patient, txt_patient);
-		HBox h2 = new HBox(110, lbl_name, txt_name);
-		HBox h3 = new HBox(48, lbl_father, txt_father);
-		HBox h4 = new HBox(95, lbl_gender, rb_male, rb_female);
+		HBox h2 = new HBox(115, lbl_name, txt_name);
+		HBox h3 = new HBox(45, lbl_father, txt_father);
+		HBox h4 = new HBox(98, lbl_gender, rb_male, rb_female);
 		h4.setMargin(rb_male, new Insets(-3, 0, 5, 0));
 		h4.setMargin(rb_female, new Insets(-3, 0, 5, -80));
-		HBox h5 = new HBox(48, lbl_date, dob);
-		HBox h6 = new HBox(40, lbl_doctor, dr_names);
+		HBox h5 = new HBox(50, lbl_date, dob);
+		HBox h6 = new HBox(45, lbl_doctor, dr_names);
 
 		VBox points = new VBox(40, h1, h2, h3, h4, h5, h6);
 		VBox disease = new VBox(30, lbl_disease, txt_disease);
@@ -124,8 +122,7 @@ public class Cardiologist extends Application {
 		saveBtn.setCursor(Cursor.HAND);
 		HBox save = new HBox(saveBtn);
 		saveBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-		saveBtn.setTextFill(Color.AQUA);
-
+		saveBtn.setTextFill(Color.WHITE);
 		saveBtn.setStyle("-fx-background-color: blue;-fx-background-radius: 20px;");
 		saveBtn.setPadding(new Insets(10, 40, 10, 40));
 
@@ -149,6 +146,24 @@ public class Cardiologist extends Application {
 		cancelBtn.setCursor(Cursor.HAND);
 		HBox cancel = new HBox(cancelBtn);
 		cancelBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		cancelBtn.setTextFill(Color.WHITE);
+		cancelBtn.setStyle("-fx-background-color: red;-fx-background-radius: 20px;");
+		cancelBtn.setPadding(new Insets(10, 30, 10, 30));
+
+		cancelBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				UserDashboard userDashboard = new UserDashboard();
+				try {
+					userDashboard.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
 
 		DropShadow shadowcancel = new DropShadow();
 		cancelBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
@@ -171,28 +186,31 @@ public class Cardiologist extends Application {
 		buttons.setMargin(cancelBtn, new Insets(50, 0, 0, 0));
 
 		// back button
-		Button backButton = new Button("Go Back");
-		backButton.setCursor(Cursor.HAND);
-		HBox goBack = new HBox(backButton);
-		goBack.setMargin(backButton, new Insets(0, 100, 0, 0));
-		backButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		Button backBtn = new Button("Go Back");
+		backBtn.setCursor(Cursor.HAND);
+		HBox goBack = new HBox(backBtn);
+		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		backBtn.setTextFill(Color.WHITE);
+		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+		backBtn.setPadding(new Insets(0, 20, 0, 20));
+		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 
 		DropShadow shadowback = new DropShadow();
-		backButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+		backBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				backButton.setEffect(shadowback);
+				backBtn.setEffect(shadowback);
 			}
 		});
-		backButton.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+		backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				backButton.setEffect(null);
+				backBtn.setEffect(null);
 			}
 		});
 
-		VBox mainVBox = new VBox(backButton, heading, h, buttons);
+		VBox mainVBox = new VBox(backBtn, heading, h, buttons);
 
 		saveBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -227,18 +245,26 @@ public class Cardiologist extends Application {
 			}
 		});
 
-		backButton.setOnAction(new EventHandler<ActionEvent>() {
+		backBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				UserDashboard userDashboard = new UserDashboard();
+				try {
+					userDashboard.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			}
 		});
 
-		mainVBox.setStyle("-fx-background-color: #5A8493");
+		mainVBox.setStyle("-fx-background-color: #2B7490");
 
-		scene = new Scene(mainVBox, 800, 800);
+		scene = new Scene(mainVBox, 1800, 980);
+//		stage.setMaximized(true);
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
 	}

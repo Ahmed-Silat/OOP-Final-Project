@@ -254,9 +254,11 @@ public class SignUpUI extends Application {
 		btn_login.setCursor(Cursor.HAND);
 
 		layout.setAlignment(Pos.CENTER);
-		layout.setStyle("-fx-background-color: #90B1D8,#3E7786");
+		layout.setStyle("-fx-background-color: #2B7490");
 
-		signUpScene = new Scene(layout, 1000, 1000);
+		signUpScene = new Scene(layout, 1800, 980);
+//		stage.setMaximized(true);
+		stage.setResizable(false);
 		stage.setScene(signUpScene);
 		stage.show();
 
