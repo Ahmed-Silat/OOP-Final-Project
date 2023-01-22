@@ -32,9 +32,9 @@ import javafx.stage.Stage;
 
 public class Pharmacy extends Application {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 	Stage stage;
 	Scene scene;
@@ -96,31 +96,42 @@ public class Pharmacy extends Application {
 		spinner.setEditable(true);
 
 		// Go back button
-		Button backButton = new Button();
-		backButton.setCursor(Cursor.HAND);
-		HBox goBack = new HBox(backButton);
-		goBack.setMargin(backButton, new Insets(0, 100, 0, 0));
+		Button backBtn = new Button("Go Back");
+		backBtn.setCursor(Cursor.HAND);
+		HBox goBack = new HBox(backBtn);
+		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		backBtn.setTextFill(Color.WHITE);
+		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+		backBtn.setPadding(new Insets(0, 20, 0, 20));
+		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 
-		Image imgback = new Image("images/backbutton-01.png");
-		ImageView viewback = new ImageView(imgback);
-		viewback.setFitHeight(150);
-		viewback.setFitWidth(150);
-		backButton.setGraphic(viewback);
-		backButton.setPadding(new Insets(-40, -10, -40, -5));
-		backButton.setStyle("-fx-background-color: transparent");
+		backBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				UserDashboard userDashboard = new UserDashboard();
+				try {
+					userDashboard.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
 
 		DropShadow shadowback = new DropShadow();
-		backButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+		backBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				backButton.setEffect(shadowback);
+				backBtn.setEffect(shadowback);
 			}
 		});
-		backButton.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+		backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				backButton.setEffect(null);
+				backBtn.setEffect(null);
 			}
 		});
 
@@ -129,32 +140,29 @@ public class Pharmacy extends Application {
 		heading.setMargin(mainHeading, new Insets(0, 0, 0, 820));
 
 		// Purchase button
-		Button purchase = new Button();
-		// purchase.setText("Purchase");
-		purchase.setCursor(Cursor.HAND);
-		HBox purchaseButton = new HBox(purchase);
-		purchaseButton.setMargin(purchase, new Insets(50, 0, 0, 110));
+		Button purchaseBtn = new Button();
+		purchaseBtn.setText("Purchase");
+		purchaseBtn.setCursor(Cursor.HAND);
+		HBox purchaseButton = new HBox(purchaseBtn);
+		purchaseButton.setMargin(purchaseBtn, new Insets(50, 0, 0, 110));
+		purchaseBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 30));
+		purchaseBtn.setTextFill(Color.WHITE);
+		purchaseBtn.setStyle("-fx-background-color: green; -fx-background-radius: 35px;");
 
-		Image imgpurchase = new Image("images/purchase button-01.png");
-		ImageView viewpurchase = new ImageView(imgpurchase);
-		viewpurchase.setFitHeight(150);
-		viewpurchase.setFitWidth(150);
-		purchase.setGraphic(viewpurchase);
-		purchase.setPadding(new Insets(-48, -10, -40, -10));
-		purchase.setStyle("-fx-background-color: transparent");
+		purchaseBtn.setPadding(new Insets(10, 50, 10, 50));
 
 		DropShadow shadowpurchase = new DropShadow();
-		purchase.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+		purchaseBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				purchase.setEffect(shadowpurchase);
+				purchaseBtn.setEffect(shadowpurchase);
 			}
 		});
-		purchase.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+		purchaseBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				purchase.setEffect(null);
+				purchaseBtn.setEffect(null);
 			}
 		});
 
@@ -173,7 +181,7 @@ public class Pharmacy extends Application {
 		VBox total = new VBox(goBack, heading, lbl_txt);
 		total.setMargin(lbl_txt, new Insets(0, 0, 0, 780));
 
-		purchase.setOnAction(new EventHandler<ActionEvent>() {
+		purchaseBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 
@@ -192,9 +200,11 @@ public class Pharmacy extends Application {
 			}
 		});
 
-		total.setStyle("-fx-background-color:#5A8493");
+		total.setStyle("-fx-background-color: #2B7490");
 
-		scene = new Scene(total, 800, 800);
+		scene = new Scene(total, 1800, 980);
+//		stage.setMaximized(true);
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
 

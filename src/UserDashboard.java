@@ -49,9 +49,9 @@ public class UserDashboard extends Application {
 
 	Background background;
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 	Stage stage;
 	Rectangle pharmacyBox;
@@ -59,7 +59,7 @@ public class UserDashboard extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
-		
+
 		Text mainHeading = new Text();
 		mainHeading.setText("WELCOME TO HOSPITAL MANAGEMENT SYSTEM\n");
 		mainHeading.setFont(Font.font("Helvetica", FontWeight.BOLD, 60));
@@ -561,12 +561,14 @@ public class UserDashboard extends Application {
 		HBox h2 = new HBox(10, box4, box5, box6);
 		h2.setAlignment(Pos.CENTER);
 
-		VBox layout = new VBox(10,mainHeading, h1, h2, center, logoutStack);
+		VBox layout = new VBox(10, mainHeading, h1, h2, center, logoutStack);
 		layout.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(layout, 1000, 1000);
-		layout.setStyle("-fx-background-color:#5A8493");
+		Scene scene = new Scene(layout, 1800, 980);
+		layout.setStyle("-fx-background-color:#2B7490");
 
 		primaryStage.setTitle("DASHBOARD");
+//		stage.setMaximized(true);
+		stage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
