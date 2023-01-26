@@ -43,8 +43,6 @@ public class AdminAuthentication {
 			loginSuccessful.setContentText("You are successfully Login");
 			loginSuccessful.show();
 			return true;
-//			UserDashboard userDashboard = new UserDashboard();
-//			userDashboard.start();
 		} else {
 			Alert loginError = new Alert(Alert.AlertType.ERROR);
 			loginError.setContentText("Invalid Email or Password");

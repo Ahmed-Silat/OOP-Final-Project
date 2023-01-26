@@ -191,6 +191,18 @@ public class AdminDashboard extends Application {
 		logoutBtn.setTextFill(Color.WHITE);
 		logoutBtn.setStyle("-fx-background-color: #8EA7E9; -fx-background-radius: 20px;");
 		logoutBtn.setPadding(new Insets(10, 15, 10, 15));
+		logoutBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				LoginUI login = new LoginUI();
+				try {
+					login.start(stage);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 
 		DropShadow shadowback = new DropShadow();
 		logoutBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {

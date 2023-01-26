@@ -74,17 +74,11 @@ public class LoginUI extends Application {
 	public void dashboardSelection(String cmbValue, String email, String password) {
 		if (cmbValue == "User") {
 			goToUserDashboard(email, password);
-			System.out.println("user");
+//			System.out.println("user");
 		} else if (cmbValue == "Admin") {
 			goToAdminDashboard(email, password);
-			System.out.println("admin");
+//			System.out.println("admin");
 		}
-//		else if (cmbValue == null) {
-//			System.out.println("null");
-//			Alert loginError = new Alert(Alert.AlertType.ERROR);
-//			loginError.setContentText("Select the User");
-//			loginError.show();
-//		}
 	}
 
 	@Override
