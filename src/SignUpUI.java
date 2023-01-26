@@ -41,7 +41,7 @@ public class SignUpUI extends Application {
 	PasswordField pass, rePass;
 
 	public void goToDashboard() {
-		Authentication auth = new Authentication();
+		UserAuthentication auth = new UserAuthentication();
 		if (auth.signUp(getUserDetails()) == true) {
 			UserDashboard userDashboard = new UserDashboard();
 			try {

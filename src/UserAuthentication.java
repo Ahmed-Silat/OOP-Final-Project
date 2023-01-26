@@ -3,12 +3,12 @@ import java.util.HashMap;
 
 import javafx.scene.control.Alert;
 
-public class Authentication {
+public class UserAuthentication {
 	private static final String usersFile = "signup.txt";
 
 	HashMap<String, Integer> columnMap = new HashMap<>();
 
-	Authentication() {
+	UserAuthentication() {
 		columnMap.put("fName", 0);
 		columnMap.put("lName", 1);
 		columnMap.put("gender", 2);

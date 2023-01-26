@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 //import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -42,9 +43,10 @@ public class LoginUI extends Application {
 	Stage login_stage;
 	TextField txt_email;
 	PasswordField pass;
+	ComboBox cmb_users;
 
-	public void goToDashboard(String email, String password) {
-		Authentication auth = new Authentication();
+	public void goToUserDashboard(String email, String password) {
+		UserAuthentication auth = new UserAuthentication();
 		if (auth.signIn(email, password) == true) {
 			UserDashboard userDashboard = new UserDashboard();
 			try {
@@ -54,6 +56,35 @@ public class LoginUI extends Application {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void goToAdminDashboard(String email, String password) {
+		AdminAuthentication admin = new AdminAuthentication();
+		if (admin.signIn(email, password) == true) {
+			AdminDashboard adminDashboard = new AdminDashboard();
+			try {
+				adminDashboard.start(login_stage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void dashboardSelection(String cmbValue, String email, String password) {
+		if (cmbValue == "User") {
+			goToUserDashboard(email, password);
+			System.out.println("user");
+		} else if (cmbValue == "Admin") {
+			goToAdminDashboard(email, password);
+			System.out.println("admin");
+		}
+//		else if (cmbValue == null) {
+//			System.out.println("null");
+//			Alert loginError = new Alert(Alert.AlertType.ERROR);
+//			loginError.setContentText("Select the User");
+//			loginError.show();
+//		}
 	}
 
 	@Override
@@ -66,9 +97,9 @@ public class LoginUI extends Application {
 		Image loginImage = new Image("images/login.png", 60, 60, false, false);
 		ImageView loginImageView = new ImageView(loginImage);
 
-		ComboBox cmb_users = new ComboBox<String>();
+		cmb_users = new ComboBox<String>();
 		cmb_users.setPromptText("Select User");
-		cmb_users.getItems().addAll("Admin", "Customer");
+		cmb_users.getItems().addAll("Admin", "User");
 
 		Label lbl_email = new Label("Email");
 		txt_email = new TextField();
@@ -104,7 +135,14 @@ public class LoginUI extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				goToDashboard(txt_email.getText(), pass.getText());
+//				goToUserDashboard(txt_email.getText(), pass.getText());
+				try {
+					dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
+				} catch (Exception e) {
+					Alert loginError = new Alert(Alert.AlertType.ERROR);
+					loginError.setContentText("Select the User");
+					loginError.show();
+				}
 			}
 		});
 
