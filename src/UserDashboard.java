@@ -49,9 +49,9 @@ public class UserDashboard extends Application {
 
 	Background background;
 
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	Stage stage;
 	Rectangle pharmacyBox;

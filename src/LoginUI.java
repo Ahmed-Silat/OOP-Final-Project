@@ -44,6 +44,7 @@ public class LoginUI extends Application {
 	TextField txt_email;
 	PasswordField pass;
 	ComboBox cmb_users;
+	String loginEmail = "";
 
 	public void goToUserDashboard(String email, String password) {
 		UserAuthentication auth = new UserAuthentication();
@@ -132,6 +133,8 @@ public class LoginUI extends Application {
 //				goToUserDashboard(txt_email.getText(), pass.getText());
 				try {
 					dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
+					AppointmentDataValidation adv = new AppointmentDataValidation();
+					adv.writeData(txt_email.getText());
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
 					loginError.setContentText("Select the User");
@@ -149,13 +152,9 @@ public class LoginUI extends Application {
 				SignUpUI signup = new SignUpUI();
 				try {
 					signup.start(login_stage);
-//					login_stage.setFullScreen(true);
-//					login_stage.setMaximized(true);
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 			}
 		});
 

@@ -180,6 +180,8 @@ public class SignUpUI extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				goToDashboard();
+				AppointmentDataValidation adv = new AppointmentDataValidation();
+				adv.writeData(txt_email.getText());
 			}
 		});
 
