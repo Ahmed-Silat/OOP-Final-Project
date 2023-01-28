@@ -469,6 +469,23 @@ public class UserDashboard extends Application {
 		appoinmentBox.setStroke(Color.web("#73D2DD"));
 		appoinmentBox.setArcHeight(20);
 		appoinmentBox.setArcWidth(20);
+		Button appointmentBtn = new Button("");
+		appointmentBtn.setPadding(new Insets(130, 250, 0, 0));
+		appointmentBtn.setStyle("-fx-background-color: transparent;");
+		appointmentBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Appointments appointments = new Appointments();
+				try {
+					appointments.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		// Image box 5
 		Image appionmentPic = new Image("images/Appoinment-01.png");
 		ImageView imagePic7 = new ImageView(appionmentPic);
@@ -479,7 +496,7 @@ public class UserDashboard extends Application {
 		StackPane box7 = new StackPane();
 		VBox vertical7 = new VBox(10, imagePic7, text7);
 		vertical7.setAlignment(Pos.CENTER);
-		box7.getChildren().addAll(appoinmentBox, vertical7);
+		box7.getChildren().addAll(appoinmentBox, vertical7, appointmentBtn);
 		text7.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		text7.setTextAlignment(TextAlignment.JUSTIFY);
 		text7.setFill(Color.WHITE);
@@ -506,7 +523,7 @@ public class UserDashboard extends Application {
 			}
 		});
 		// Create a hand cursor on object
-		vertical7.setCursor(Cursor.HAND);
+		appointmentBtn.setCursor(Cursor.HAND);
 
 		// Logout Button
 		Image logout = new Image("images/Log-01.png");

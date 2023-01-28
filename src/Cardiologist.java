@@ -268,6 +268,8 @@ public class Cardiologist extends Application {
 
 					info += "Disease History: " + txt_disease.getText();
 
+					info += "doctor fees:  500";
+
 					if (txt_disease.getText().equals("")) {
 						Alert nullError = new Alert(Alert.AlertType.ERROR);
 						nullError.setContentText("Fill out the Disease History Field");

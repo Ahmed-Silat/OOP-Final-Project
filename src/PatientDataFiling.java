@@ -4,9 +4,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PatientDataFiling {
 	private static final String appointmentFile = "appointments.txt";
+
+//	HashMap<String, Integer> columnMap = new HashMap<>();
+//
+//	PatientDataFiling() {
+//		columnMap.put("fName", 0);
+//		columnMap.put("lName", 1);
+//		columnMap.put("gender", 2);
+//		columnMap.put("date", 3);
+//		columnMap.put("email", 4);
+//		columnMap.put("password", 5);
+//	}
 
 	public void writeData(String data) {
 		try {
@@ -40,4 +52,19 @@ public class PatientDataFiling {
 		}
 		return arrayList;
 	}
+
+//	public boolean searchByEmail(ArrayList<String> arrayList, String email) {
+//		for (int i = 0; i < arrayList.size(); i++) {
+//			String lineInfo = arrayList.get(i);
+////		System.out.println(lineInfo);
+//			if (lineInfo != null) {
+//				String[] columns = lineInfo.split(",");
+////			System.out.println((columns[columnMap.get("email")]));
+//				if (columns[columnMap.get("email")].equals(email)) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 }

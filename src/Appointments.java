@@ -1,4 +1,11 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,11 +22,11 @@ public class Appointments extends Application {
 
 		stage = primaryStage;
 		TableView<Patients> tableview = new TableView<>();
-
-		TableColumn<Patients, String> col1 = new TableColumn<>("PatientID");
+//
+		TableColumn<Patients, String> col1 = new TableColumn<>("Patient ID");
 		col1.setCellValueFactory(new PropertyValueFactory<>("patientId"));
 
-		TableColumn<Patients, String> col2 = new TableColumn<>("PatientName");
+		TableColumn<Patients, String> col2 = new TableColumn<>("Patient Name");
 		col2.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
 		TableColumn<Patients, String> col3 = new TableColumn<>("FatherName");
@@ -41,13 +48,52 @@ public class Appointments extends Application {
 		tableview.getColumns().add(col5);
 		tableview.getColumns().add(col6);
 
-//		tableview.getItems().add(new Patients("1", "ahmed", "farooq", "male", "12322", "Ahmed"));
-//		tableview.getItems().add(new Patients("2", "haseeb", "riaz", "male", "12322", "Shoaib"));
-//		tableview.getItems().add(new Patients("3", "asad", "shoaib", "female", "12322", "Asad"));
-//
-//		VBox v = new VBox(10, tableview);
+		AppointmentDataValidation adv = new AppointmentDataValidation();
+		Patients patients = new Patients();
+//		if (adv.readData().equals(patients.email)) {
+		ObservableList<Patients> oListStavaka;
 
-//		scene = new Scene(v, 1800, 980);
+		oListStavaka = FXCollections.observableArrayList();
+		//
+		try {
+			BufferedReader reader;
+			reader = new BufferedReader(new FileReader("appointments.txt"));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(",");
+				if (adv.readData().equals(parts[0])) {
+					oListStavaka.add(new Patients(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]));
+				}
+			}
+
+			reader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tableview.setItems(oListStavaka);
+//		}
+
+//		ObservableList<Patients> oListStavaka;
+//
+//		oListStavaka = FXCollections.observableArrayList();
+////
+//		try {
+//			BufferedReader reader;
+//			reader = new BufferedReader(new FileReader("appointments.txt"));
+//			String line;
+//			while ((line = reader.readLine()) != null) {
+//				String[] parts = line.split(",");
+//				oListStavaka.add(new Patients(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]));
+//			}
+//
+//			reader.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		tableview.setItems(oListStavaka);
+
+		VBox v = new VBox(10, tableview);
+		scene = new Scene(v, 1800, 980);
 		stage.setScene(scene);
 		stage.show();
 

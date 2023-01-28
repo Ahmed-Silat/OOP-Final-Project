@@ -72,14 +72,18 @@ public class Patients implements Serializable {
 				+ this.DOB + "," + this.doctorName + "," + this.disease;
 	}
 
-//	public Patients(String patientId, String username, String fatherName, String gender, String DOB,
-//			String doctorName) {
-//		super();
-//		this.patientID = patientId;
-//		this.userName = username;
-//		this.fatherName = fatherName;
-//		this.gender = gender;
-//		this.DOB = DOB;
-//		this.doctorName = doctorName;
-//	}
+	public Patients(String patientId, String username, String fatherName, String gender, String DOB,
+			String doctorName) {
+		super();
+		this.patientID = patientId;
+		this.userName = username;
+		this.fatherName = fatherName;
+		this.gender = gender;
+		this.DOB = DOB;
+		this.doctorName = doctorName;
+	}
+
+	public Patients() {
+
+	}
 }

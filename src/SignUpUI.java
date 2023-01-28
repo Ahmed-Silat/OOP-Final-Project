@@ -194,6 +194,8 @@ public class SignUpUI extends Application {
 				LoginUI login = new LoginUI();
 				try {
 					login.start(stage);
+					AppointmentDataValidation adv = new AppointmentDataValidation();
+					adv.writeData(txt_email.getText());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
