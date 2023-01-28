@@ -6,11 +6,22 @@ import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Appointments extends Application {
@@ -71,28 +82,47 @@ public class Appointments extends Application {
 			e.printStackTrace();
 		}
 		tableview.setItems(oListStavaka);
-//		}
 
-//		ObservableList<Patients> oListStavaka;
-//
-//		oListStavaka = FXCollections.observableArrayList();
-////
-//		try {
-//			BufferedReader reader;
-//			reader = new BufferedReader(new FileReader("appointments.txt"));
-//			String line;
-//			while ((line = reader.readLine()) != null) {
-//				String[] parts = line.split(",");
-//				oListStavaka.add(new Patients(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]));
-//			}
-//
-//			reader.close();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		tableview.setItems(oListStavaka);
+		Button backBtn = new Button("Go Back");
+		backBtn.setCursor(Cursor.HAND);
+		HBox goBack = new HBox(backBtn);
+		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		backBtn.setTextFill(Color.WHITE);
+		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+		backBtn.setPadding(new Insets(0, 20, 0, 20));
+		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 
-		VBox v = new VBox(10, tableview);
+		DropShadow shadowback = new DropShadow();
+		backBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				backBtn.setEffect(shadowback);
+			}
+		});
+		backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				backBtn.setEffect(null);
+			}
+		});
+
+		backBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				UserDashboard userDashboard = new UserDashboard();
+				try {
+					userDashboard.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
+
+		VBox v = new VBox(10, goBack, tableview);
 		scene = new Scene(v, 1800, 980);
 		stage.setScene(scene);
 		stage.show();

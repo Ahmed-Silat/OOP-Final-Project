@@ -1,3 +1,5 @@
 ahmedsilat95@gmail.com,58252,farahnaz,yahya,Female,2023-01-05,Dr. Samiullah Khan,Leg pain
 ayeshamansoor96@gmail.com,58409,ayesha,farooq,Female,1996-10-05,Dr. Asif Mahmood,Ankle pain
 ahmed@gmail.com,59778,naveen,kumar,Male,2023-01-03,Dr. Ali Haider Naqvi,chest pain
+ahmedsilat95@gmail.com,58252,ahmed,farooq,Male,2023-01-13,Dr. Muhammad Kalim,Migrane
+ahmedsilat95@gmail.com,58252,ahmed,farooq,Male,2023-01-01,Dr. Muhammad Ajmal,Fever

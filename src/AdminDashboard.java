@@ -219,8 +219,8 @@ public class AdminDashboard extends Application {
 			}
 		});
 
-		HBox doctors = new HBox(20, addDoctorBtn, deleteDoctorBtn);
-		doctors.setAlignment(Pos.CENTER);
+//		HBox doctors = new HBox(20, addDoctorBtn, deleteDoctorBtn);
+//		doctors.setAlignment(Pos.CENTER);
 		HBox patients = new HBox(20, addPatientBtn, deletePatientBtn);
 		patients.setAlignment(Pos.CENTER);
 		patients.setMargin(addPatientBtn, new Insets(40, 0, 40, 0));
@@ -228,7 +228,7 @@ public class AdminDashboard extends Application {
 		logout.setAlignment(Pos.CENTER);
 		logout.setMargin(logoutBtn, new Insets(5, 0, 0, 3));
 
-		VBox layout = new VBox(10, mainHeading, doctors, patients, logout);
+		VBox layout = new VBox(10, mainHeading, patients, logout);
 		layout.setStyle("-fx-background-color:#2B7490");
 		layout.setAlignment(Pos.CENTER);
 		scene = new Scene(layout, 1800, 980);

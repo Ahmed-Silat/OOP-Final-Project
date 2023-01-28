@@ -14,23 +14,24 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class SignUpUI extends Application {
+public class AddPatient extends Application {
+
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	Scene signUpScene;
 	Stage stage;
@@ -41,20 +42,20 @@ public class SignUpUI extends Application {
 	ComboBox cmb_date, cmb_month, cmb_year;
 	PasswordField pass, rePass;
 
-	public void goToDashboard() {
-		UserAuthentication auth = new UserAuthentication();
-		if (auth.signUp(getUserDetails()) == true) {
-			UserDashboard userDashboard = new UserDashboard();
-			try {
-				userDashboard.start(stage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			auth.signUp(getUserDetails());
-		}
-	}
+//	public void dataWriting() {
+//		UserAuthentication auth = new UserAuthentication();
+//		if (auth.signUp(getUserDetails()) == true) {
+////			UserDashboard userDashboard = new UserDashboard();
+//			try {
+////				userDashboard.start(stage);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		} else {
+//			auth.signUp(getUserDetails());
+//		}
+//	}
 
 	String month[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
 			"November", "December" };
@@ -79,14 +80,14 @@ public class SignUpUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
-		stage.setTitle("Signup-page");
+		stage.setTitle("Add-Patient");
 		userData = new User();
 
-		Text mainHeading = new Text("Signup");
+		Text mainHeading = new Text("ADD PATIENT");
 		mainHeading.setStyle("-fx-font-size: 30px");
 
-		Image signupImage = new Image("images/signup.png", 100, 100, false, false);
-		ImageView signupImageView = new ImageView(signupImage);
+//		Image signupImage = new Image("images/signup.png", 100, 100, false, false);
+//		ImageView signupImageView = new ImageView(signupImage);
 
 		Label lbl_firstName = new Label("First Name");
 		txt_fName = new TextField();
@@ -175,37 +176,18 @@ public class SignUpUI extends Application {
 		});
 
 		Button btn_signup = new Button();
-		btn_signup.setText("SignUp");
+		btn_signup.setText("ADD");
 		btn_signup.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					goToDashboard();
-					AppointmentDataValidation adv = new AppointmentDataValidation();
-					adv.writeData(txt_email.getText());
+					UserAuthentication auth = new UserAuthentication();
+					auth.signUp(getUserDetails());
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
 					loginError.setContentText("Please fill out all the fields");
 					loginError.show();
-				}
-
-			}
-		});
-
-		Button btn_login = new Button();
-		btn_login.setText("Login");
-		btn_login.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				LoginUI login = new LoginUI();
-				try {
-					login.start(stage);
-					AppointmentDataValidation adv = new AppointmentDataValidation();
-					adv.writeData(txt_email.getText());
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
 		});
@@ -215,8 +197,8 @@ public class SignUpUI extends Application {
 		HBox date = new HBox(20, cmb_date, cmb_month, cmb_year);
 		date.setAlignment(Pos.CENTER);
 
-		VBox layout = new VBox(20, signupImageView, mainHeading, txt_fName, txt_lName, gender, date, txt_email,
-				passwordText1, pass, chk1, passwordText2, rePass, chk2, btn_signup, btn_login);
+		VBox layout = new VBox(20, mainHeading, txt_fName, txt_lName, gender, date, txt_email, passwordText1, pass,
+				chk1, passwordText2, rePass, chk2, btn_signup);
 		txt_fName.setMaxWidth(200);
 		txt_lName.setMaxWidth(200);
 		txt_email.setMaxWidth(200);
@@ -246,24 +228,6 @@ public class SignUpUI extends Application {
 			}
 		});
 		btn_signup.setCursor(Cursor.HAND);
-
-		btn_login.setPadding(new Insets(5, 50, 5, 50));
-		btn_login.setStyle("-fx-font-size: 30px;-fx-background-color: #ADD8E6;");
-		DropShadow shade1 = new DropShadow();
-		btn_login.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				btn_login.setEffect(shade1);
-			}
-		});
-		btn_login.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				btn_login.setEffect(null);
-			}
-		});
-		btn_login.setCursor(Cursor.HAND);
 
 		layout.setAlignment(Pos.CENTER);
 		layout.setStyle("-fx-background-color: #2B7490");

@@ -137,7 +137,7 @@ public class LoginUI extends Application {
 					adv.writeData(txt_email.getText());
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
-					loginError.setContentText("Select the User");
+					loginError.setContentText("Please fill out all the fields");
 					loginError.show();
 				}
 			}
