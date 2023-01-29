@@ -18,6 +18,16 @@ public class Filing {
 		}
 	}
 
+	public void clearAndWriteData(String data, String fileName) {
+		try {
+			FileWriter fileWriter = new FileWriter(fileName);
+			fileWriter.write(data + "\n");
+			fileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public ArrayList<String> readData(String fileName) {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		try {

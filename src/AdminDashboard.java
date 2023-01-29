@@ -245,6 +245,7 @@ public class AdminDashboard extends Application {
 		layout.setStyle("-fx-background-color:#2B7490");
 		layout.setAlignment(Pos.CENTER);
 		scene = new Scene(layout, 1800, 980);
+		stage.setTitle("Admin Dashboard");
 		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
