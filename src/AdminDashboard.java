@@ -41,76 +41,76 @@ public class AdminDashboard extends Application {
 		mainHeading.setFill(Color.WHITE);
 
 		// add doctor box code
-		Text textAddDoctor = new Text("ADD DOCTOR");
-		textAddDoctor.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 30));
-		textAddDoctor.setFill(Color.WHITE);
-
-		Image addDoctorPic = new Image("images/add-doctor.png");
-		ImageView doctorPic1 = new ImageView(addDoctorPic);
-		doctorPic1.setFitHeight(50);
-		doctorPic1.setFitWidth(60);
-
-		VBox addDoctorVBox = new VBox(10, doctorPic1, textAddDoctor);
-		addDoctorVBox.setAlignment(Pos.CENTER);
-
-		Button addDoctorBtn = new Button();
-		addDoctorBtn.setCursor(Cursor.HAND);
-		addDoctorBtn.setPadding(new Insets(58, 60, 58, 60));
-		addDoctorBtn.setStyle(
-				"-fx-background-color: #007AA2;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
-		addDoctorBtn.setGraphic(addDoctorVBox);
-
-		DropShadow addDoctDropShadow = new DropShadow();
-		DropShadow shade1 = new DropShadow();
-		addDoctorBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				addDoctorBtn.setEffect(addDoctDropShadow);
-			}
-		});
-		addDoctorBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				addDoctorBtn.setEffect(null);
-			}
-		});
-
-		// delete doctor box code
-		Text textDeleteDoctor = new Text("DELETE DOCTOR");
-		textDeleteDoctor.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 30));
-		textDeleteDoctor.setFill(Color.WHITE);
-
-		Image deleteDoctorPic = new Image("images/add-doctor.png");
-		ImageView doctorPic2 = new ImageView(deleteDoctorPic);
-		doctorPic2.setFitHeight(50);
-		doctorPic2.setFitWidth(60);
-
-		VBox deleteDoctorVBox = new VBox(10, doctorPic2, textDeleteDoctor);
-		deleteDoctorVBox.setAlignment(Pos.CENTER);
-
-		Button deleteDoctorBtn = new Button();
-		deleteDoctorBtn.setCursor(Cursor.HAND);
-		deleteDoctorBtn.setPadding(new Insets(58, 60, 58, 60));
-		deleteDoctorBtn.setStyle(
-				"-fx-background-color: #009DCF;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
-		deleteDoctorBtn.setGraphic(deleteDoctorVBox);
-
-		DropShadow deleteDoctDropShadow = new DropShadow();
-		DropShadow shade2 = new DropShadow();
-		deleteDoctorBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				deleteDoctorBtn.setEffect(deleteDoctDropShadow);
-			}
-		});
-		deleteDoctorBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				deleteDoctorBtn.setEffect(null);
-			}
-		});
+//		Text textAddDoctor = new Text("ADD DOCTOR");
+//		textAddDoctor.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 30));
+//		textAddDoctor.setFill(Color.WHITE);
+//
+//		Image addDoctorPic = new Image("images/add-doctor.png");
+//		ImageView doctorPic1 = new ImageView(addDoctorPic);
+//		doctorPic1.setFitHeight(50);
+//		doctorPic1.setFitWidth(60);
+//
+//		VBox addDoctorVBox = new VBox(10, doctorPic1, textAddDoctor);
+//		addDoctorVBox.setAlignment(Pos.CENTER);
+//
+//		Button addDoctorBtn = new Button();
+//		addDoctorBtn.setCursor(Cursor.HAND);
+//		addDoctorBtn.setPadding(new Insets(58, 60, 58, 60));
+//		addDoctorBtn.setStyle(
+//				"-fx-background-color: #007AA2;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
+//		addDoctorBtn.setGraphic(addDoctorVBox);
+//
+//		DropShadow addDoctDropShadow = new DropShadow();
+//		DropShadow shade1 = new DropShadow();
+//		addDoctorBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+//
+//			@Override
+//			public void handle(MouseEvent event) {
+//				addDoctorBtn.setEffect(addDoctDropShadow);
+//			}
+//		});
+//		addDoctorBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+//			@Override
+//			public void handle(MouseEvent e) {
+//				addDoctorBtn.setEffect(null);
+//			}
+//		});
+//
+//		// delete doctor box code
+//		Text textDeleteDoctor = new Text("DELETE DOCTOR");
+//		textDeleteDoctor.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 30));
+//		textDeleteDoctor.setFill(Color.WHITE);
+//
+//		Image deleteDoctorPic = new Image("images/add-doctor.png");
+//		ImageView doctorPic2 = new ImageView(deleteDoctorPic);
+//		doctorPic2.setFitHeight(50);
+//		doctorPic2.setFitWidth(60);
+//
+//		VBox deleteDoctorVBox = new VBox(10, doctorPic2, textDeleteDoctor);
+//		deleteDoctorVBox.setAlignment(Pos.CENTER);
+//
+//		Button deleteDoctorBtn = new Button();
+//		deleteDoctorBtn.setCursor(Cursor.HAND);
+//		deleteDoctorBtn.setPadding(new Insets(58, 60, 58, 60));
+//		deleteDoctorBtn.setStyle(
+//				"-fx-background-color: #009DCF;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
+//		deleteDoctorBtn.setGraphic(deleteDoctorVBox);
+//
+//		DropShadow deleteDoctDropShadow = new DropShadow();
+//		DropShadow shade2 = new DropShadow();
+//		deleteDoctorBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+//
+//			@Override
+//			public void handle(MouseEvent event) {
+//				deleteDoctorBtn.setEffect(deleteDoctDropShadow);
+//			}
+//		});
+//		deleteDoctorBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+//			@Override
+//			public void handle(MouseEvent e) {
+//				deleteDoctorBtn.setEffect(null);
+//			}
+//		});
 
 		// add patient box code
 		Text textAddPatient = new Text("ADD PATIENT");
@@ -145,6 +145,19 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(MouseEvent e) {
 				addPatientBtn.setEffect(null);
+			}
+		});
+
+		addPatientBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				AddPatient addPatient = new AddPatient();
+				try {
+					addPatient.start(stage);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 

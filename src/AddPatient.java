@@ -25,6 +25,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class AddPatient extends Application {
@@ -212,7 +215,7 @@ public class AddPatient extends Application {
 		layout.setMargin(chk2, new Insets(-18, 0, 0, -65));
 
 		btn_signup.setPadding(new Insets(5, 40, 5, 40));
-		btn_signup.setStyle("-fx-font-size: 30px;-fx-background-color: #FFE5B4;");
+		btn_signup.setStyle("-fx-font-size: 30px;-fx-background-color: #D3D3D3;");
 		DropShadow shade2 = new DropShadow();
 		btn_signup.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
@@ -229,10 +232,51 @@ public class AddPatient extends Application {
 		});
 		btn_signup.setCursor(Cursor.HAND);
 
-		layout.setAlignment(Pos.CENTER);
-		layout.setStyle("-fx-background-color: #2B7490");
+		Button backBtn = new Button("Go Back");
+		backBtn.setCursor(Cursor.HAND);
+		HBox goBack = new HBox(backBtn);
+		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		backBtn.setTextFill(Color.WHITE);
+		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+		backBtn.setPadding(new Insets(0, 20, 0, 20));
+		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 
-		signUpScene = new Scene(layout, 1800, 980);
+		DropShadow shadowback = new DropShadow();
+		backBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				backBtn.setEffect(shadowback);
+			}
+		});
+		backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				backBtn.setEffect(null);
+			}
+		});
+
+		backBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				AdminDashboard adminDashboard = new AdminDashboard();
+				try {
+					adminDashboard.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
+
+		layout.setAlignment(Pos.CENTER);
+		VBox v = new VBox(10, goBack, layout);
+		v.setMargin(layout, new Insets(150, 0, 0, 0));
+		v.setStyle("-fx-background-color: #2B7490");
+
+		signUpScene = new Scene(v, 1800, 980);
 		stage.setResizable(false);
 		stage.setScene(signUpScene);
 		stage.show();
