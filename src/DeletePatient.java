@@ -5,8 +5,6 @@ import java.util.List;
 
 public class DeletePatient {
 
-//	Filing filing = new Filing();
-
 	HashMap<String, Integer> columnMap = new HashMap<>();
 
 	DeletePatient() {

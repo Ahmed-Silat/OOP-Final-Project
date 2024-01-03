@@ -1,13 +1,11 @@
 import java.io.FileInputStream;
 import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-//import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -57,9 +55,9 @@ public class DeletePatientUI extends Application {
 		txt_email = new TextField();
 		txt_email.setPromptText("Enter Email");
 
-		Button login_btn = new Button();
-		login_btn.setText("Delete");
-		login_btn.setOnAction(new EventHandler<ActionEvent>() {
+		Button deleteBtn = new Button();
+		deleteBtn.setText("Delete");
+		deleteBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -122,29 +120,29 @@ public class DeletePatientUI extends Application {
 			}
 		});
 
-		VBox layout = new VBox(20, mainHeading, txt_email, login_btn);
+		VBox layout = new VBox(20, mainHeading, txt_email, deleteBtn);
 
 		VBox mainVbox = new VBox(10, goBack, layout);
 
 		txt_email.setMaxWidth(200);
-		login_btn.setPadding(new Insets(5, 50, 5, 50));
-		login_btn.setStyle("-fx-font-size: 30px;-fx-background-color: #7d1211;");
-		login_btn.setTextFill(Color.WHITE);
+		deleteBtn.setPadding(new Insets(5, 50, 5, 50));
+		deleteBtn.setStyle("-fx-font-size: 30px;-fx-background-color: #7d1211;");
+		deleteBtn.setTextFill(Color.WHITE);
 		DropShadow shade1 = new DropShadow();
-		login_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+		deleteBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				login_btn.setEffect(shade1);
+				deleteBtn.setEffect(shade1);
 			}
 		});
-		login_btn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+		deleteBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				login_btn.setEffect(null);
+				deleteBtn.setEffect(null);
 			}
 		});
-		login_btn.setCursor(Cursor.HAND);
+		deleteBtn.setCursor(Cursor.HAND);
 
 		layout.setAlignment(Pos.CENTER);
 		mainVbox.setMargin(layout, new Insets(300, 0, 0, 0));
