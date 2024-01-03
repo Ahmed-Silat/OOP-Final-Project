@@ -182,12 +182,15 @@ public class SignUpUI extends Application {
 			public void handle(ActionEvent event) {
 				try {
 					goToDashboard();
+//					UserDashboard userDashboard = new UserDashboard();
+//					userDashboard.start(stage);
 					AppointmentDataValidation adv = new AppointmentDataValidation();
 					adv.writeData(txt_email.getText());
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
 					loginError.setContentText("Please fill out all the fields");
 					loginError.show();
+//					e.printStackTrace();
 				}
 
 			}
