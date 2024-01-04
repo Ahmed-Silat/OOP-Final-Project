@@ -524,6 +524,78 @@ public class UserDashboard extends Application {
 		});
 		// Create a hand cursor on object
 		appointmentBtn.setCursor(Cursor.HAND);
+		
+		
+		
+		//BILING
+		Rectangle bilingBox = new Rectangle();
+		bilingBox.setWidth(250);
+		bilingBox.setHeight(150);
+		bilingBox.setFill(Color.web("#3D81CB"));
+		bilingBox.setStrokeWidth(5);
+		bilingBox.setStroke(Color.web("#73D2DD"));
+		bilingBox.setArcHeight(20);
+		bilingBox.setArcWidth(20);
+		Button bilingBtn = new Button("");
+		bilingBtn.setPadding(new Insets(130, 250, 0, 0));
+		bilingBtn.setStyle("-fx-background-color: transparent;");
+		bilingBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Appointments appointments = new Appointments();
+				try {
+					appointments.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		// Image box 5
+		Image bilingPic = new Image("images/biling.png");
+		ImageView imagePicbiling = new ImageView(bilingPic);
+		imagePicbiling.setFitWidth(90);
+		imagePicbiling.setFitHeight(50);
+		// Text box 5
+		Text text8 = new Text("BILING");
+		StackPane box8 = new StackPane();
+		VBox vertical8 = new VBox(10, imagePicbiling, text8);
+		vertical8.setAlignment(Pos.CENTER);
+		box8.getChildren().addAll(bilingBox, vertical8, bilingBtn);
+		text8.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
+		text8.setTextAlignment(TextAlignment.JUSTIFY);
+		text8.setFill(Color.WHITE);
+		// Creating a shadow
+		DropShadow shadow8 = new DropShadow();
+		shadow8.setOffsetX(5);
+		shadow8.setOffsetY(5);
+		shadow8.setColor(Color.rgb(20, 20, 20, 0.5));
+		text8.setEffect(shadow8);
+		imagePicbiling.setEffect(shadow2);
+		// Creating a DropShadow when cursor touch the box
+		DropShadow shadebiling = new DropShadow();
+		box8.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				box8.setEffect(shadebiling);
+			}
+		});
+		box8.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				box8.setEffect(null);
+			}
+		});
+		// Create a hand cursor on object
+		bilingBtn.setCursor(Cursor.HAND);
+		
+		
+		
+		
+		
 
 		// Logout Button
 		Image logout = new Image("images/Log-01.png");
@@ -573,7 +645,7 @@ public class UserDashboard extends Application {
 
 		HBox h1 = new HBox(10, box1, box2, box3);
 		h1.setAlignment(Pos.CENTER);
-		HBox center = new HBox(10, box7);
+		HBox center = new HBox(10, box7, box8);
 		center.setAlignment(Pos.CENTER);
 		HBox h2 = new HBox(10, box4, box5, box6);
 		h2.setAlignment(Pos.CENTER);
