@@ -89,6 +89,57 @@ public class AdminDashboard extends Application {
 			}
 		});
 
+		
+		// add doctors box code
+		Text textAddDoctors = new Text("ADD DOCTORS");
+		textAddDoctors.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 30));
+		textAddDoctors.setFill(Color.WHITE);
+
+		Image addDoctorPic = new Image("images/addpatient-01.png");
+		ImageView addDoctorPic1 = new ImageView(addDoctorPic);
+		addDoctorPic1.setFitHeight(50);
+		addDoctorPic1.setFitWidth(60);
+
+		VBox addDoctorVBox = new VBox(10, addDoctorPic1, textAddDoctors);
+		addDoctorVBox.setAlignment(Pos.CENTER);
+
+		Button addDoctorBtn = new Button();
+		addDoctorBtn.setCursor(Cursor.HAND);
+		addDoctorBtn.setPadding(new Insets(58, 60, 58, 60));
+		addDoctorBtn.setStyle(
+				"-fx-background-color: #006A89;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
+		addDoctorBtn.setGraphic(addDoctorVBox);
+
+		DropShadow addDoctorDropShadow = new DropShadow();
+		DropShadow shade4 = new DropShadow();
+		addDoctorBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				addDoctorBtn.setEffect(addDoctorDropShadow);
+			}
+		});
+		addDoctorBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				addDoctorBtn.setEffect(null);
+			}
+		});
+
+		addDoctorBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				AddDoctor addPatient = new AddDoctor();
+				try {
+					addPatient.start(stage);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		
 		// delete patient box code
 		Text textDeletePatient = new Text("DELETE PATIENT");
 		textDeletePatient.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 30));
@@ -125,7 +176,7 @@ public class AdminDashboard extends Application {
 		});
 
 		DropShadow deletePatientDropShadow = new DropShadow();
-		DropShadow shade4 = new DropShadow();
+		DropShadow shade5 = new DropShadow();
 		deletePatientBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
 			@Override
@@ -178,11 +229,14 @@ public class AdminDashboard extends Application {
 		HBox patients = new HBox(20, addPatientBtn);
 		patients.setAlignment(Pos.CENTER);
 		patients.setMargin(addPatientBtn, new Insets(40, 0, 40, 0));
+		HBox doctors = new HBox(20, addDoctorBtn);
+		doctors.setAlignment(Pos.CENTER);
+		doctors.setMargin(addDoctorBtn, new Insets(40, 0, 40, 0));
 		HBox logout = new HBox(logoutBtn);
 		logout.setAlignment(Pos.CENTER);
 		logout.setMargin(logoutBtn, new Insets(5, 0, 0, 3));
 
-		VBox layout = new VBox(10, mainHeading, patients, logout);
+		VBox layout = new VBox(10, mainHeading, patients, doctors, logout);
 		layout.setStyle("-fx-background-color:#2B7490");
 		layout.setAlignment(Pos.CENTER);
 		scene = new Scene(layout, 1800, 980);
