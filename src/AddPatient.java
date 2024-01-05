@@ -32,9 +32,9 @@ import javafx.scene.text.Text;
 
 public class AddPatient extends Application {
 
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	Scene signUpScene;
 	Stage stage;
