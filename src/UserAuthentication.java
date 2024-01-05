@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import javafx.scene.control.Alert;
 
@@ -53,11 +54,20 @@ public class UserAuthentication {
 	public boolean signUp(User userData) {
 		ArrayList<String> usersFileData = filing.readData(usersFile);
 		Boolean isEmailFound = searchByEmail(usersFileData, userData.getEmail());
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+		Pattern pattern = Pattern.compile(emailRegex);
 		if (isEmailFound == true) {
 			Alert signUpError = new Alert(Alert.AlertType.ERROR);
 			signUpError.setContentText("Email already exist");
 //			System.out.println("Email already exist");
 			signUpError.show();
+			return false;
+		}
+		if (!pattern.matcher(userData.getEmail()).matches()) {
+			Alert emailError = new Alert(Alert.AlertType.ERROR);
+			emailError.setContentText("Invalid Email");
+			emailError.show();
 			return false;
 		} else {
 //			password match validation usersFileData,pass1,pass2

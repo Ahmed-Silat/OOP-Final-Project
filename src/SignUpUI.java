@@ -76,6 +76,18 @@ public class SignUpUI extends Application {
 		return userData;
 	}
 
+	public String getPatientDetails() {
+		String firstName = txt_fName.getText();
+		String lastName = txt_lName.getText();
+		String gender = rb_male.isSelected() ? "Male" : "Female";
+		String dob = cmb_year.getValue() + "-" + (cmb_month.getSelectionModel().getSelectedIndex() + 1) + "-"
+				+ cmb_date.getValue();
+		String email = txt_email.getText();
+		String password = pass.getText();
+
+		return firstName + " " + lastName + " " + gender + " " + dob + " " + email + " " + password;
+	}
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
@@ -186,6 +198,8 @@ public class SignUpUI extends Application {
 //					userDashboard.start(stage);
 					AppointmentDataValidation adv = new AppointmentDataValidation();
 					adv.writeData(txt_email.getText());
+
+					Database.insertIntoDb(getPatientDetails(), "user");
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
 					loginError.setContentText("Please fill out all the fields");
