@@ -62,13 +62,13 @@ public class DeletePatientUI extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					Filing filing = new Filing();
+//					Filing filing = new Filing();
 					DeletePatient deletePatient = new DeletePatient();
-					ArrayList<String> patients = deletePatient.deletePatientByEmail(filing.readData("signup.txt"),
-							txt_email.getText());
-					String dataToWrite = deletePatient.arrayListToString(patients);
+//					ArrayList<String> patients = deletePatient.deletePatientByEmail(filing.readData("signup.txt"),
+//							txt_email.getText());
+//					String dataToWrite = deletePatient.arrayListToString(patients);
 					txt_email.clear();
-					filing.clearAndWriteData(dataToWrite, "signup.txt");
+//					filing.clearAndWriteData(dataToWrite, "signup.txt");
 					Alert removeUser = new Alert(Alert.AlertType.INFORMATION);
 					removeUser.setContentText("Patient Removed Successfully");
 					removeUser.show();

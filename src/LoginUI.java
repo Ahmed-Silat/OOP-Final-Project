@@ -47,29 +47,29 @@ public class LoginUI extends Application {
 	String loginEmail = "";
 
 	public void goToUserDashboard(String email, String password) {
-		UserAuthentication auth = new UserAuthentication();
-		if (auth.signIn(email, password) == true) {
-			UserDashboard userDashboard = new UserDashboard();
-			try {
-				userDashboard.start(login_stage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		UserAuthentication auth = new UserAuthentication();
+//		if (auth.signIn(email, password) == true) {
+//			UserDashboard userDashboard = new UserDashboard();
+//			try {
+//				userDashboard.start(login_stage);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 	public void goToAdminDashboard(String email, String password) {
-		AdminAuthentication admin = new AdminAuthentication();
-		if (admin.signIn(email, password) == true) {
-			AdminDashboard adminDashboard = new AdminDashboard();
-			try {
-				adminDashboard.start(login_stage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		AdminAuthentication admin = new AdminAuthentication();
+//		if (admin.signIn(email, password) == true) {
+//			AdminDashboard adminDashboard = new AdminDashboard();
+//			try {
+//				adminDashboard.start(login_stage);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 	public void dashboardSelection(String cmbValue, String email, String password) {
@@ -133,8 +133,8 @@ public class LoginUI extends Application {
 //				goToUserDashboard(txt_email.getText(), pass.getText());
 				try {
 					dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
-					AppointmentDataValidation adv = new AppointmentDataValidation();
-					adv.writeData(txt_email.getText());
+//					AppointmentDataValidation adv = new AppointmentDataValidation();
+//					adv.writeData(txt_email.getText());
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
 					loginError.setContentText("Please fill out all the fields");

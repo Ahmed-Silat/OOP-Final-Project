@@ -32,14 +32,14 @@ import javafx.scene.text.Text;
 
 public class AddPatient extends Application {
 
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	Scene signUpScene;
 	Stage stage;
 	LoginUI login = new LoginUI();
-	User userData;
+//	User userData;
 	TextField txt_fName, txt_lName, txt_email;
 	RadioButton rb_male, rb_female;
 	ComboBox cmb_date, cmb_month, cmb_year;
@@ -63,28 +63,28 @@ public class AddPatient extends Application {
 	String month[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
 			"November", "December" };
 
-	public User getUserDetails() {
-		userData.setFirstName(txt_fName.getText());
-		userData.setLastName(txt_lName.getText());
-		if (rb_male.isSelected()) {
-			userData.setGender("Male");
-		} else if (rb_female.isSelected()) {
-			userData.setGender("Female");
-		}
-		userData.setDate(cmb_date.getValue().toString());
-		userData.setMonth(cmb_month.getValue().toString());
-		userData.setYear(cmb_year.getValue().toString());
-		userData.setEmail(txt_email.getText());
-		userData.setPassword(pass.getText());
-		userData.setConfirmPassword(rePass.getText());
-		return userData;
-	}
+//	public User getUserDetails() {
+//		userData.setFirstName(txt_fName.getText());
+//		userData.setLastName(txt_lName.getText());
+//		if (rb_male.isSelected()) {
+//			userData.setGender("Male");
+//		} else if (rb_female.isSelected()) {
+//			userData.setGender("Female");
+//		}
+//		userData.setDate(cmb_date.getValue().toString());
+//		userData.setMonth(cmb_month.getValue().toString());
+//		userData.setYear(cmb_year.getValue().toString());
+//		userData.setEmail(txt_email.getText());
+//		userData.setPassword(pass.getText());
+//		userData.setConfirmPassword(rePass.getText());
+//		return userData;
+//	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		stage.setTitle("Add-Patient");
-		userData = new User();
+//		userData = new User();
 
 		Text mainHeading = new Text("ADD PATIENT");
 		mainHeading.setStyle("-fx-font-size: 30px");
@@ -185,8 +185,8 @@ public class AddPatient extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					UserAuthentication auth = new UserAuthentication();
-					auth.signUp(getUserDetails());
+//					UserAuthentication auth = new UserAuthentication();
+//					auth.signUp(getUserDetails());
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
 					loginError.setContentText("Please fill out all the fields");
