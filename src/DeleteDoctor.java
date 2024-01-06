@@ -1,4 +1,3 @@
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -19,94 +17,186 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.beans.property.SimpleStringProperty;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 
-public class DeleteDoctor extends Application{
-	Scene scene;
-	Stage stage;
-	
-	
-	public static void main(String[] args) {
-		launch(args);
+public class DeleteDoctor extends Application {
 
-	}
+	private static final String JDBC_URL = "jdbc:mysql://localhost:3308/hospitalManagementSystem";
+	private static final String USER = "root";
+	private static final String PASSWORD = "";
 
+    @Override
+    public void start(Stage primaryStage) {
+        TableView<ObservableList<String>> tableView = new TableView<>();
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		stage = primaryStage;
-		
-		TableView<DeleteDoctor> tableview = new TableView<>();
+        try {
+            Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
+            
+            String query = "SELECT * FROM doctor";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
 
-		TableColumn<DeleteDoctor, String> col1 = new TableColumn<>("DoctorID");
-		col1.setCellValueFactory(new PropertyValueFactory<>("doctorId"));
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
 
-		TableColumn<DeleteDoctor, String> col2 = new TableColumn<>("DoctorName");
-		col2.setCellValueFactory(new PropertyValueFactory<>("doctorName"));
+            for (int i = 1; i <= columnCount; i++) {
+                final int columnIndex = i - 1;
+                TableColumn<ObservableList<String>, String> column = new TableColumn<>(metaData.getColumnName(i));
+                column.setCellValueFactory(param -> {
+                    ObservableList<String> row = param.getValue();
+                    return new SimpleStringProperty(row.get(columnIndex));
+                });
+                tableView.getColumns().add(column);
+            }
+            
+            while (resultSet.next()) {
+                ObservableList<String> row = FXCollections.observableArrayList();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.add(resultSet.getString(i));
+                }
+                tableView.getItems().add(row);
+            }
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		TableColumn<DeleteDoctor, String> col3 = new TableColumn<>("FatherName");
-		col3.setCellValueFactory(new PropertyValueFactory<>("fatherName"));
+        //Buttons
+        Button backBtn = new Button("Go Back");
+        backBtn.setCursor(Cursor.HAND);
+        HBox goBack = new HBox(backBtn);
+        backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+        backBtn.setTextFill(Color.WHITE);
+        backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+        backBtn.setPadding(new Insets(0, 20, 0, 20));
 
-		TableColumn<DeleteDoctor, String> col4 = new TableColumn<>("Gender");
-		col4.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        DropShadow shadowback = new DropShadow();
+        backBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
+        	@Override
+        	public void handle(MouseEvent event) {
+        		backBtn.setEffect(shadowback);
+        	}
+        });
+        backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+        	@Override
+        	public void handle(MouseEvent e) {
+        		backBtn.setEffect(null);
+        	}
+        });
 
-		tableview.getColumns().add(col1);
-		tableview.getColumns().add(col2);
-		tableview.getColumns().add(col3);
-		tableview.getColumns().add(col4);
-		
-		ObservableList<DeleteDoctor> oListStavaka;
-		oListStavaka = FXCollections.observableArrayList();
-		tableview.setItems(oListStavaka);
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
 
-		Button backBtn = new Button("Go Back");
-		backBtn.setCursor(Cursor.HAND);
-		HBox goBack = new HBox(backBtn);
-		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-		backBtn.setTextFill(Color.WHITE);
-		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
-		backBtn.setPadding(new Insets(0, 20, 0, 20));
-//		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
+        	@Override
+        	public void handle(ActionEvent event) {
+        		AdminDashboard AdminDashboard = new AdminDashboard();
+        		try {
+        			AdminDashboard.start(primaryStage);
+        		} catch (Exception e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
 
-		DropShadow shadowback = new DropShadow();
-		backBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+        	}
+        });
+        
+        HBox v = new HBox(10,goBack);
+        
+        Button saveButton = new Button("Save");
+        saveButton.setCursor(Cursor.HAND);
+        HBox save = new HBox(saveButton);
+        saveButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+        saveButton.setTextFill(Color.WHITE);
+        saveButton.setStyle("-fx-background-color: green; -fx-background-radius: 20px;");
+        saveButton.setPadding(new Insets(0, 20, 0, 20));
 
-			@Override
-			public void handle(MouseEvent event) {
-				backBtn.setEffect(shadowback);
-			}
-		});
-		backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				backBtn.setEffect(null);
-			}
-		});
+        DropShadow shadowback1 = new DropShadow();
+        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
-		backBtn.setOnAction(new EventHandler<ActionEvent>() {
+        	@Override
+        	public void handle(MouseEvent event) {
+        		saveButton.setEffect(shadowback1);
+        	}
+        });
+        saveButton.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+        	@Override
+        	public void handle(MouseEvent e) {
+        		backBtn.setEffect(null);
+        	}
+        });
 
-			@Override
-			public void handle(ActionEvent event) {
-				UserDashboard userDashboard = new UserDashboard();
-				try {
-					userDashboard.start(stage);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+        saveButton.setOnAction(new EventHandler<ActionEvent>() {
 
-			}
-		});
+        	@Override
+        	public void handle(ActionEvent event) {
+        		AdminDashboard AdminDashboard = new AdminDashboard();
+        		try {
+        			AdminDashboard.start(primaryStage);
+        		} catch (Exception e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
 
-		VBox v = new VBox(10, goBack, tableview);
-		scene = new Scene(v, 1800, 980);
-		stage.setScene(scene);
-		stage.show();
+        	}
+        });              
+        
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setCursor(Cursor.HAND);
+        HBox cancel = new HBox(saveButton);
+        cancelButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+        cancelButton.setTextFill(Color.WHITE);
+        cancelButton.setStyle("-fx-background-color: red; -fx-background-radius: 20px;");
+        cancelButton.setPadding(new Insets(0, 20, 0, 20));
 
-	}
+        DropShadow shadowback2 = new DropShadow();
+        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
-		
-	}
-	
+        	@Override
+        	public void handle(MouseEvent event) {
+        		cancelButton.setEffect(shadowback2);
+        	}
+        });
+        cancelButton.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+        	@Override
+        	public void handle(MouseEvent e) {
+        		backBtn.setEffect(null);
+        	}
+        });
 
+        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
 
+        	@Override
+        	public void handle(ActionEvent event) {
+        		AdminDashboard AdminDashboard = new AdminDashboard();
+        		try {
+        			AdminDashboard.start(primaryStage);
+        		} catch (Exception e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+
+        	}
+        });       
+       
+
+        HBox buttonBox = new HBox(30, saveButton, cancelButton);
+        VBox root = new VBox(20, tableView, buttonBox, goBack);
+        Scene scene = new Scene(root, 600, 400);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
