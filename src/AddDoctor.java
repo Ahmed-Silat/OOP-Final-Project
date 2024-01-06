@@ -108,8 +108,13 @@ public class AddDoctor extends Application {
 		pass.setPromptText("Enter Password");
 
 		Label lbl_specialization = new Label("Specialization");
-		cmb_specialization = new ComboBox<>();
-		cmb_specialization.getItems().addAll("Neurologist", "Physiotherapist", "Surgeon", "General Physician");
+        cmb_specialization = new ComboBox<>();
+        try {
+            cmb_specialization.getItems().addAll(Database.getColDataFromDb("specializations", "specialization"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 		cmb_specialization.setPromptText("Select Specialization");
 
 		Button btn_signup = new Button();

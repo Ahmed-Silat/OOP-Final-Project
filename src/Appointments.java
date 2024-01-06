@@ -59,7 +59,7 @@ public class Appointments extends Application {
 		tableview.getColumns().add(col5);
 		tableview.getColumns().add(col6);
 
-		AppointmentDataValidation adv = new AppointmentDataValidation();
+//		AppointmentDataValidation adv = new AppointmentDataValidation();
 		Patients patients = new Patients();
 //		if (adv.readData().equals(patients.email)) {
 		ObservableList<Patients> oListStavaka;
@@ -72,9 +72,9 @@ public class Appointments extends Application {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(",");
-				if (adv.readData().equals(parts[0])) {
-					oListStavaka.add(new Patients(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]));
-				}
+//				if (adv.readData().equals(parts[0])) {
+//					oListStavaka.add(new Patients(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]));
+//				}
 			}
 
 			reader.close();

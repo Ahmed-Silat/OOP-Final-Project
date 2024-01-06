@@ -1,4 +1,6 @@
 import java.io.FileInputStream;
+import java.sql.SQLException;
+import java.util.List;
 
 import org.w3c.dom.UserDataHandler;
 
@@ -35,46 +37,63 @@ public class SignUpUI extends Application {
 	Scene signUpScene;
 	Stage stage;
 	LoginUI login = new LoginUI();
-	User userData;
+//	User userData;
 	TextField txt_fName, txt_lName, txt_email;
 	RadioButton rb_male, rb_female;
 	ComboBox cmb_date, cmb_month, cmb_year;
 	PasswordField pass, rePass;
 
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 	public void goToDashboard() {
-		UserAuthentication auth = new UserAuthentication();
-		if (auth.signUp(getUserDetails()) == true) {
-			UserDashboard userDashboard = new UserDashboard();
-			try {
-				userDashboard.start(stage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+//		UserAuthentication auth = new UserAuthentication();
+//		if (auth.signUp(getUserDetails()) == true) {
+//		List<String> arr = Database.getConditioinalDataFromDb("user", "email", "email", txt_email.getText());
+		try {
+			if (Database.isEmailUnique(txt_email.getText())) {
+				Alert signUpSuccessful = new Alert(Alert.AlertType.INFORMATION);
+				signUpSuccessful.setContentText("You have successfully created Your Account");
+				signUpSuccessful.show();
+				UserDashboard userDashboard = new UserDashboard();
+				try {
+					userDashboard.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+//				auth.signUp(getUserDetails());
+				Alert loginError = new Alert(Alert.AlertType.ERROR);
+				loginError.setContentText("Email Already Exist");
+				loginError.show();
 			}
-		} else {
-			auth.signUp(getUserDetails());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	String month[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
 			"November", "December" };
 
-	public User getUserDetails() {
-		userData.setFirstName(txt_fName.getText());
-		userData.setLastName(txt_lName.getText());
-		if (rb_male.isSelected()) {
-			userData.setGender("Male");
-		} else if (rb_female.isSelected()) {
-			userData.setGender("Female");
-		}
-		userData.setDate(cmb_date.getValue().toString());
-		userData.setMonth(cmb_month.getValue().toString());
-		userData.setYear(cmb_year.getValue().toString());
-		userData.setEmail(txt_email.getText());
-		userData.setPassword(pass.getText());
-		userData.setConfirmPassword(rePass.getText());
-		return userData;
-	}
+//	public User getUserDetails() {
+//		userData.setFirstName(txt_fName.getText());
+//		userData.setLastName(txt_lName.getText());
+//		if (rb_male.isSelected()) {
+//			userData.setGender("Male");
+//		} else if (rb_female.isSelected()) {
+//			userData.setGender("Female");
+//		}
+//		userData.setDate(cmb_date.getValue().toString());
+//		userData.setMonth(cmb_month.getValue().toString());
+//		userData.setYear(cmb_year.getValue().toString());
+//		userData.setEmail(txt_email.getText());
+//		userData.setPassword(pass.getText());
+//		userData.setConfirmPassword(rePass.getText());
+//		return userData;
+//	}
 
 	public String getPatientDetails() {
 		String firstName = txt_fName.getText();
@@ -92,7 +111,7 @@ public class SignUpUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		stage.setTitle("Signup-page");
-		userData = new User();
+//		userData = new User();
 
 		Text mainHeading = new Text("Signup");
 		mainHeading.setStyle("-fx-font-size: 30px");
@@ -196,14 +215,15 @@ public class SignUpUI extends Application {
 					goToDashboard();
 //					UserDashboard userDashboard = new UserDashboard();
 //					userDashboard.start(stage);
-					AppointmentDataValidation adv = new AppointmentDataValidation();
-					adv.writeData(txt_email.getText());
+//					AppointmentDataValidation adv = new AppointmentDataValidation();
+//					adv.writeData(txt_email.getText());
 
 					Database.insertIntoDb(getPatientDetails(), "user");
 				} catch (Exception e) {
-					Alert loginError = new Alert(Alert.AlertType.ERROR);
-					loginError.setContentText("Please fill out all the fields");
-					loginError.show();
+//					Alert loginError = new Alert(Alert.AlertType.ERROR);
+//					loginError.setContentText("Please fill out all the fields");
+//					loginError.show();
+					System.out.println("signup");
 //					e.printStackTrace();
 				}
 
@@ -219,8 +239,8 @@ public class SignUpUI extends Application {
 				LoginUI login = new LoginUI();
 				try {
 					login.start(stage);
-					AppointmentDataValidation adv = new AppointmentDataValidation();
-					adv.writeData(txt_email.getText());
+//					AppointmentDataValidation adv = new AppointmentDataValidation();
+//					adv.writeData(txt_email.getText());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

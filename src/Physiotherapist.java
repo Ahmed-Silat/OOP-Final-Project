@@ -42,10 +42,10 @@ public class Physiotherapist extends Application {
 
 //	LoginUI login = new LoginUI();
 
-	AppointmentDataValidation adv = new AppointmentDataValidation();
+//	AppointmentDataValidation adv = new AppointmentDataValidation();
 
 	public Patients patientData() {
-		patient.setEmail(adv.readData());
+//		patient.setEmail(adv.readData());
 
 		patient.setPatientId(txt_patient.getText());
 //		System.out.println(txt_patient.getText());
