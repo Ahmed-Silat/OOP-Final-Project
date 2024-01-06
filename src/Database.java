@@ -11,7 +11,7 @@ import java.util.List;
 public class Database {
 
 	// Database connection details
-	private static final String JDBC_URL = "jdbc:mysql://localhost:3308/hospitalManagementSystem";
+	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/hospitalManagementSystem";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "";
 	static String colName = "";
