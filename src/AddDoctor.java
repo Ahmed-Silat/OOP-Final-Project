@@ -124,21 +124,22 @@ public class AddDoctor extends Application {
 			public void handle(ActionEvent event) {
 				try {
 					if (validateFields()) {
-//						String firstName = txt_fName.getText();
-//						String lastName = txt_lName.getText();
-//						String gender = rb_male.isSelected() ? "Male" : "Female";
-//						String dob = cmb_year.getValue() + "-" + (cmb_month.getSelectionModel().getSelectedIndex() + 1)
-//								+ "-" + cmb_date.getValue();
-//						String email = txt_email.getText();
-//						String password = pass.getText();
-//						String specialization = cmb_specialization.getValue();
-//
-//						Database.insertDoctor(firstName, lastName, gender, dob, email, password, specialization);
 						Database.insertIntoDb(getDoctorDetails(), "doctor");
-						// Show a success message
 						Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
 						successAlert.setContentText("Doctor added successfully!");
 						successAlert.showAndWait();
+						
+		                txt_fName.clear();
+		                txt_lName.clear();
+		                rb_male.setSelected(false);
+		                rb_female.setSelected(false);
+		                cmb_date.setValue(null);
+		                cmb_month.setValue(null);
+		                cmb_year.setValue(null);
+		                txt_email.clear();
+		                pass.clear();
+		                cmb_specialization.setValue(null);
+
 					} else {
 						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 						errorAlert.setContentText("Please fill out all the fields.");

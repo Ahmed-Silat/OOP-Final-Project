@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+import javafx.collections.ObservableList;
 public class Database {
 
 	// Database connection details
@@ -16,6 +16,8 @@ public class Database {
 	private static final String PASSWORD = "";
 	static String colName = "";
 	String colData = "";
+	
+	
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
@@ -47,6 +49,9 @@ public class Database {
 			rs = stmt.executeQuery("SELECT *FROM " + tableName);
 			ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
 			int counter = md.getColumnCount();
+			
+	        colName = "";
+
 			for (int loop = columnNo; loop <= counter; loop++) {
 				if (loop < counter) {
 					colName = colName + md.getColumnLabel(loop) + ", ";
@@ -62,34 +67,34 @@ public class Database {
 	}
 
 	public static void insertIntoDb(String data, String tableName) throws SQLException {
+	    String tableData[] = data.split(" ");
 
-		String tableData[] = data.split(" ");
+	    String colNames = getColumnNames(tableName, 2);
 
-		String colNames = getColumnNames(tableName, 2);
+	    String colNamesArr[] = colNames.split(",");
+	    int arrLength = colNamesArr.length;
+	    String values = "";
+	    for (int i = 0; i < arrLength; i++) {
+	        if (i < arrLength - 1) {
+	            values = values + "?, ";
+	        } else {
+	            values = values + "?";
+	        }
+	    }
 
-		String colNamesArr[] = colNames.split(",");
-		int arrLength = colNamesArr.length;
-		String values = "";
-		for (int i = 0; i < arrLength; i++) {
-			if (i < arrLength - 1) {
-				values = values + "?, ";
-			} else {
-				values = values + "?";
-			}
-		}
+	    try (Connection connection = getConnection()) {
+	        String insertQuery = "INSERT INTO " + tableName + " (" + colNames + ")" + "VALUES (" + values + ")";
+	        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+	            System.out.println(insertQuery);
 
-		try (Connection connection = getConnection()) {
-			String insertQuery = "INSERT INTO " + tableName + " (" + colNames + ")" + "VALUES (" + values + ")";
-			try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-//				System.out.println(insertQuery);
-
-				for (int i = 0; i < tableData.length; i++) {
-					preparedStatement.setString(i + 1, tableData[i]);
-				}
-				preparedStatement.executeUpdate();
-			}
-		}
+	            for (int i = 0; i < tableData.length; i++) {
+	                preparedStatement.setString(i + 1, tableData[i]);
+	            }
+	            preparedStatement.executeUpdate();
+	        }
+	    }
 	}
+
 
 //	public static List<String> getSpecializations() throws SQLException {
 //		List<String> specializations = new ArrayList<>();
@@ -138,12 +143,30 @@ public class Database {
 		}
 		return colData;
 	}
+	
+	public static void deleteRecord(String tableName, String primaryKeyColumnName, String primaryKeyValue) {
+	    try {
+	        Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+
+	        String deleteQuery = "DELETE FROM " + tableName + " WHERE " + primaryKeyColumnName + " = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+
+	        preparedStatement.setString(1, primaryKeyValue);
+	        preparedStatement.executeUpdate();
+
+	        preparedStatement.close();
+	        connection.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
 
 	public static String getErrorMessage(SQLException e) {
 		if (e.getMessage().contains("Duplicate entry")) {
 			return "Email is not unique";
 		} else {
-			return "Email is not unique";
+			return "Something get wrong";
 		}
 	}
 
