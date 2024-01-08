@@ -537,7 +537,7 @@ public class UserDashboard extends Application {
 		bilingBox.setArcHeight(20);
 		bilingBox.setArcWidth(20);
 		Button bilingBtn = new Button("");
-		bilingBtn.setPadding(new Insets(130, 250, 0, 0));
+		//bilingBtn.setPadding(new Insets(130, 250, 0, 0));
 		bilingBtn.setStyle("-fx-background-color: transparent;");
 		bilingBtn.setOnAction(new EventHandler<ActionEvent>() {
 
