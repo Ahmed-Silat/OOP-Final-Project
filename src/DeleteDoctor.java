@@ -26,7 +26,7 @@ import java.sql.Statement;
 
 public class DeleteDoctor extends Application {
 
-	private static final String JDBC_URL = "jdbc:mysql://localhost:3308/hospitalManagementSystem";
+	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/hospitalManagementSystem";
 	private static final String USER = "root";
 	private static final String PASSWORD = "";
 

@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.Alert;
+
 public class Database {
 
 	// Database connection details
@@ -47,6 +49,7 @@ public class Database {
 			rs = stmt.executeQuery("SELECT *FROM " + tableName);
 			ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
 			int counter = md.getColumnCount();
+			colName = "";
 			for (int loop = columnNo; loop <= counter; loop++) {
 				if (loop < counter) {
 					colName = colName + md.getColumnLabel(loop) + ", ";
@@ -88,6 +91,8 @@ public class Database {
 				}
 				preparedStatement.executeUpdate();
 			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 
@@ -108,8 +113,8 @@ public class Database {
 //		return specializations;
 //	}
 
-	public static List<String> getColDataFromDb(String tableName, String colName) throws SQLException {
-		List<String> colData = new ArrayList<>();
+	public static ArrayList<String> getColDataFromDb(String tableName, String colName) throws SQLException {
+		ArrayList<String> colData = new ArrayList<>();
 		try (Connection connection = getConnection()) {
 			String query = "SELECT " + colName + " FROM " + tableName;
 			try (PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -123,11 +128,15 @@ public class Database {
 		return colData;
 	}
 
-	public static List<String> getConditioinalDataFromDb(String tableName, String colName, String conditionCol,
+	public static ArrayList<String> getConditioinalDataFromDb(String tableName, String colName, String conditionCol,
 			String condition) throws SQLException {
-		List<String> colData = new ArrayList<>();
+		ArrayList<String> colData = new ArrayList<>();
+		System.out.println("herer");
 		try (Connection connection = getConnection()) {
-			String query = "SELECT " + colName + " FROM " + tableName + " WHERE " + conditionCol + " = " + condition;
+			String query = "SELECT " + colName + " FROM " + tableName + " WHERE " + conditionCol + " = " + "\""
+					+ condition + "\"";
+//			String query = "SELECT " + colName + " FROM " + tableName + " WHERE " + conditionCol + " =  ahmedsilat95@gmail.com";
+			System.out.println(query);
 			try (PreparedStatement preparedStatement = connection.prepareStatement(query);
 					ResultSet resultSet = preparedStatement.executeQuery()) {
 
@@ -135,8 +144,18 @@ public class Database {
 					colData.add(resultSet.getString(colName));
 				}
 			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 		return colData;
+	}
+
+	public static String[] clearTextFields(String inputFields) {
+		String arr[] = inputFields.split(" ");
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = "";
+		}
+		return arr;
 	}
 
 	public static String getErrorMessage(SQLException e) {
