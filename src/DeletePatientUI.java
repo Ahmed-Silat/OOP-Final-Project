@@ -63,7 +63,7 @@ public class DeletePatientUI extends Application {
 			public void handle(ActionEvent event) {
 				try {
 //					Filing filing = new Filing();
-					DeletePatient deletePatient = new DeletePatient();
+//					DeletePatient deletePatient = new DeletePatient();
 //					ArrayList<String> patients = deletePatient.deletePatientByEmail(filing.readData("signup.txt"),
 //							txt_email.getText());
 //					String dataToWrite = deletePatient.arrayListToString(patients);

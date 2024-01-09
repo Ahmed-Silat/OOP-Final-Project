@@ -26,10 +26,6 @@ import java.sql.SQLException;
 
 public class DeleteDoctor extends Application {
 
-	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/hospitalManagementSystem";
-	private static final String USER = "root";
-	private static final String PASSWORD = "";
-
     @Override
     public void start(Stage primaryStage) {
         TableView<ObservableList<String>> tableView = new TableView<>();
@@ -121,50 +117,13 @@ public class DeleteDoctor extends Application {
         deleteButton.addEventHandler(MouseEvent.MOUSE_EXITED, event -> deleteButton.setEffect(null));
 
         deleteButton.setOnAction(event -> {
-            AdminDashboard adminDashboard = new AdminDashboard();
-            try {
-                adminDashboard.start(primaryStage);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-        HBox backButton = new HBox(10, goBack);
-
-        VBox root = new VBox(10, backButton, tableView, deleteButton);
-        	}
-        });
-        
-        HBox v = new HBox(10,goBack);
-        
-        Button saveButton = new Button("Save");
-        saveButton.setCursor(Cursor.HAND);
-        HBox save = new HBox(saveButton);
-        saveButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        saveButton.setTextFill(Color.WHITE);
-        saveButton.setStyle("-fx-background-color: green; -fx-background-radius: 20px;");
-        saveButton.setPadding(new Insets(0, 20, 0, 20));
-
-        DropShadow shadowback1 = new DropShadow();
-        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-
-        	@Override
-        	public void handle(MouseEvent event) {
-        		saveButton.setEffect(shadowback1);
-        	}
-        });
-        saveButton.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-        	@Override
-        	public void handle(MouseEvent e) {
-        		backBtn.setEffect(null);
-        	}
-        }); 
-
-     // Inside the start method of DeleteDoctor class
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                ObservableList<String> selectedItem = tableView.getSelectionModel().getSelectedItem();
+            // AdminDashboard adminDashboard = new AdminDashboard();
+            // try {
+            //     adminDashboard.start(primaryStage);
+            // } catch (Exception e) {
+            //     e.printStackTrace();
+            // }
+            ObservableList<String> selectedItem = tableView.getSelectionModel().getSelectedItem();
 
                 if (selectedItem != null) {
                     String primaryKeyColumnName = tableView.getColumns().get(0).getText();
@@ -179,38 +138,11 @@ public class DeleteDoctor extends Application {
                     // Display a message or handle the case where no item is selected
                     System.out.println("No item selected for deletion.");
                 }
-            }
         });
 
+        HBox backButton = new HBox(10, goBack);
 
-              
-        
-        Button cancelButton = new Button("Cancel");
-        cancelButton.setCursor(Cursor.HAND);
-        HBox cancel = new HBox(saveButton);
-        cancelButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        cancelButton.setTextFill(Color.WHITE);
-        cancelButton.setStyle("-fx-background-color: red; -fx-background-radius: 20px;");
-        cancelButton.setPadding(new Insets(0, 20, 0, 20));
-
-        DropShadow shadowback2 = new DropShadow();
-        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-
-        	@Override
-        	public void handle(MouseEvent event) {
-        		cancelButton.setEffect(shadowback2);
-        	}
-        });
-        cancelButton.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-        	@Override
-        	public void handle(MouseEvent e) {
-        		backBtn.setEffect(null);
-        	}
-        });
-
-
-        HBox buttonBox = new HBox(30, saveButton, cancelButton);
-        VBox root = new VBox(20, tableView, buttonBox, goBack);
+        VBox root = new VBox(10, backButton, tableView, deleteButton);
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
