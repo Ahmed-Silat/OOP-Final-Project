@@ -47,10 +47,9 @@ public class AddDoctor extends Application {
 				+ cmb_date.getValue();
 		String email = txt_email.getText();
 		String password = pass.getText();
-		String specialization = cmb_specialization.getValue();
+//		String specialization = cmb_specialization.getValue();
 
-		return firstName + " " + lastName + " " + gender + " " + dob + " " + email + " " + password + " "
-				+ specialization;
+		return firstName + " " + lastName + " " + gender + " " + dob + " " + email + " " + password;
 	}
 
 	public static void main(String[] args) {
