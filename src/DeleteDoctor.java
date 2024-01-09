@@ -130,22 +130,32 @@ public class DeleteDoctor extends Application {
         	public void handle(MouseEvent e) {
         		backBtn.setEffect(null);
         	}
+        }); 
+
+     // Inside the start method of DeleteDoctor class
+        saveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ObservableList<String> selectedItem = tableView.getSelectionModel().getSelectedItem();
+
+                if (selectedItem != null) {
+                    String primaryKeyColumnName = tableView.getColumns().get(0).getText();
+                    String primaryKeyValue = selectedItem.get(0); // Assuming the first column is the primary key
+
+                    // Call the generalization method for deletion
+                    Database.deleteRecord("doctor", primaryKeyColumnName, primaryKeyValue);
+
+                    // Remove the selected item from the TableView
+                    tableView.getItems().remove(selectedItem);
+                } else {
+                    // Display a message or handle the case where no item is selected
+                    System.out.println("No item selected for deletion.");
+                }
+            }
         });
 
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
 
-        	@Override
-        	public void handle(ActionEvent event) {
-        		AdminDashboard AdminDashboard = new AdminDashboard();
-        		try {
-        			AdminDashboard.start(primaryStage);
-        		} catch (Exception e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-
-        	}
-        });              
+              
         
         Button cancelButton = new Button("Cancel");
         cancelButton.setCursor(Cursor.HAND);
@@ -170,21 +180,6 @@ public class DeleteDoctor extends Application {
         	}
         });
 
-        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-
-        	@Override
-        	public void handle(ActionEvent event) {
-        		AdminDashboard AdminDashboard = new AdminDashboard();
-        		try {
-        			AdminDashboard.start(primaryStage);
-        		} catch (Exception e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-
-        	}
-        });       
-       
 
         HBox buttonBox = new HBox(30, saveButton, cancelButton);
         VBox root = new VBox(20, tableView, buttonBox, goBack);
