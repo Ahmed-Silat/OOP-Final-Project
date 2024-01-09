@@ -11,6 +11,7 @@ import java.util.List;
 import javafx.scene.control.Alert;
 
 import javafx.collections.ObservableList;
+
 public class Database {
 
 	// Database connection details
@@ -19,8 +20,6 @@ public class Database {
 	private static final String PASSWORD = "";
 	static String colName = "";
 	String colData = "";
-	
-	
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
@@ -52,8 +51,8 @@ public class Database {
 			rs = stmt.executeQuery("SELECT *FROM " + tableName);
 			ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
 			int counter = md.getColumnCount();
-			
-	        colName = "";
+
+			colName = "";
 
 			for (int loop = columnNo; loop <= counter; loop++) {
 				if (loop < counter) {
@@ -70,30 +69,25 @@ public class Database {
 	}
 
 	public static void insertIntoDb(String data, String tableName) throws SQLException {
-	    String tableData[] = data.split(" ");
+		String tableData[] = data.split(" ");
 
-	    String colNames = getColumnNames(tableName, 2);
+		String colNames = getColumnNames(tableName, 2);
 
-	    String colNamesArr[] = colNames.split(",");
-	    int arrLength = colNamesArr.length;
-	    String values = "";
-	    for (int i = 0; i < arrLength; i++) {
-	        if (i < arrLength - 1) {
-	            values = values + "?, ";
-	        } else {
-	            values = values + "?";
-	        }
-	    }
-
-	    try (Connection connection = getConnection()) {
-	        String insertQuery = "INSERT INTO " + tableName + " (" + colNames + ")" + "VALUES (" + values + ")";
-	        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-	            System.out.println(insertQuery);
+		String colNamesArr[] = colNames.split(",");
+		int arrLength = colNamesArr.length;
+		String values = "";
+		for (int i = 0; i < arrLength; i++) {
+			if (i < arrLength - 1) {
+				values = values + "?, ";
+			} else {
+				values = values + "?";
+			}
+		}
 
 		try (Connection connection = getConnection()) {
 			String insertQuery = "INSERT INTO " + tableName + " (" + colNames + ")" + "VALUES (" + values + ")";
 			try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-//				System.out.println(insertQuery);
+				System.out.println(insertQuery);
 
 				for (int i = 0; i < tableData.length; i++) {
 					preparedStatement.setString(i + 1, tableData[i]);
@@ -104,24 +98,6 @@ public class Database {
 			System.out.println(e);
 		}
 	}
-
-
-//	public static List<String> getSpecializations() throws SQLException {
-//		List<String> specializations = new ArrayList<>();
-//
-//		try (Connection connection = getConnection()) {
-//			String query = "SELECT specialization FROM specializations";
-//			try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-//					ResultSet resultSet = preparedStatement.executeQuery()) {
-//
-//				while (resultSet.next()) {
-//					specializations.add(resultSet.getString("specialization"));
-//				}
-//			}
-//		}
-//
-//		return specializations;
-//	}
 
 	public static ArrayList<String> getColDataFromDb(String tableName, String colName) throws SQLException {
 		ArrayList<String> colData = new ArrayList<>();
@@ -159,24 +135,23 @@ public class Database {
 		}
 		return colData;
 	}
-	
+
 	public static void deleteRecord(String tableName, String primaryKeyColumnName, String primaryKeyValue) {
-	    try {
-	        Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+		try {
+			Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
 
-	        String deleteQuery = "DELETE FROM " + tableName + " WHERE " + primaryKeyColumnName + " = ?";
-	        PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+			String deleteQuery = "DELETE FROM " + tableName + " WHERE " + primaryKeyColumnName + " = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
 
-	        preparedStatement.setString(1, primaryKeyValue);
-	        preparedStatement.executeUpdate();
+			preparedStatement.setString(1, primaryKeyValue);
+			preparedStatement.executeUpdate();
 
-	        preparedStatement.close();
-	        connection.close();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+			preparedStatement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
 
 	public static String[] clearTextFields(String inputFields) {
 		String arr[] = inputFields.split(" ");
