@@ -52,7 +52,7 @@ public class SignUpUI extends Application {
 //		if (auth.signUp(getUserDetails()) == true) {
 //		List<String> arr = Database.getConditioinalDataFromDb("user", "email", "email", txt_email.getText());
 		try {
-			if (Database.isEmailUnique(txt_email.getText())) {
+			if (UserAuthentication.isEmailUnique(txt_email.getText()) == true) {
 				Alert signUpSuccessful = new Alert(Alert.AlertType.INFORMATION);
 				signUpSuccessful.setContentText("You have successfully created Your Account");
 				signUpSuccessful.show();
@@ -212,13 +212,31 @@ public class SignUpUI extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					goToDashboard();
+					if (validateFields()) {
+						goToDashboard();
+						Database.insertIntoDb(getPatientDetails(), "user");
+						txt_fName.clear();
+						txt_lName.clear();
+						rb_male.setSelected(false);
+						rb_female.setSelected(false);
+						cmb_date.setValue(null);
+						cmb_month.setValue(null);
+						cmb_year.setValue(null);
+						txt_email.clear();
+						pass.clear();
+						rePass.clear();
+
 //					UserDashboard userDashboard = new UserDashboard();
 //					userDashboard.start(stage);
 //					AppointmentDataValidation adv = new AppointmentDataValidation();
 //					adv.writeData(txt_email.getText());
 
-					Database.insertIntoDb(getPatientDetails(), "user");
+					} else {
+						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+						errorAlert.setContentText("Please fill out all the fields.");
+						errorAlert.showAndWait();
+					}
+//					Database.clearTextFields(getPatientDetails());
 				} catch (Exception e) {
 //					Alert loginError = new Alert(Alert.AlertType.ERROR);
 //					loginError.setContentText("Please fill out all the fields");
@@ -227,6 +245,13 @@ public class SignUpUI extends Application {
 //					e.printStackTrace();
 				}
 
+			}
+
+			private boolean validateFields() {
+				return !txt_fName.getText().isEmpty() && !txt_lName.getText().isEmpty()
+						&& (rb_male.isSelected() || rb_female.isSelected()) && cmb_date.getValue() != null
+						&& cmb_month.getValue() != null && cmb_year.getValue() != null && !txt_email.getText().isEmpty()
+						&& !pass.getText().isEmpty() && !rePass.getText().isEmpty();
 			}
 		});
 

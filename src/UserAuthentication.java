@@ -105,3 +105,33 @@
 //	}
 //
 //}
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class UserAuthentication {
+
+	public static boolean isEmailUnique(String email) throws SQLException {
+		ArrayList<String> emails = Database.getColDataFromDb("user", "email");
+
+		for (int i = 0; i < emails.size(); i++) {
+			if (emails.get(i).equals(email)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean isPasswordCorrect(String email, String password) throws SQLException {
+		ArrayList<String> userData = Database.getConditioinalDataFromDb("user", "password", "email", email);
+
+		for (int i = 0; i < userData.size(); i++) {
+			System.out.println(userData.get(i));
+			if (userData.get(i).equals(password)) {
+				System.out.println("password Found");
+				return true;
+			}
+		}
+		return false;
+	}
+}
