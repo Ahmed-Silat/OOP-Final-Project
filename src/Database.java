@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.control.Alert;
+
 import javafx.collections.ObservableList;
 public class Database {
 
@@ -87,12 +90,19 @@ public class Database {
 	        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 	            System.out.println(insertQuery);
 
-	            for (int i = 0; i < tableData.length; i++) {
-	                preparedStatement.setString(i + 1, tableData[i]);
-	            }
-	            preparedStatement.executeUpdate();
-	        }
-	    }
+		try (Connection connection = getConnection()) {
+			String insertQuery = "INSERT INTO " + tableName + " (" + colNames + ")" + "VALUES (" + values + ")";
+			try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+//				System.out.println(insertQuery);
+
+				for (int i = 0; i < tableData.length; i++) {
+					preparedStatement.setString(i + 1, tableData[i]);
+				}
+				preparedStatement.executeUpdate();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 
@@ -113,8 +123,8 @@ public class Database {
 //		return specializations;
 //	}
 
-	public static List<String> getColDataFromDb(String tableName, String colName) throws SQLException {
-		List<String> colData = new ArrayList<>();
+	public static ArrayList<String> getColDataFromDb(String tableName, String colName) throws SQLException {
+		ArrayList<String> colData = new ArrayList<>();
 		try (Connection connection = getConnection()) {
 			String query = "SELECT " + colName + " FROM " + tableName;
 			try (PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -128,11 +138,15 @@ public class Database {
 		return colData;
 	}
 
-	public static List<String> getConditioinalDataFromDb(String tableName, String colName, String conditionCol,
+	public static ArrayList<String> getConditioinalDataFromDb(String tableName, String colName, String conditionCol,
 			String condition) throws SQLException {
-		List<String> colData = new ArrayList<>();
+		ArrayList<String> colData = new ArrayList<>();
+		System.out.println("herer");
 		try (Connection connection = getConnection()) {
-			String query = "SELECT " + colName + " FROM " + tableName + " WHERE " + conditionCol + " = " + condition;
+			String query = "SELECT " + colName + " FROM " + tableName + " WHERE " + conditionCol + " = " + "\""
+					+ condition + "\"";
+//			String query = "SELECT " + colName + " FROM " + tableName + " WHERE " + conditionCol + " =  ahmedsilat95@gmail.com";
+			System.out.println(query);
 			try (PreparedStatement preparedStatement = connection.prepareStatement(query);
 					ResultSet resultSet = preparedStatement.executeQuery()) {
 
@@ -140,6 +154,8 @@ public class Database {
 					colData.add(resultSet.getString(colName));
 				}
 			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 		return colData;
 	}
@@ -161,6 +177,14 @@ public class Database {
 	    }
 	}
 
+
+	public static String[] clearTextFields(String inputFields) {
+		String arr[] = inputFields.split(" ");
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = "";
+		}
+		return arr;
+	}
 
 	public static String getErrorMessage(SQLException e) {
 		if (e.getMessage().contains("Duplicate entry")) {
