@@ -47,10 +47,9 @@ public class AddDoctor extends Application {
 				+ cmb_date.getValue();
 		String email = txt_email.getText();
 		String password = pass.getText();
-		String specialization = cmb_specialization.getValue();
+//		String specialization = cmb_specialization.getValue();
 
-		return firstName + " " + lastName + " " + gender + " " + dob + " " + email + " " + password + " "
-				+ specialization;
+		return firstName + " " + lastName + " " + gender + " " + dob + " " + email + " " + password;
 	}
 
 	public static void main(String[] args) {
@@ -108,8 +107,13 @@ public class AddDoctor extends Application {
 		pass.setPromptText("Enter Password");
 
 		Label lbl_specialization = new Label("Specialization");
-		cmb_specialization = new ComboBox<>();
-		cmb_specialization.getItems().addAll("Neurologist", "Physiotherapist", "Surgeon", "General Physician");
+        cmb_specialization = new ComboBox<>();
+        try {
+            cmb_specialization.getItems().addAll(Database.getColDataFromDb("specializations", "specialization"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 		cmb_specialization.setPromptText("Select Specialization");
 
 		Button btn_signup = new Button();
@@ -119,21 +123,22 @@ public class AddDoctor extends Application {
 			public void handle(ActionEvent event) {
 				try {
 					if (validateFields()) {
-//						String firstName = txt_fName.getText();
-//						String lastName = txt_lName.getText();
-//						String gender = rb_male.isSelected() ? "Male" : "Female";
-//						String dob = cmb_year.getValue() + "-" + (cmb_month.getSelectionModel().getSelectedIndex() + 1)
-//								+ "-" + cmb_date.getValue();
-//						String email = txt_email.getText();
-//						String password = pass.getText();
-//						String specialization = cmb_specialization.getValue();
-//
-//						Database.insertDoctor(firstName, lastName, gender, dob, email, password, specialization);
 						Database.insertIntoDb(getDoctorDetails(), "doctor");
-						// Show a success message
 						Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
 						successAlert.setContentText("Doctor added successfully!");
 						successAlert.showAndWait();
+						
+		                txt_fName.clear();
+		                txt_lName.clear();
+		                rb_male.setSelected(false);
+		                rb_female.setSelected(false);
+		                cmb_date.setValue(null);
+		                cmb_month.setValue(null);
+		                cmb_year.setValue(null);
+		                txt_email.clear();
+		                pass.clear();
+		                cmb_specialization.setValue(null);
+
 					} else {
 						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 						errorAlert.setContentText("Please fill out all the fields.");
@@ -169,6 +174,10 @@ public class AddDoctor extends Application {
 		VBox layout = new VBox(20, mainHeading, lbl_firstName, txt_fName, lbl_lastName, txt_lName, lbl_gender, gender,
 				lbl_dob, date, lbl_email, txt_email, lbl_password, pass, lbl_specialization, cmb_specialization,
 				btn_signup);
+		txt_fName.setMaxWidth(200);
+		txt_lName.setMaxWidth(200);
+		txt_email.setMaxWidth(200);
+		pass.setMaxWidth(200);
 		layout.setAlignment(Pos.CENTER);
 
 		btn_signup.setPadding(new Insets(5, 40, 5, 40));
@@ -222,7 +231,6 @@ public class AddDoctor extends Application {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 			}
 		});
 

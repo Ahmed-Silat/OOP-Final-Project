@@ -1,4 +1,5 @@
 import java.io.FileInputStream;
+import java.sql.SQLException;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -46,38 +47,84 @@ public class LoginUI extends Application {
 	ComboBox cmb_users;
 	String loginEmail = "";
 
-	public void goToUserDashboard(String email, String password) {
-		UserAuthentication auth = new UserAuthentication();
-		if (auth.signIn(email, password) == true) {
-			UserDashboard userDashboard = new UserDashboard();
-			try {
-				userDashboard.start(login_stage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void goToUserDashboard() {
+//		UserAuthentication auth = new UserAuthentication();
+//		if (auth.signIn(email, password) == true) {
+//			UserDashboard userDashboard = new UserDashboard();
+//			try {
+//				userDashboard.start(login_stage);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		try {
+			if (!UserAuthentication.isEmailUnique(txt_email.getText())
+					&& UserAuthentication.isPasswordCorrect(txt_email.getText(), pass.getText())) {
+				Alert signInSuccessful = new Alert(Alert.AlertType.INFORMATION);
+				signInSuccessful.setContentText("You have successfully Logged In");
+				signInSuccessful.show();
+				UserDashboard userDashboard = new UserDashboard();
+				try {
+					userDashboard.start(login_stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				Alert loginError = new Alert(Alert.AlertType.ERROR);
+				loginError.setContentText("Email Does Not Exist");
+				loginError.show();
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
-	public void goToAdminDashboard(String email, String password) {
-		AdminAuthentication admin = new AdminAuthentication();
-		if (admin.signIn(email, password) == true) {
-			AdminDashboard adminDashboard = new AdminDashboard();
-			try {
-				adminDashboard.start(login_stage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void goToAdminDashboard() {
+//		AdminAuthentication admin = new AdminAuthentication();
+//		if (admin.signIn(email, password) == true) {
+//			AdminDashboard adminDashboard = new AdminDashboard();
+//			try {
+//				adminDashboard.start(login_stage);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		String adminEmail = "ahmedsilat95@gmail.com";
+		try {
+//			System.out.println("login");
+//			System.out.println(UserAuthentication.isPasswordCorrect(adminEmail, pass.getText()));
+			if (adminEmail.equals(txt_email.getText()) && UserAuthentication.isPasswordCorrect(adminEmail, pass.getText())) {
+				Alert signInSuccessful = new Alert(Alert.AlertType.INFORMATION);
+				signInSuccessful.setContentText("You have successfully Logged In");
+				signInSuccessful.show();
+				AdminDashboard adminDashboard = new AdminDashboard();
+				try {
+					adminDashboard.start(login_stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				Alert loginError = new Alert(Alert.AlertType.ERROR);
+				loginError.setContentText("Invalid Email or Password");
+				loginError.show();
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	public void dashboardSelection(String cmbValue, String email, String password) {
 		if (cmbValue == "User") {
-			goToUserDashboard(email, password);
+			goToUserDashboard();
 //			System.out.println("user");
 		} else if (cmbValue == "Admin") {
-			goToAdminDashboard(email, password);
+			goToAdminDashboard();
 //			System.out.println("admin");
 		}
 	}
@@ -133,8 +180,8 @@ public class LoginUI extends Application {
 //				goToUserDashboard(txt_email.getText(), pass.getText());
 				try {
 					dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
-					AppointmentDataValidation adv = new AppointmentDataValidation();
-					adv.writeData(txt_email.getText());
+//					AppointmentDataValidation adv = new AppointmentDataValidation();
+//					adv.writeData(txt_email.getText());
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
 					loginError.setContentText("Please fill out all the fields");
