@@ -19,25 +19,28 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleStringProperty;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.sql.SQLException;
 
 public class DeleteDoctor extends Application {
-
-	private static final String JDBC_URL = "jdbc:mysql://localhost:3308/hospitalManagementSystem";
-	private static final String USER = "root";
-	private static final String PASSWORD = "";
 
     @Override
     public void start(Stage primaryStage) {
         TableView<ObservableList<String>> tableView = new TableView<>();
 
         try {
-            Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
+            Connection connection = Database.getConnection();
+
+            String tableName = "doctor";
+            String colName = Database.getColumnNames(tableName, 2);
             
-            String query = "SELECT * FROM doctor";
+            String query = "SELECT d.doctor_id, d.first_name, d.last_name, d.gender, d.dob, d.email, d.password, s.specialization " +
+                    "FROM doctor d " +
+                    "JOIN specializations s ON d.s_id=s.s_id";
+            
+
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -53,22 +56,33 @@ public class DeleteDoctor extends Application {
                 });
                 tableView.getColumns().add(column);
             }
-            
+
             while (resultSet.next()) {
-                ObservableList<String> row = FXCollections.observableArrayList();
-                for (int i = 1; i <= columnCount; i++) {
-                    row.add(resultSet.getString(i));
-                }
-                tableView.getItems().add(row);
+                int doctorId = resultSet.getInt("doctor_id");
+                String doctorFirstName = resultSet.getString("first_name");
+                String doctorLastName = resultSet.getString("last_name");
+                String doctorGender = resultSet.getString("gender");
+                String doctorDob = resultSet.getString("dob");
+                String doctorEmail = resultSet.getString("email");
+                String doctorPassword = resultSet.getString("password");
+                String specialization = resultSet.getString("specialization");
+
+                tableView.getItems().add(FXCollections.observableArrayList(
+                        String.valueOf(doctorId), doctorFirstName, doctorLastName, doctorGender,
+                        doctorDob, doctorEmail, doctorPassword, specialization)
+                );
             }
+
             resultSet.close();
             statement.close();
             connection.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        //Buttons
+        // Buttons
+
+        // Go back button
         Button backBtn = new Button("Go Back");
         backBtn.setCursor(Cursor.HAND);
         HBox goBack = new HBox(backBtn);
@@ -77,124 +91,47 @@ public class DeleteDoctor extends Application {
         backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
         backBtn.setPadding(new Insets(0, 20, 0, 20));
 
-        DropShadow shadowback = new DropShadow();
-        backBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+        DropShadow shadowBack = new DropShadow();
+        backBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> backBtn.setEffect(shadowBack));
+        backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, event -> backBtn.setEffect(null));
 
-        	@Override
-        	public void handle(MouseEvent event) {
-        		backBtn.setEffect(shadowback);
-        	}
-        });
-        backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-        	@Override
-        	public void handle(MouseEvent e) {
-        		backBtn.setEffect(null);
-        	}
+        backBtn.setOnAction(event -> {
+            AdminDashboard adminDashboard = new AdminDashboard();
+            try {
+                adminDashboard.start(primaryStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
-        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+        // Delete button
+        Button deleteButton = new Button("Delete");
+        deleteButton.setCursor(Cursor.HAND);
+        deleteButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+        deleteButton.setTextFill(Color.WHITE);
+        deleteButton.setStyle("-fx-background-color: red; -fx-background-radius: 20px;");
+        deleteButton.setPadding(new Insets(0, 20, 0, 20));
 
-        	@Override
-        	public void handle(ActionEvent event) {
-        		AdminDashboard AdminDashboard = new AdminDashboard();
-        		try {
-        			AdminDashboard.start(primaryStage);
-        		} catch (Exception e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
+        DropShadow shadowDelete = new DropShadow();
+        deleteButton.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> deleteButton.setEffect(shadowDelete));
+        deleteButton.addEventHandler(MouseEvent.MOUSE_EXITED, event -> deleteButton.setEffect(null));
 
-        	}
-        });
-        
-        HBox v = new HBox(10,goBack);
-        
-        Button saveButton = new Button("Save");
-        saveButton.setCursor(Cursor.HAND);
-        HBox save = new HBox(saveButton);
-        saveButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        saveButton.setTextFill(Color.WHITE);
-        saveButton.setStyle("-fx-background-color: green; -fx-background-radius: 20px;");
-        saveButton.setPadding(new Insets(0, 20, 0, 20));
-
-        DropShadow shadowback1 = new DropShadow();
-        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-
-        	@Override
-        	public void handle(MouseEvent event) {
-        		saveButton.setEffect(shadowback1);
-        	}
-        });
-        saveButton.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-        	@Override
-        	public void handle(MouseEvent e) {
-        		backBtn.setEffect(null);
-        	}
+        deleteButton.setOnAction(event -> {
+            AdminDashboard adminDashboard = new AdminDashboard();
+            try {
+                adminDashboard.start(primaryStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
+        HBox backButton = new HBox(10, goBack);
 
-        	@Override
-        	public void handle(ActionEvent event) {
-        		AdminDashboard AdminDashboard = new AdminDashboard();
-        		try {
-        			AdminDashboard.start(primaryStage);
-        		} catch (Exception e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-
-        	}
-        });              
-        
-        Button cancelButton = new Button("Cancel");
-        cancelButton.setCursor(Cursor.HAND);
-        HBox cancel = new HBox(saveButton);
-        cancelButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        cancelButton.setTextFill(Color.WHITE);
-        cancelButton.setStyle("-fx-background-color: red; -fx-background-radius: 20px;");
-        cancelButton.setPadding(new Insets(0, 20, 0, 20));
-
-        DropShadow shadowback2 = new DropShadow();
-        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-
-        	@Override
-        	public void handle(MouseEvent event) {
-        		cancelButton.setEffect(shadowback2);
-        	}
-        });
-        cancelButton.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-        	@Override
-        	public void handle(MouseEvent e) {
-        		backBtn.setEffect(null);
-        	}
-        });
-
-        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-
-        	@Override
-        	public void handle(ActionEvent event) {
-        		AdminDashboard AdminDashboard = new AdminDashboard();
-        		try {
-        			AdminDashboard.start(primaryStage);
-        		} catch (Exception e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-
-        	}
-        });       
-       
-
-        HBox buttonBox = new HBox(30, saveButton, cancelButton);
-        VBox root = new VBox(20, tableView, buttonBox, goBack);
+        VBox root = new VBox(10, backButton, tableView, deleteButton);
         Scene scene = new Scene(root, 600, 400);
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    
 
     public static void main(String[] args) {
         launch(args);
