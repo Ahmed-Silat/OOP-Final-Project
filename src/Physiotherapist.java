@@ -36,82 +36,82 @@ public class Physiotherapist extends Application {
 
 	Stage stage;
 	Scene scene;
-	TextField txt_patient, txt_name, txt_father;
-	RadioButton rb_male, rb_female;
-	DatePicker dob;
+//	TextField txt_patient, txt_name, txt_father;
+//	RadioButton rb_male, rb_female;
+//	DatePicker dob;
 	ComboBox<String> dr_names;
 	TextArea txt_disease;
-	Patients patient;
+//	Patients patient;
 
 //	LoginUI login = new LoginUI();
 
 //	AppointmentDataValidation adv = new AppointmentDataValidation();
 
-	public Patients patientData() {
-//		patient.setEmail(adv.readData());
-
-		patient.setPatientId(txt_patient.getText());
-//		System.out.println(txt_patient.getText());
-		patient.setUserName(txt_name.getText());
-		patient.setFatherName(txt_father.getText());
-		if (rb_male.isSelected()) {
-			patient.setGender("Male");
-		} else if (rb_female.isSelected()) {
-			patient.setGender("Female");
-		}
-		patient.setDOB(dob.getValue().toString());
-		patient.setDoctorName(dr_names.getValue().toString());
-		patient.setDisease(txt_disease.getText());
-		return patient;
-	}
+//	public Patients patientData() {
+////		patient.setEmail(adv.readData());
+//
+//		patient.setPatientId(txt_patient.getText());
+////		System.out.println(txt_patient.getText());
+//		patient.setUserName(txt_name.getText());
+//		patient.setFatherName(txt_father.getText());
+//		if (rb_male.isSelected()) {
+//			patient.setGender("Male");
+//		} else if (rb_female.isSelected()) {
+//			patient.setGender("Female");
+//		}
+//		patient.setDOB(dob.getValue().toString());
+//		patient.setDoctorName(dr_names.getValue().toString());
+//		patient.setDisease(txt_disease.getText());
+//		return patient;
+//	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		stage.setTitle("Book An Appointment");
-		patient = new Patients();
+//		patient = new Patients();
 
 		Text mainHeading = new Text();
 		mainHeading.setText("PHYSIOTHERAPIST\n");
 		mainHeading.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
 		mainHeading.setFill(Color.WHITESMOKE);
 
-		Label lbl_patient = new Label("Patient ID");
-		lbl_patient.setTextFill(Color.WHITE);
-		lbl_patient.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-		txt_patient = new TextField();
-		txt_patient.setPromptText("Enter Patient ID");
+//		Label lbl_patient = new Label("Patient ID");
+//		lbl_patient.setTextFill(Color.WHITE);
+//		lbl_patient.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+//		txt_patient = new TextField();
+//		txt_patient.setPromptText("Enter Patient ID");
 
-		Label lbl_name = new Label("Name");
-		lbl_name.setTextFill(Color.WHITE);
-		lbl_name.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-		txt_name = new TextField();
-		txt_name.setPromptText("Enter Your Name");
+//		Label lbl_name = new Label("Name");
+//		lbl_name.setTextFill(Color.WHITE);
+//		lbl_name.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+//		txt_name = new TextField();
+//		txt_name.setPromptText("Enter Your Name");
 
-		Label lbl_father = new Label("Father Name");
-		lbl_father.setTextFill(Color.WHITE);
-		lbl_father.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-		txt_father = new TextField();
-		txt_father.setPromptText("Enter Father Name");
+//		Label lbl_father = new Label("Father Name");
+//		lbl_father.setTextFill(Color.WHITE);
+//		lbl_father.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+//		txt_father = new TextField();
+//		txt_father.setPromptText("Enter Father Name");
 
-		Label lbl_gender = new Label("Gender");
-		lbl_gender.setTextFill(Color.WHITE);
-		lbl_gender.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-		ToggleGroup rb_gp = new ToggleGroup();
-		rb_male = new RadioButton("Male");
-		rb_female = new RadioButton("Female");
-		rb_male.setToggleGroup(rb_gp);
-		rb_female.setToggleGroup(rb_gp);
-		rb_male.setTextFill(Color.WHITE);
-		rb_male.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-		rb_female.setTextFill(Color.WHITE);
-		rb_female.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+//		Label lbl_gender = new Label("Gender");
+//		lbl_gender.setTextFill(Color.WHITE);
+//		lbl_gender.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+//		ToggleGroup rb_gp = new ToggleGroup();
+//		rb_male = new RadioButton("Male");
+//		rb_female = new RadioButton("Female");
+//		rb_male.setToggleGroup(rb_gp);
+//		rb_female.setToggleGroup(rb_gp);
+//		rb_male.setTextFill(Color.WHITE);
+//		rb_male.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+//		rb_female.setTextFill(Color.WHITE);
+//		rb_female.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 
-		Label lbl_date = new Label("Date of Birth");
-		lbl_date.setTextFill(Color.WHITE);
-		lbl_date.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-		dob = new DatePicker();
-		dob.setPromptText("Enter DOB");
+//		Label lbl_date = new Label("Date of Birth");
+//		lbl_date.setTextFill(Color.WHITE);
+//		lbl_date.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+//		dob = new DatePicker();
+//		dob.setPromptText("Enter DOB");
 
 		Label lbl_doctor = new Label("Doctor Name");
 		lbl_doctor.setTextFill(Color.WHITE);
@@ -134,16 +134,16 @@ public class Physiotherapist extends Application {
 		txt_disease = new TextArea();
 		txt_disease.setPromptText("Enter Your Disease");
 
-		HBox h1 = new HBox(75, lbl_patient, txt_patient);
-		HBox h2 = new HBox(115, lbl_name, txt_name);
-		HBox h3 = new HBox(45, lbl_father, txt_father);
-		HBox h4 = new HBox(98, lbl_gender, rb_male, rb_female);
-		h4.setMargin(rb_male, new Insets(-3, 0, 5, 0));
-		h4.setMargin(rb_female, new Insets(-3, 0, 5, -80));
-		HBox h5 = new HBox(50, lbl_date, dob);
+//		HBox h1 = new HBox(75, lbl_patient, txt_patient);
+//		HBox h2 = new HBox(115, lbl_name, txt_name);
+//		HBox h3 = new HBox(45, lbl_father, txt_father);
+//		HBox h4 = new HBox(98, lbl_gender, rb_male, rb_female);
+//		h4.setMargin(rb_male, new Insets(-3, 0, 5, 0));
+//		h4.setMargin(rb_female, new Insets(-3, 0, 5, -80));
+//		HBox h5 = new HBox(50, lbl_date, dob);
 		HBox h6 = new HBox(45, lbl_doctor, dr_names);
 
-		VBox points = new VBox(40, h1, h2, h3, h4, h5, h6);
+		VBox points = new VBox(40, h6);
 		VBox disease = new VBox(30, lbl_disease, txt_disease);
 
 		HBox h = new HBox(25, points, disease);
@@ -154,7 +154,7 @@ public class Physiotherapist extends Application {
 		heading.setAlignment(Pos.CENTER);
 
 		// save Button
-		Button saveBtn = new Button("Save");
+		Button saveBtn = new Button("Book An Appointment");
 		saveBtn.setCursor(Cursor.HAND);
 		HBox save = new HBox(saveBtn);
 		saveBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
@@ -255,27 +255,27 @@ public class Physiotherapist extends Application {
 					String info = "";
 					String gender = "";
 
-					info = "Patient ID: " + txt_patient.getText() + "\n";
-					info += "Patient Name: " + txt_name.getText() + "\n";
-					info += "Father Name: " + txt_father.getText() + "\n";
+//					info = "Patient ID: " + txt_patient.getText() + "\n";
+//					info += "Patient Name: " + txt_name.getText() + "\n";
+//					info += "Father Name: " + txt_father.getText() + "\n";
 
-					if (rb_male.isSelected()) {
-						gender = "Male";
-					} else if (rb_female.isSelected()) {
-						gender = "Female";
-					} else {
-						gender = "";
-					}
+//					if (rb_male.isSelected()) {
+//						gender = "Male";
+//					} else if (rb_female.isSelected()) {
+//						gender = "Female";
+//					} else {
+//						gender = "";
+//					}
 
-					info += "Gender: " + gender + "\n";
+//					info += "Gender: " + gender + "\n";
 
-					info += "Date Of Birth: " + dob.getValue() + "\n";
+//					info += "Date Of Birth: " + dob.getValue() + "\n";
 
 					info += "Doctor: " + dr_names.getSelectionModel().getSelectedItem() + "\n";
 
 					info += "Disease History: " + txt_disease.getText();
 
-					info += "doctor fees:  500";
+//					info += "doctor fees:  500";
 
 					if (txt_disease.getText().equals("")) {
 						Alert nullError = new Alert(Alert.AlertType.ERROR);
@@ -287,10 +287,10 @@ public class Physiotherapist extends Application {
 						a.setContentText("Your appointment has been booked successfully!\n\n" + info);
 						a.show();
 
-						PatientDataFiling pdf = new PatientDataFiling();
+//						PatientDataFiling pdf = new PatientDataFiling();
 //					System.out.println("coming here");
-						patientData();
-						pdf.writeData(patient.toString());
+//						patientData();
+//						pdf.writeData(patient.toString());
 //					System.out.println(patient.toString());
 					}
 
