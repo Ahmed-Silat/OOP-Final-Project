@@ -133,9 +133,9 @@ public class AdminDashboard extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				AddPatient addPatient = new AddPatient();
+				DeletePatient deletePatient = new DeletePatient();
 				try {
-					addPatient.start(stage);
+					deletePatient.start(stage);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -220,9 +220,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+				DeleteDoctor deleteDoctor = new DeleteDoctor();
 				try {
-					deletePatient.start(stage);
+					deleteDoctor.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -273,9 +273,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+//				DeletePatientUI deletePatient = new DeletePatientUI();
 				try {
-					deletePatient.start(stage);
+//					deletePatient.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -326,9 +326,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+//				DeletePatientUI deletePatient = new DeletePatientUI();
 				try {
-					deletePatient.start(stage);
+//					deletePatient.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -379,9 +379,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+//				DeletePatientUI deletePatient = new DeletePatientUI();
 				try {
-					deletePatient.start(stage);
+//					deletePatient.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -432,9 +432,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+//				DeletePatientUI deletePatient = new DeletePatientUI();
 				try {
-					deletePatient.start(stage);
+//					deletePatient.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

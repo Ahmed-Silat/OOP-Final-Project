@@ -47,6 +47,14 @@ public class LoginUI extends Application {
 	ComboBox cmb_users;
 	String loginEmail = "";
 
+	public String getLoginDetails() {
+		String user = cmb_users.getValue().toString();
+		String email = txt_email.getText();
+		String password = pass.getText();
+
+		return user + " " + email + " " + password;
+	}
+
 	public void goToUserDashboard() {
 //		UserAuthentication auth = new UserAuthentication();
 //		if (auth.signIn(email, password) == true) {
@@ -97,7 +105,8 @@ public class LoginUI extends Application {
 		try {
 //			System.out.println("login");
 //			System.out.println(UserAuthentication.isPasswordCorrect(adminEmail, pass.getText()));
-			if (adminEmail.equals(txt_email.getText()) && UserAuthentication.isPasswordCorrect(adminEmail, pass.getText())) {
+			if (adminEmail.equals(txt_email.getText())
+					&& UserAuthentication.isPasswordCorrect(adminEmail, pass.getText())) {
 				Alert signInSuccessful = new Alert(Alert.AlertType.INFORMATION);
 				signInSuccessful.setContentText("You have successfully Logged In");
 				signInSuccessful.show();
@@ -179,7 +188,13 @@ public class LoginUI extends Application {
 			public void handle(ActionEvent event) {
 //				goToUserDashboard(txt_email.getText(), pass.getText());
 				try {
-					dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
+					if (!Database.isEmptyFields(getLoginDetails())) {
+						dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
+					} else {
+						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+						errorAlert.setContentText("Please fill out all the fields.");
+						errorAlert.showAndWait();
+					}
 //					AppointmentDataValidation adv = new AppointmentDataValidation();
 //					adv.writeData(txt_email.getText());
 				} catch (Exception e) {

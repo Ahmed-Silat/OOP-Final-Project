@@ -109,7 +109,7 @@ public class AddDoctor extends Application {
 		Label lbl_specialization = new Label("Specialization");
         cmb_specialization = new ComboBox<>();
         try {
-            cmb_specialization.getItems().addAll(Database.getColDataFromDb("specializations", "specialization"));
+            cmb_specialization.getItems().addAll(Database.getColDataFromDb("specializations", "specializationNames"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

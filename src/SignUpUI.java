@@ -212,7 +212,8 @@ public class SignUpUI extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					if (validateFields()) {
+//					if (validateFields()) {
+					if(!Database.isEmptyFields(getPatientDetails())) {
 						goToDashboard();
 						Database.insertIntoDb(getPatientDetails(), "user");
 						txt_fName.clear();
@@ -247,12 +248,12 @@ public class SignUpUI extends Application {
 
 			}
 
-			private boolean validateFields() {
-				return !txt_fName.getText().isEmpty() && !txt_lName.getText().isEmpty()
-						&& (rb_male.isSelected() || rb_female.isSelected()) && cmb_date.getValue() != null
-						&& cmb_month.getValue() != null && cmb_year.getValue() != null && !txt_email.getText().isEmpty()
-						&& !pass.getText().isEmpty() && !rePass.getText().isEmpty();
-			}
+//			private boolean validateFields() {
+//				return !txt_fName.getText().isEmpty() && !txt_lName.getText().isEmpty()
+//						&& (rb_male.isSelected() || rb_female.isSelected()) && cmb_date.getValue() != null
+//						&& cmb_month.getValue() != null && cmb_year.getValue() != null && !txt_email.getText().isEmpty()
+//						&& !pass.getText().isEmpty() && !rePass.getText().isEmpty();
+//			}
 		});
 
 		Button btn_login = new Button();
