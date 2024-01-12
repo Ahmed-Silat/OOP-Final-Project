@@ -135,6 +135,33 @@ public class Database {
 		}
 		return colData;
 	}
+	
+	// get doctors with join
+	public static ArrayList<String> getDataFromDb(String tableName, String targetColumn, 
+	        String joinTable, String joinColumn, String conditionColumn, String conditionValue) throws SQLException {
+	    ArrayList<String> data = new ArrayList<>();
+	    try (Connection connection = getConnection()) {
+	        String query = "SELECT " + tableName + "." + targetColumn +
+	                       " FROM " + tableName +
+	                       " INNER JOIN " + joinTable +
+	                       " ON " + tableName + "." + joinColumn + " = " + joinTable + "." + joinColumn +
+	                       " WHERE " + joinTable + "." + conditionColumn + " = ?";
+	        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	            preparedStatement.setString(1, conditionValue);
+	            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	                while (resultSet.next()) {
+	                    data.add(resultSet.getString(targetColumn));
+	                }
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return data;
+	}
+
+
+
 
 	public static void deleteRecord(String tableName, String primaryKeyColumnName, String primaryKeyValue) {
 		try {
@@ -160,6 +187,8 @@ public class Database {
 		}
 		return arr;
 	}
+	
+	
 
 	public static String getErrorMessage(SQLException e) {
 		if (e.getMessage().contains("Duplicate entry")) {

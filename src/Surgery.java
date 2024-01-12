@@ -1,3 +1,6 @@
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -115,11 +118,15 @@ public class Surgery extends Application {
 		lbl_doctor.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		dr_names = new ComboBox<>();
 		dr_names.setPromptText("Select Doctor");
-		dr_names.getItems().add("Dr. Sohaib Naseem");
-		dr_names.getItems().add("Dr. Jauhar Mehdi");
-		dr_names.getItems().add("Dr. Ilyas Younus");
-		dr_names.getItems().add("Dr. Muhammad Bilal");
-		dr_names.getSelectionModel().getSelectedItem();
+		
+		try {
+		    ArrayList<String> surgeonNames = Database.getDataFromDb("doctor", "name", 
+		        "specializations", "s_id", "specializationNames", "Surgeon");
+		    
+		    dr_names.getItems().addAll(surgeonNames);
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
 
 		Label lbl_disease = new Label("Disease History");
 		lbl_disease.setTextFill(Color.WHITE);

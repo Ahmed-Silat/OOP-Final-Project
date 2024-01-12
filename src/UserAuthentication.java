@@ -134,4 +134,14 @@ public class UserAuthentication {
 		}
 		return false;
 	}
+	
+	 public static String getUsername(String email) throws SQLException {
+	        ArrayList<String> userData = Database.getConditioinalDataFromDb("user", "first_name", "email", email);
+
+	        if (!userData.isEmpty()) {
+	            return userData.get(0);
+	        }
+
+	        return null;
+	    }
 }

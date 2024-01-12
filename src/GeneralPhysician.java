@@ -1,3 +1,6 @@
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -115,11 +118,15 @@ public class GeneralPhysician extends Application {
 		lbl_doctor.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		dr_names = new ComboBox<>();
 		dr_names.setPromptText("Select Doctor");
-		dr_names.getItems().add("Dr. Muhammad Ajmal");
-		dr_names.getItems().add("Dr. Riaz Naviwala");
-		dr_names.getItems().add("Dr. Muhammad Farooq");
-		dr_names.getItems().add("Dr. Fahim");
-		dr_names.getSelectionModel().getSelectedItem();
+		
+		try {
+		    ArrayList<String> generalPhysicianNames = Database.getDataFromDb("doctor", "name", 
+		        "specializations", "s_id", "specializationNames", "General-Physician");
+		    
+		    dr_names.getItems().addAll(generalPhysicianNames);
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
 
 		Label lbl_disease = new Label("Disease History");
 		lbl_disease.setTextFill(Color.WHITE);

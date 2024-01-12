@@ -48,39 +48,36 @@ public class LoginUI extends Application {
 	String loginEmail = "";
 
 	public void goToUserDashboard() {
-//		UserAuthentication auth = new UserAuthentication();
-//		if (auth.signIn(email, password) == true) {
-//			UserDashboard userDashboard = new UserDashboard();
-//			try {
-//				userDashboard.start(login_stage);
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-		try {
-			if (!UserAuthentication.isEmailUnique(txt_email.getText())
-					&& UserAuthentication.isPasswordCorrect(txt_email.getText(), pass.getText())) {
-				Alert signInSuccessful = new Alert(Alert.AlertType.INFORMATION);
-				signInSuccessful.setContentText("You have successfully Logged In");
-				signInSuccessful.show();
-				UserDashboard userDashboard = new UserDashboard();
-				try {
-					userDashboard.start(login_stage);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				Alert loginError = new Alert(Alert.AlertType.ERROR);
-				loginError.setContentText("Email Does Not Exist");
-				loginError.show();
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    try {
+	        if (!UserAuthentication.isEmailUnique(txt_email.getText())
+	                && UserAuthentication.isPasswordCorrect(txt_email.getText(), pass.getText())) {
+
+	            // Fetch the username based on the email
+	            String username = UserAuthentication.getUsername(txt_email.getText());
+
+	            Alert signInSuccessful = new Alert(Alert.AlertType.INFORMATION);
+	            signInSuccessful.setContentText("You have successfully Logged In");
+	            signInSuccessful.show();
+
+	            UserDashboard userDashboard = new UserDashboard();
+	            userDashboard.setLoggedInUser(username);
+
+	            try {
+	                userDashboard.start(login_stage);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            Alert loginError = new Alert(Alert.AlertType.ERROR);
+	            loginError.setContentText("Invalid Email or Password");
+	            loginError.show();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
+
+
 
 	public void goToAdminDashboard() {
 //		AdminAuthentication admin = new AdminAuthentication();
