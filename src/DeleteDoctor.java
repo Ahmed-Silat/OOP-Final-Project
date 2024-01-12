@@ -36,9 +36,9 @@ public class DeleteDoctor extends Application {
             String tableName = "doctor";
             String colName = Database.getColumnNames(tableName, 2);
             
-            String query = "SELECT d.doctor_id, d.first_name, d.last_name, d.gender, d.dob, d.email, d.password, s.specialization " +
+            String query = "SELECT d.d_id, d.first_name, d.last_name, d.gender, d.dob, d.email, d.password, s.specializationNames " +
                     "FROM doctor d " +
-                    "JOIN specializations s ON d.s_id=s.s_id";
+                    "JOIN specializations s ON d.specialization_id=s.s_id";
             
 
             Statement statement = connection.createStatement();
@@ -143,7 +143,7 @@ public class DeleteDoctor extends Application {
         HBox backButton = new HBox(10, goBack);
 
         VBox root = new VBox(10, backButton, tableView, deleteButton);
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 1800, 980);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

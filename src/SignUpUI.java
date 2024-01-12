@@ -213,6 +213,7 @@ public class SignUpUI extends Application {
 			public void handle(ActionEvent event) {
 				try {
 					if (validateFields()) {
+//					if(!Database.isEmptyFields(getPatientDetails())) {
 						goToDashboard();
 						Database.insertIntoDb(getPatientDetails(), "user");
 						txt_fName.clear();

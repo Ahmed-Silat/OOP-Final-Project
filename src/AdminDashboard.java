@@ -45,6 +45,7 @@ public class AdminDashboard extends Application {
 		textAddPatient.setText("ADD \n PATIENT");
 		textAddPatient.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textAddPatient.setFill(Color.WHITE);
+		textAddPatient.setTextAlignment(TextAlignment.CENTER);
 
 		Image addPatientPic = new Image("images/addpatient-01.png");
 		ImageView patientPic1 = new ImageView(addPatientPic);
@@ -95,6 +96,7 @@ public class AdminDashboard extends Application {
 		Text textDeletePatient1 = new Text("DELETE \n PATIENT");
 		textDeletePatient1.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textDeletePatient1.setFill(Color.WHITE);
+		textDeletePatient1.setTextAlignment(TextAlignment.CENTER);
 
 		Image deletePatientPic1 = new Image("images/addpatient-01.png");
 		ImageView deletepatientPic1 = new ImageView(deletePatientPic1);
@@ -131,9 +133,9 @@ public class AdminDashboard extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				AddPatient addPatient = new AddPatient();
+				DeletePatient deletePatient = new DeletePatient();
 				try {
-					addPatient.start(stage);
+					deletePatient.start(stage);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -145,6 +147,7 @@ public class AdminDashboard extends Application {
 		Text textAddDoctors = new Text("ADD \n DOCTORS");
 		textAddDoctors.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textAddDoctors.setFill(Color.WHITE);
+		textAddDoctors.setTextAlignment(TextAlignment.CENTER);
 
 		Image addDoctorPic = new Image("images/general-01.png");
 		ImageView addDoctorPic1 = new ImageView(addDoctorPic);
@@ -195,6 +198,7 @@ public class AdminDashboard extends Application {
 		Text textDeleteDoctor = new Text("DELETE \n DOCTOR");
 		textDeleteDoctor.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textDeleteDoctor.setFill(Color.WHITE);
+		textDeleteDoctor.setTextAlignment(TextAlignment.CENTER);
 
 		Image deleteDoctorPic = new Image("images/general-01.png");
 		ImageView delDoctorPic2 = new ImageView(deleteDoctorPic);
@@ -216,9 +220,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+				DeleteDoctor deleteDoctor = new DeleteDoctor();
 				try {
-					deletePatient.start(stage);
+					deleteDoctor.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -247,6 +251,7 @@ public class AdminDashboard extends Application {
 		Text textAddAppointment = new Text("ADD \n APPOINTMENT");
 		textAddAppointment.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textAddAppointment.setFill(Color.WHITE);
+		textAddAppointment.setTextAlignment(TextAlignment.CENTER);
 
 		Image addAppointmentPic1 = new Image("images/Appoinment-01.png");
 		ImageView addAppointmentPic2 = new ImageView(addAppointmentPic1);
@@ -268,9 +273,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+//				DeletePatientUI deletePatient = new DeletePatientUI();
 				try {
-					deletePatient.start(stage);
+//					deletePatient.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -299,6 +304,7 @@ public class AdminDashboard extends Application {
 		Text textDeleteAppointment1 = new Text("DELETE \n APPOINTMENT");
 		textDeleteAppointment1.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textDeleteAppointment1.setFill(Color.WHITE);
+		textDeleteAppointment1.setTextAlignment(TextAlignment.CENTER);
 
 		Image deleteAppointmentPic1 = new Image("images/Appoinment-01.png");
 		ImageView deleteAppointmentPic2 = new ImageView(deleteAppointmentPic1);
@@ -320,9 +326,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+//				DeletePatientUI deletePatient = new DeletePatientUI();
 				try {
-					deletePatient.start(stage);
+//					deletePatient.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -351,6 +357,7 @@ public class AdminDashboard extends Application {
 		Text textAddPharmacy = new Text("ADD \n PHARMACY");
 		textAddPharmacy.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textAddPharmacy.setFill(Color.WHITE);
+		textAddPharmacy.setTextAlignment(TextAlignment.CENTER);
 
 		Image addPharmacyPic1 = new Image("images/pharmacyyy-01.png");
 		ImageView addPharmacyPic2 = new ImageView(addPharmacyPic1);
@@ -372,9 +379,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+//				DeletePatientUI deletePatient = new DeletePatientUI();
 				try {
-					deletePatient.start(stage);
+//					deletePatient.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -403,6 +410,7 @@ public class AdminDashboard extends Application {
 		Text textDeletePharmacy1 = new Text("DELETE \n PHARMACY");
 		textDeletePharmacy1.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textDeletePharmacy1.setFill(Color.WHITE);
+		textDeletePharmacy1.setTextAlignment(TextAlignment.CENTER);
 
 		Image deletePharmacyPic1 = new Image("images/pharmacyyy-01.png");
 		ImageView deletePharmacyPic2 = new ImageView(deletePharmacyPic1);
@@ -424,9 +432,9 @@ public class AdminDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				DeletePatientUI deletePatient = new DeletePatientUI();
+//				DeletePatientUI deletePatient = new DeletePatientUI();
 				try {
-					deletePatient.start(stage);
+//					deletePatient.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

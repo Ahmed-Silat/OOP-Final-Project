@@ -126,12 +126,12 @@ public class Database {
 	public static ArrayList<String> getConditioinalDataFromDb(String tableName, String colName, String conditionCol,
 			String condition) throws SQLException {
 		ArrayList<String> colData = new ArrayList<>();
-		System.out.println("herer");
+//		System.out.println("herer");
 		try (Connection connection = getConnection()) {
 			String query = "SELECT " + colName + " FROM " + tableName + " WHERE " + conditionCol + " = " + "\""
 					+ condition + "\"";
 //			String query = "SELECT " + colName + " FROM " + tableName + " WHERE " + conditionCol + " =  ahmedsilat95@gmail.com";
-			System.out.println(query);
+//			System.out.println(query);
 			try (PreparedStatement preparedStatement = connection.prepareStatement(query);
 					ResultSet resultSet = preparedStatement.executeQuery()) {
 
@@ -219,6 +219,18 @@ public class Database {
 		} else {
 			return "Something get wrong";
 		}
+	}
+
+	public static boolean isEmptyFields(String inputFields) {
+		String arr[] = inputFields.split(" ");
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(arr[i]);
+			if (arr[i].length() == 0) {
+				System.out.println("cond");
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

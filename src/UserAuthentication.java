@@ -126,9 +126,9 @@ public class UserAuthentication {
 		ArrayList<String> userData = Database.getConditioinalDataFromDb("user", "password", "email", email);
 
 		for (int i = 0; i < userData.size(); i++) {
-			System.out.println(userData.get(i));
+//			System.out.println(userData.get(i));
 			if (userData.get(i).equals(password)) {
-				System.out.println("password Found");
+//				System.out.println("password Found");
 				return true;
 			}
 		}
