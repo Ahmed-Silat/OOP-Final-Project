@@ -69,35 +69,44 @@ public class Database {
 	}
 
 	public static void insertIntoDb(String data, String tableName) throws SQLException {
-		String tableData[] = data.split(" ");
+	    String tableData[] = data.split(" ");
 
-		String colNames = getColumnNames(tableName, 2);
+	    // Start from the second column (excluding the auto-incremented primary key)
+	    String colNames = getColumnNames(tableName, 2);
 
-		String colNamesArr[] = colNames.split(",");
-		int arrLength = colNamesArr.length;
-		String values = "";
-		for (int i = 0; i < arrLength; i++) {
-			if (i < arrLength - 1) {
-				values = values + "?, ";
-			} else {
-				values = values + "?";
-			}
-		}
+	    String colNamesArr[] = colNames.split(",");
+	    int arrLength = colNamesArr.length;
+	    String values = "";
+	    for (int i = 0; i < arrLength; i++) {
+	        if (i < arrLength - 1) {
+	            values = values + "?, ";
+	        } else {
+	            values = values + "?";
+	        }
+	    }
 
-		try (Connection connection = getConnection()) {
-			String insertQuery = "INSERT INTO " + tableName + " (" + colNames + ")" + "VALUES (" + values + ")";
-			try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-				System.out.println(insertQuery);
+	    try (Connection connection = getConnection()) {
+	        String insertQuery = "INSERT INTO " + tableName + " (" + colNames + ")" + "VALUES (" + values + ")";
+	        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+	            System.out.println(insertQuery);
 
-				for (int i = 0; i < tableData.length; i++) {
-					preparedStatement.setString(i + 1, tableData[i]);
-				}
-				preparedStatement.executeUpdate();
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+	            for (int i = 0; i < tableData.length; i++) {
+	                preparedStatement.setString(i + 1, tableData[i]);
+	            }
+
+	            preparedStatement.executeUpdate();
+	            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+	                if (generatedKeys.next()) {
+	                    int generatedId = generatedKeys.getInt(1);
+	                    System.out.println("Generated ID: " + generatedId);
+	                }
+	            }
+	        }
+	    } catch (Exception e) {
+	        System.out.println(e);
+	    }
 	}
+
 
 	public static ArrayList<String> getColDataFromDb(String tableName, String colName) throws SQLException {
 		ArrayList<String> colData = new ArrayList<>();
@@ -160,6 +169,20 @@ public class Database {
 	    return data;
 	}
 
+	public static int getIdByCondition(String tableName, String idColumnName, String conditionColumnName, String conditionValue) throws SQLException {
+	    try (Connection connection = getConnection()) {
+	        String query = "SELECT " + idColumnName + " FROM " + tableName + " WHERE " + conditionColumnName + " = ?";
+	        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	            preparedStatement.setString(1, conditionValue);
+	            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	                if (resultSet.next()) {
+	                    return resultSet.getInt(idColumnName);
+	                }
+	            }
+	        }
+	    }
+	    return -1; 
+	}
 
 
 

@@ -52,7 +52,6 @@ public class LoginUI extends Application {
 	        if (!UserAuthentication.isEmailUnique(txt_email.getText())
 	                && UserAuthentication.isPasswordCorrect(txt_email.getText(), pass.getText())) {
 
-	            // Fetch the username based on the email
 	            String username = UserAuthentication.getUsername(txt_email.getText());
 
 	            Alert signInSuccessful = new Alert(Alert.AlertType.INFORMATION);

@@ -1,6 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 
 import javafx.application.Application;
@@ -14,7 +12,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -32,7 +29,7 @@ public class AddDoctor extends Application {
 
 	Scene signUpScene;
 	Stage stage;
-	TextField txt_fName, txt_lName, txt_email;
+	TextField txt_name;
 	RadioButton rb_male, rb_female;
 	ComboBox<Integer> cmb_date;
 	ComboBox<String> cmb_month, cmb_year;
@@ -40,22 +37,27 @@ public class AddDoctor extends Application {
 	ComboBox<String> cmb_specialization;
 
 	public String getDoctorDetails() {
-		String firstName = txt_fName.getText();
-		String lastName = txt_lName.getText();
-		String gender = rb_male.isSelected() ? "Male" : "Female";
-		String dob = cmb_year.getValue() + "-" + (cmb_month.getSelectionModel().getSelectedIndex() + 1) + "-"
-				+ cmb_date.getValue();
-//		String email = txt_email.getText();
-//		String password = pass.getText();
-//		String specialization = cmb_specialization.getValue();
-
-		return firstName + " " + lastName + " " + gender + " " + dob;
+	    String name = txt_name.getText();
+	    String gender = rb_male.isSelected() ? "Male" : "Female";
+	    String dob = cmb_year.getValue() + "-" + (cmb_month.getSelectionModel().getSelectedIndex() + 1) + "-"
+	            + cmb_date.getValue();
+	    
+	    try {
+	        int specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames", cmb_specialization.getValue());
+	        return name + " " + gender + " " + dob + " " + specializationId;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return "";
+	    }
 	}
+
+
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
@@ -64,13 +66,13 @@ public class AddDoctor extends Application {
 		Text mainHeading = new Text("ADD Doctor");
 		mainHeading.setStyle("-fx-font-size: 30px");
 
-		Label lbl_firstName = new Label("First Name");
-		txt_fName = new TextField();
-		txt_fName.setPromptText("Enter First Name");
+		Label lbl_firstName = new Label("Full Name");
+		txt_name = new TextField();
+		txt_name.setPromptText("Enter Full Name");
 
-		Label lbl_lastName = new Label("Last Name");
-		txt_lName = new TextField();
-		txt_lName.setPromptText("Enter Last Name");
+//		Label lbl_lastName = new Label("Last Name");
+//		txt_lName = new TextField();
+//		txt_lName.setPromptText("Enter Last Name");
 
 		Label lbl_gender = new Label("Gender");
 		ToggleGroup rb_group = new ToggleGroup();
@@ -98,16 +100,9 @@ public class AddDoctor extends Application {
 			cmb_year.getItems().add(Integer.toString(i));
 		}
 
-//		Label lbl_email = new Label("Email");
-//		txt_email = new TextField();
-//		txt_email.setPromptText("Enter Email");
-//
-//		Label lbl_password = new Label("Password");
-//		pass = new PasswordField();
-//		pass.setPromptText("Enter Password");
-
 		Label lbl_specialization = new Label("Specialization");
         cmb_specialization = new ComboBox<>();
+        
         try {
             cmb_specialization.getItems().addAll(Database.getColDataFromDb("specializations", "specializationNames"));
         } catch (SQLException e) {
@@ -128,15 +123,13 @@ public class AddDoctor extends Application {
 						successAlert.setContentText("Doctor added successfully!");
 						successAlert.showAndWait();
 						
-		                txt_fName.clear();
-		                txt_lName.clear();
+		                txt_name.clear();
+//		                txt_lName.clear();
 		                rb_male.setSelected(false);
 		                rb_female.setSelected(false);
 		                cmb_date.setValue(null);
 		                cmb_month.setValue(null);
 		                cmb_year.setValue(null);
-//		                txt_email.clear();
-//		                pass.clear();
 		                cmb_specialization.setValue(null);
 
 					} else {
@@ -159,7 +152,7 @@ public class AddDoctor extends Application {
 
 			// Validate
 			private boolean validateFields() {
-				return !txt_fName.getText().isEmpty() && !txt_lName.getText().isEmpty()
+				return !txt_name.getText().isEmpty()
 						&& (rb_male.isSelected() || rb_female.isSelected()) && cmb_date.getValue() != null
 						&& cmb_month.getValue() != null && cmb_year.getValue() != null
 						 && cmb_specialization.getValue() != null;
@@ -171,13 +164,11 @@ public class AddDoctor extends Application {
 		HBox date = new HBox(20, cmb_date, cmb_month, cmb_year);
 		date.setAlignment(Pos.CENTER);
 
-		VBox layout = new VBox(20, mainHeading, lbl_firstName, txt_fName, lbl_lastName, txt_lName, lbl_gender, gender,
-				lbl_dob, date, txt_email, lbl_specialization, cmb_specialization,
-				btn_signup);
-		txt_fName.setMaxWidth(200);
-		txt_lName.setMaxWidth(200);
-		txt_email.setMaxWidth(200);
-//		pass.setMaxWidth(200);
+		VBox layout = new VBox(20, mainHeading, lbl_firstName, txt_name, lbl_gender, gender,
+		        lbl_dob, date, lbl_specialization, cmb_specialization, btn_signup);
+
+		txt_name.setMaxWidth(200);
+//		txt_lName.setMaxWidth(200);
 		layout.setAlignment(Pos.CENTER);
 
 		btn_signup.setPadding(new Insets(5, 40, 5, 40));
