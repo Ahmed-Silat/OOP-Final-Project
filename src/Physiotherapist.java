@@ -1,3 +1,6 @@
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -115,11 +118,15 @@ public class Physiotherapist extends Application {
 		lbl_doctor.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		dr_names = new ComboBox<>();
 		dr_names.setPromptText("Select Doctor");
-		dr_names.getItems().add("Dr. Sana Komal");
-		dr_names.getItems().add("Dr. Mir Shakeel Ahmad");
-		dr_names.getItems().add("Dr. Masroor Naqvi");
-		dr_names.getItems().add("Dr. Muhammad Usman Khalid");
-		dr_names.getSelectionModel().getSelectedItem();
+		
+		try {
+		    ArrayList<String> physiotherapistNames = Database.getDataFromDb("doctor", "name", 
+		        "specializations", "s_id", "specializationNames", "Physiotherapist");
+		    
+		    dr_names.getItems().addAll(physiotherapistNames);
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
 
 		Label lbl_disease = new Label("Disease History");
 		lbl_disease.setTextFill(Color.WHITE);

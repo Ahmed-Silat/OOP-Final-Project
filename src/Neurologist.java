@@ -1,3 +1,6 @@
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -113,13 +116,19 @@ public class Neurologist extends Application {
 		Label lbl_doctor = new Label("Doctor Name");
 		lbl_doctor.setTextFill(Color.WHITE);
 		lbl_doctor.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-		dr_names = new ComboBox<>();
+
+		ComboBox<String> dr_names = new ComboBox<>();
 		dr_names.setPromptText("Select Doctor");
-		dr_names.getItems().add("Dr. Waqas H. Sheikh");
-		dr_names.getItems().add("Dr. Areeba Wasim");
-		dr_names.getItems().add("Dr. Muhammad Kalim");
-		dr_names.getItems().add("Dr. Faizan Memon");
-		dr_names.getSelectionModel().getSelectedItem();
+
+		try {
+		    ArrayList<String> neurologistNames = Database.getDataFromDb("doctor", "name", 
+		        "specializations", "s_id", "specializationNames", "Neurologist");
+		    
+		    dr_names.getItems().addAll(neurologistNames);
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
+
 
 		Label lbl_disease = new Label("Disease History");
 		lbl_disease.setTextFill(Color.WHITE);

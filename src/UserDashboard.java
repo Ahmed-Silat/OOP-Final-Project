@@ -1,4 +1,3 @@
-
 import java.io.FileInputStream;
 
 import javafx.application.Application;
@@ -48,13 +47,18 @@ import javafx.scene.Cursor;
 public class UserDashboard extends Application {
 
 	Background background;
-
+    private String loggedInUser; 
+    
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	Stage stage;
 	Rectangle pharmacyBox;
+	
+	  public void setLoggedInUser(String username) {
+	        this.loggedInUser = username;
+	    }
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -64,6 +68,10 @@ public class UserDashboard extends Application {
 		mainHeading.setText("WELCOME TO HOSPITAL MANAGEMENT SYSTEM\n");
 		mainHeading.setFont(Font.font("Helvetica", FontWeight.BOLD, 60));
 		mainHeading.setFill(Color.WHITE);
+		
+		 Text userText = new Text("Logged in as: " + loggedInUser);
+	        userText.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+	        userText.setFill(Color.WHITE);
 
 		// Rectangle box 1
 		pharmacyBox = new Rectangle();
@@ -650,7 +658,7 @@ public class UserDashboard extends Application {
 		HBox h2 = new HBox(10, box4, box5, box6);
 		h2.setAlignment(Pos.CENTER);
 
-		VBox layout = new VBox(10, mainHeading, h1, h2, center, logoutStack);
+		VBox layout = new VBox(10, mainHeading, h1, h2, center, logoutStack,userText);
 		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout, 1800, 980);
 		layout.setStyle("-fx-background-color:#2B7490");
