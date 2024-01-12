@@ -188,13 +188,13 @@ public class LoginUI extends Application {
 			public void handle(ActionEvent event) {
 //				goToUserDashboard(txt_email.getText(), pass.getText());
 				try {
-					if (!Database.isEmptyFields(getLoginDetails())) {
+//					if (!Database.isEmptyFields(getLoginDetails())) {
 						dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
-					} else {
-						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-						errorAlert.setContentText("Please fill out all the fields.");
-						errorAlert.showAndWait();
-					}
+//					} else {
+//						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+//						errorAlert.setContentText("Please fill out all the fields.");
+//						errorAlert.showAndWait();
+//					}
 //					AppointmentDataValidation adv = new AppointmentDataValidation();
 //					adv.writeData(txt_email.getText());
 				} catch (Exception e) {

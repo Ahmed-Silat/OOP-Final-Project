@@ -73,42 +73,42 @@ public class Cardiologist extends Application {
 		mainHeading.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
 		mainHeading.setFill(Color.WHITESMOKE);
 
-//		Label lbl_patient = new Label("Patient ID");
-//		lbl_patient.setTextFill(Color.WHITE);
-//		lbl_patient.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		txt_patient = new TextField();
-//		txt_patient.setPromptText("Enter Patient ID");
-//
-//		Label lbl_name = new Label("Name");
-//		lbl_name.setTextFill(Color.WHITE);
-//		lbl_name.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		txt_name = new TextField();
-//		txt_name.setPromptText("Enter Your Name");
-//
-//		Label lbl_father = new Label("Father Name");
-//		lbl_father.setTextFill(Color.WHITE);
-//		lbl_father.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		txt_father = new TextField();
-//		txt_father.setPromptText("Enter Father Name");
-//
-//		Label lbl_gender = new Label("Gender");
-//		lbl_gender.setTextFill(Color.WHITE);
-//		lbl_gender.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		ToggleGroup rb_gp = new ToggleGroup();
-//		rb_male = new RadioButton("Male");
-//		rb_female = new RadioButton("Female");
-//		rb_male.setToggleGroup(rb_gp);
-//		rb_female.setToggleGroup(rb_gp);
-//		rb_male.setTextFill(Color.WHITE);
-//		rb_male.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		rb_female.setTextFill(Color.WHITE);
-//		rb_female.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//
-//		Label lbl_date = new Label("Date of Birth");
-//		lbl_date.setTextFill(Color.WHITE);
-//		lbl_date.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		dob = new DatePicker();
-//		dob.setPromptText("Enter DOB");
+		Label lbl_patient = new Label("Patient ID");
+		lbl_patient.setTextFill(Color.WHITE);
+		lbl_patient.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+		txt_patient = new TextField();
+		txt_patient.setPromptText("Enter Patient ID");
+
+		Label lbl_name = new Label("Name");
+		lbl_name.setTextFill(Color.WHITE);
+		lbl_name.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+		txt_name = new TextField();
+		txt_name.setPromptText("Enter Your Name");
+
+		Label lbl_father = new Label("Father Name");
+		lbl_father.setTextFill(Color.WHITE);
+		lbl_father.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+		txt_father = new TextField();
+		txt_father.setPromptText("Enter Father Name");
+
+		Label lbl_gender = new Label("Gender");
+		lbl_gender.setTextFill(Color.WHITE);
+		lbl_gender.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+		ToggleGroup rb_gp = new ToggleGroup();
+		rb_male = new RadioButton("Male");
+		rb_female = new RadioButton("Female");
+		rb_male.setToggleGroup(rb_gp);
+		rb_female.setToggleGroup(rb_gp);
+		rb_male.setTextFill(Color.WHITE);
+		rb_male.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+		rb_female.setTextFill(Color.WHITE);
+		rb_female.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+
+		Label lbl_date = new Label("Date of Birth");
+		lbl_date.setTextFill(Color.WHITE);
+		lbl_date.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+		dob = new DatePicker();
+		dob.setPromptText("Enter DOB");
 
 		Label lbl_doctor = new Label("Doctor Name");
 		lbl_doctor.setTextFill(Color.WHITE);
@@ -127,16 +127,16 @@ public class Cardiologist extends Application {
 		txt_disease = new TextArea();
 		txt_disease.setPromptText("Enter Your Disease");
 
-//		HBox h1 = new HBox(75, lbl_patient, txt_patient);
-//		HBox h2 = new HBox(115, lbl_name, txt_name);
-//		HBox h3 = new HBox(45, lbl_father, txt_father);
-//		HBox h4 = new HBox(98, lbl_gender, rb_male, rb_female);
-//		h4.setMargin(rb_male, new Insets(-3, 0, 5, 0));
-//		h4.setMargin(rb_female, new Insets(-3, 0, 5, -80));
-//		HBox h5 = new HBox(50, lbl_date, dob);
+		HBox h1 = new HBox(75, lbl_patient, txt_patient);
+		HBox h2 = new HBox(115, lbl_name, txt_name);
+		HBox h3 = new HBox(45, lbl_father, txt_father);
+		HBox h4 = new HBox(98, lbl_gender, rb_male, rb_female);
+		h4.setMargin(rb_male, new Insets(-3, 0, 5, 0));
+		h4.setMargin(rb_female, new Insets(-3, 0, 5, -80));
+		HBox h5 = new HBox(50, lbl_date, dob);
 		HBox h6 = new HBox(45, lbl_doctor, dr_names);
 
-		VBox points = new VBox(40, h6);
+		VBox points = new VBox(40, h1, h2, h3, h4, h5, h6);
 		VBox disease = new VBox(30, lbl_disease, txt_disease);
 
 		HBox h = new HBox(25, points, disease);
