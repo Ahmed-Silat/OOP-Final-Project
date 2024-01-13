@@ -1,5 +1,6 @@
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.effect.DropShadow;
@@ -33,10 +35,11 @@ public class AddAppointment extends Application {
 
 	Scene signUpScene;
 	Stage stage;
-	TextField txt_ptName, txt_disease;
+	TextField txt_ptName;
 	ComboBox<String> cmb_email;
 	ComboBox<String> cmb_consultant;
 	ComboBox<String> cmb_docName;
+	TextArea txt_disease;
 //	RadioButton rb_male, rb_female;
 //	ComboBox<Integer> cmb_date;
 //	ComboBox<String> cmb_month, cmb_year;
@@ -61,8 +64,8 @@ public class AddAppointment extends Application {
 		stage = primaryStage;
 		stage.setTitle("Add-Appointments");
 
-		Text mainHeading = new Text("Add Appointment");
-		mainHeading.setStyle("-fx-font-size: 30px");
+		Text mainHeading = new Text("ADD APPOINTMENT");
+		mainHeading.setStyle("-fx-font-size: 40px");
 		mainHeading.setFill(Color.WHITE);
 
 		Label lbl_ptName = new Label("Patient Name");
@@ -74,7 +77,7 @@ public class AddAppointment extends Application {
 //		txt_docName = new TextField();
 //		txt_docName.setPromptText("Enter Doctor Name");
 		
-		Label lbl_email = new Label("Email");
+		Label lbl_email = new Label("Patient Email");
 		lbl_email.setTextFill(Color.WHITE);
         cmb_email = new ComboBox<>();
         try {
@@ -175,11 +178,12 @@ public class AddAppointment extends Application {
 //			cmb_year.getItems().add(Integer.toString(i));
 //		}
 //        
-
-		Label lbl_disease = new Label("Disease");
+		
+		Label lbl_disease = new Label("Disease History");
 		lbl_disease.setTextFill(Color.WHITE);
-		txt_disease = new PasswordField();
-		txt_disease.setPromptText("Enter Disease");
+		lbl_disease.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
+		txt_disease = new TextArea();
+		txt_disease.setPromptText("Enter Your Disease");
 
 
 		Button btn_signup = new Button();
@@ -246,7 +250,8 @@ public class AddAppointment extends Application {
 				btn_signup);
 		
 		txt_ptName.setMaxWidth(200);
-		txt_disease.setMaxWidth(200);
+		txt_disease.setMaxWidth(230);
+		txt_disease.setMaxHeight(120);
 		layout.setAlignment(Pos.CENTER);
 
 		btn_signup.setPadding(new Insets(5, 40, 5, 40));
