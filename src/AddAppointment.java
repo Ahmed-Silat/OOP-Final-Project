@@ -124,7 +124,7 @@ public class AddAppointment extends Application {
         Label lbl_docName = new Label("Doctor Name");
         cmb_docName = new ComboBox<>();
         try {
-        	cmb_docName.getItems().addAll(Database.getColDataFromDb("doctor", "first_name, last_name"));
+        	cmb_docName.getItems().addAll(Database.getColDataFromDb("doctor", "name"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
