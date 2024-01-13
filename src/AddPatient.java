@@ -1,4 +1,5 @@
 import java.io.FileInputStream;
+import java.sql.SQLException;
 
 import org.w3c.dom.UserDataHandler;
 
@@ -79,6 +80,46 @@ public class AddPatient extends Application {
 //		userData.setConfirmPassword(rePass.getText());
 //		return userData;
 //	}
+
+	public void goToDashboard() {
+//		UserAuthentication auth = new UserAuthentication();
+//		if (auth.signUp(getUserDetails()) == true) {
+//		List<String> arr = Database.getConditioinalDataFromDb("user", "email", "email", txt_email.getText());
+		try {
+			if (UserAuthentication.isEmailUnique(txt_email.getText()) == true) {
+				Alert signUpSuccessful = new Alert(Alert.AlertType.INFORMATION);
+				signUpSuccessful.setContentText("Patient Added Successfully");
+				signUpSuccessful.show();
+//				UserDashboard userDashboard = new UserDashboard();
+//				try {
+//					userDashboard.start(stage);
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+			} else {
+//				auth.signUp(getUserDetails());
+				Alert loginError = new Alert(Alert.AlertType.ERROR);
+				loginError.setContentText("Email Already Exist");
+				loginError.show();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public String getPatientDetails() {
+		String firstName = txt_fName.getText();
+		String lastName = txt_lName.getText();
+		String gender = rb_male.isSelected() ? "Male" : "Female";
+		String dob = cmb_year.getValue() + "-" + (cmb_month.getSelectionModel().getSelectedIndex() + 1) + "-"
+				+ cmb_date.getValue();
+		String email = txt_email.getText();
+		String password = pass.getText();
+
+		return firstName + " " + lastName + " " + gender + " " + dob + " " + email + " " + password;
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -185,13 +226,39 @@ public class AddPatient extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-//					UserAuthentication auth = new UserAuthentication();
-//					auth.signUp(getUserDetails());
+					if (validateFields()) {
+//						if(!Database.isEmptyFields(getPatientDetails())) {
+						goToDashboard();
+						Database.insertIntoDb(getPatientDetails(), "user");
+						txt_fName.clear();
+						txt_lName.clear();
+						rb_male.setSelected(false);
+						rb_female.setSelected(false);
+						cmb_date.setValue(null);
+						cmb_month.setValue(null);
+						cmb_year.setValue(null);
+						txt_email.clear();
+						pass.clear();
+						rePass.clear();
+
+
+					} else {
+						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+						errorAlert.setContentText("Please fill out all the fields.");
+						errorAlert.showAndWait();
+					}
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
 					loginError.setContentText("Please fill out all the fields");
 					loginError.show();
 				}
+			}
+
+			private boolean validateFields() {
+				return !txt_fName.getText().isEmpty() && !txt_lName.getText().isEmpty()
+						&& (rb_male.isSelected() || rb_female.isSelected()) && cmb_date.getValue() != null
+						&& cmb_month.getValue() != null && cmb_year.getValue() != null && !txt_email.getText().isEmpty()
+						&& !pass.getText().isEmpty() && !rePass.getText().isEmpty();
 			}
 		});
 

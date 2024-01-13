@@ -54,14 +54,13 @@ public class AdminDashboard extends Application {
 
 		VBox addPatientVBox = new VBox(10, patientPic1, textAddPatient);
 		addPatientVBox.setAlignment(Pos.CENTER);
-		
+
 		Button addPatientBtn = new Button();
 		addPatientBtn.setCursor(Cursor.HAND);
-		addPatientBtn.setPadding(new Insets(20,60,20,60));
+		addPatientBtn.setPadding(new Insets(20, 60, 20, 60));
 		addPatientBtn.setStyle(
 				"-fx-background-color: #3E77B6;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
 		addPatientBtn.setGraphic(addPatientVBox);
-		
 
 		DropShadow addPatientDropShadow = new DropShadow();
 		DropShadow shade3 = new DropShadow();
@@ -92,7 +91,7 @@ public class AdminDashboard extends Application {
 			}
 		});
 
-		//delete patients box code
+		// delete patients box code
 		Text textDeletePatient1 = new Text("DELETE \n PATIENT");
 		textDeletePatient1.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textDeletePatient1.setFill(Color.WHITE);
@@ -108,7 +107,7 @@ public class AdminDashboard extends Application {
 
 		Button deletePatientBtn1 = new Button();
 		deletePatientBtn1.setCursor(Cursor.HAND);
-		deletePatientBtn1.setPadding(new Insets(20,60,20,60));
+		deletePatientBtn1.setPadding(new Insets(20, 60, 20, 60));
 		deletePatientBtn1.setStyle(
 				"-fx-background-color: #3E77B6;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
 		deletePatientBtn1.setGraphic(deletePatientVBox1);
@@ -141,8 +140,7 @@ public class AdminDashboard extends Application {
 				}
 			}
 		});
-		
-		
+
 		// add doctors box code
 		Text textAddDoctors = new Text("ADD \n DOCTORS");
 		textAddDoctors.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
@@ -159,7 +157,7 @@ public class AdminDashboard extends Application {
 
 		Button addDoctorBtn = new Button();
 		addDoctorBtn.setCursor(Cursor.HAND);
-		addDoctorBtn.setPadding(new Insets(20,50,20,50));
+		addDoctorBtn.setPadding(new Insets(20, 50, 20, 50));
 		addDoctorBtn.setStyle(
 				"-fx-background-color: #3E77B6;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
 		addDoctorBtn.setGraphic(addDoctorVBox);
@@ -193,7 +191,6 @@ public class AdminDashboard extends Application {
 			}
 		});
 
-		
 		// delete doctor box code
 		Text textDeleteDoctor = new Text("DELETE \n DOCTOR");
 		textDeleteDoctor.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
@@ -210,7 +207,7 @@ public class AdminDashboard extends Application {
 
 		Button deleteDoctorBtn = new Button();
 		deleteDoctorBtn.setCursor(Cursor.HAND);
-		deleteDoctorBtn.setPadding(new Insets(20,50,20,50));
+		deleteDoctorBtn.setPadding(new Insets(20, 50, 20, 50));
 		deleteDoctorBtn.setStyle(
 				"-fx-background-color: #3E77B6;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
 		deleteDoctorBtn.setGraphic(deleteDoctorVBox);
@@ -245,9 +242,8 @@ public class AdminDashboard extends Application {
 				deleteDoctorBtn.setEffect(null);
 			}
 		});
-		
-		
-		//add appointment
+
+		// add appointment
 		Text textAddAppointment = new Text("ADD \n APPOINTMENT");
 		textAddAppointment.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textAddAppointment.setFill(Color.WHITE);
@@ -263,7 +259,7 @@ public class AdminDashboard extends Application {
 
 		Button addAppointmentBtn1 = new Button();
 		addAppointmentBtn1.setCursor(Cursor.HAND);
-		addAppointmentBtn1.setPadding(new Insets(20,40,20,40));
+		addAppointmentBtn1.setPadding(new Insets(20, 40, 20, 40));
 		addAppointmentBtn1.setStyle(
 				"-fx-background-color: #3E77B6;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
 		addAppointmentBtn1.setGraphic(addAppointmentVBox1);
@@ -274,8 +270,10 @@ public class AdminDashboard extends Application {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 //				DeletePatientUI deletePatient = new DeletePatientUI();
+				AddAppointment addAppointment = new AddAppointment();
 				try {
 //					deletePatient.start(stage);
+					addAppointment.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -298,9 +296,8 @@ public class AdminDashboard extends Application {
 				addAppointmentBtn1.setEffect(null);
 			}
 		});
-		
-		
-		//delete appointment
+
+		// delete appointment
 		Text textDeleteAppointment1 = new Text("DELETE \n APPOINTMENT");
 		textDeleteAppointment1.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textDeleteAppointment1.setFill(Color.WHITE);
@@ -316,7 +313,7 @@ public class AdminDashboard extends Application {
 
 		Button deleteAppointmentBtn1 = new Button();
 		deleteAppointmentBtn1.setCursor(Cursor.HAND);
-		deleteAppointmentBtn1.setPadding(new Insets(20,40,20,40));
+		deleteAppointmentBtn1.setPadding(new Insets(20, 40, 20, 40));
 		deleteAppointmentBtn1.setStyle(
 				"-fx-background-color: #3E77B6;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
 		deleteAppointmentBtn1.setGraphic(deleteAppointmentVBox1);
@@ -351,9 +348,8 @@ public class AdminDashboard extends Application {
 				deleteAppointmentBtn1.setEffect(null);
 			}
 		});
-		
-		
-		//addPharmacy
+
+		// addPharmacy
 		Text textAddPharmacy = new Text("ADD \n PHARMACY");
 		textAddPharmacy.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textAddPharmacy.setFill(Color.WHITE);
@@ -369,7 +365,7 @@ public class AdminDashboard extends Application {
 
 		Button addPharmacyBtn1 = new Button();
 		addPharmacyBtn1.setCursor(Cursor.HAND);
-		addPharmacyBtn1.setPadding(new Insets(20,40,20,40));
+		addPharmacyBtn1.setPadding(new Insets(20, 40, 20, 40));
 		addPharmacyBtn1.setStyle(
 				"-fx-background-color: #3E77B6;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
 		addPharmacyBtn1.setGraphic(addPharmacyVBox1);
@@ -404,9 +400,8 @@ public class AdminDashboard extends Application {
 				addPharmacyBtn1.setEffect(null);
 			}
 		});
-		
-		
-		//deletepharmacy
+
+		// deletepharmacy
 		Text textDeletePharmacy1 = new Text("DELETE \n PHARMACY");
 		textDeletePharmacy1.setFont(Font.font("Helvetica", FontWeight.MEDIUM, 20));
 		textDeletePharmacy1.setFill(Color.WHITE);
@@ -419,10 +414,10 @@ public class AdminDashboard extends Application {
 
 		VBox deletePharmacyVBox1 = new VBox(10, deletePharmacyPic2, textDeletePharmacy1);
 		deletePharmacyVBox1.setAlignment(Pos.CENTER);
-		
+
 		Button deletePharmacyBtn1 = new Button();
 		deletePharmacyBtn1.setCursor(Cursor.HAND);
-		deletePharmacyBtn1.setPadding(new Insets(20,40,20,40));
+		deletePharmacyBtn1.setPadding(new Insets(20, 40, 20, 40));
 		deletePharmacyBtn1.setStyle(
 				"-fx-background-color: #3E77B6;-fx-background-radius: 20px;-fx-border-radius: 20px;-fx-border-width: 5;-fx-border-color: aqua");
 		deletePharmacyBtn1.setGraphic(deletePharmacyVBox1);
@@ -457,8 +452,6 @@ public class AdminDashboard extends Application {
 				deletePharmacyBtn1.setEffect(null);
 			}
 		});
-		
-		
 
 		// logout Button box code
 		Button logoutBtn = new Button("LOGOUT");
@@ -466,7 +459,7 @@ public class AdminDashboard extends Application {
 		logoutBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		logoutBtn.setTextFill(Color.WHITE);
 		logoutBtn.setStyle("-fx-background-color: #8EA7E9; -fx-background-radius: 20px;");
-		logoutBtn.setPadding(new Insets(20,20,20,20));
+		logoutBtn.setPadding(new Insets(20, 20, 20, 20));
 		logoutBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -494,24 +487,21 @@ public class AdminDashboard extends Application {
 				logoutBtn.setEffect(null);
 			}
 		});
-		
-		HBox l1=new HBox(10, addPatientBtn, addDoctorBtn, addAppointmentBtn1, addPharmacyBtn1);
+
+		HBox l1 = new HBox(10, addPatientBtn, addDoctorBtn, addAppointmentBtn1, addPharmacyBtn1);
 		l1.setAlignment(Pos.CENTER);
 		l1.setMargin(l1, new Insets(40, 0, 40, 0));
-		
-		HBox l2=new HBox(10, deletePatientBtn1 , deleteDoctorBtn, deleteAppointmentBtn1, deletePharmacyBtn1);
+
+		HBox l2 = new HBox(10, deletePatientBtn1, deleteDoctorBtn, deleteAppointmentBtn1, deletePharmacyBtn1);
 		l2.setAlignment(Pos.CENTER);
 		l2.setMargin(l2, new Insets(40, 0, 40, 0));
-		
-		
-		
+
 		HBox logout = new HBox(logoutBtn);
 		logout.setAlignment(Pos.CENTER);
 		logout.setMargin(logoutBtn, new Insets(5, 0, 0, 3));
-		
 
 		VBox layout = new VBox(10, mainHeading, l1, l2, logout);
-		
+
 		layout.setStyle("-fx-background-color:#2B7490");
 		layout.setAlignment(Pos.CENTER);
 		scene = new Scene(layout, 1800, 980);
