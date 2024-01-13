@@ -36,9 +36,9 @@ public class DeleteDoctor extends Application {
             String tableName = "doctor";
             String colName = Database.getColumnNames(tableName, 2);
             
-            String query = "SELECT d.d_id, d.first_name, d.last_name, d.gender, d.dob, d.email, d.password, s.specializationNames " +
+            String query = "SELECT d.d_id, d.name, d.gender, d.dob, s.specializationNames " +
                     "FROM doctor d " +
-                    "JOIN specializations s ON d.specialization_id=s.s_id";
+                    "JOIN specializations s ON d.s_id=s.s_id";
             
 
             Statement statement = connection.createStatement();
@@ -58,18 +58,19 @@ public class DeleteDoctor extends Application {
             }
 
             while (resultSet.next()) {
-                int doctorId = resultSet.getInt("doctor_id");
-                String doctorFirstName = resultSet.getString("first_name");
-                String doctorLastName = resultSet.getString("last_name");
+                int doctorId = resultSet.getInt("d_id");
+                String doctorName = resultSet.getString("name");
+//                String doctorFirstName = resultSet.getString("first_name");
+//                String doctorLastName = resultSet.getString("last_name");
                 String doctorGender = resultSet.getString("gender");
                 String doctorDob = resultSet.getString("dob");
-                String doctorEmail = resultSet.getString("email");
-                String doctorPassword = resultSet.getString("password");
-                String specialization = resultSet.getString("specialization");
+//                String doctorEmail = resultSet.getString("email");
+//                String doctorPassword = resultSet.getString("password");
+                String specialization = resultSet.getString("specializationNames");
 
                 tableView.getItems().add(FXCollections.observableArrayList(
-                        String.valueOf(doctorId), doctorFirstName, doctorLastName, doctorGender,
-                        doctorDob, doctorEmail, doctorPassword, specialization)
+                        String.valueOf(doctorId), doctorName, doctorGender,
+                        doctorDob, specialization)
                 );
             }
 
