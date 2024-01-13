@@ -32,9 +32,9 @@ import javafx.stage.Stage;
 
 public class Pharmacy extends Application {
 
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	Stage stage;
 	Scene scene;
