@@ -42,27 +42,31 @@ public class SignUpUI extends Application {
 	RadioButton rb_male, rb_female;
 	ComboBox cmb_date, cmb_month, cmb_year;
 	PasswordField pass, rePass;
+	
+	static String patientName = "";
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	public void goToDashboard() {
-//		UserAuthentication auth = new UserAuthentication();
-//		if (auth.signUp(getUserDetails()) == true) {
-//		List<String> arr = Database.getConditioinalDataFromDb("user", "email", "email", txt_email.getText());
+
 		try {
 			if (UserAuthentication.isEmailUnique(txt_email.getText()) == true) {
+
 				Alert signUpSuccessful = new Alert(Alert.AlertType.INFORMATION);
 				signUpSuccessful.setContentText("You have successfully created Your Account");
 				signUpSuccessful.show();
+				
 				UserDashboard userDashboard = new UserDashboard();
-				try {
-					userDashboard.start(stage);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				patientName = patientName + txt_fName.getText() + " " + txt_lName.getText(); 
+				
+	            try {
+	                userDashboard.start(stage);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	           
 			} else {
 //				auth.signUp(getUserDetails());
 				Alert loginError = new Alert(Alert.AlertType.ERROR);
