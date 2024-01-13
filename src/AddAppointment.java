@@ -43,18 +43,14 @@ public class AddAppointment extends Application {
 //	PasswordField pass, rePass;
 	
 
-//	public String getDoctorDetails() {
-//		String firstName = txt_fName.getText();
-//		String lastName = txt_lName.getText();
-//		String gender = rb_male.isSelected() ? "Male" : "Female";
-//		String dob = cmb_year.getValue() + "-" + (cmb_month.getSelectionModel().getSelectedIndex() + 1) + "-"
-//				+ cmb_date.getValue();
-//		String email = txt_email.getText();
-//		String password = pass.getText();
-//		String specialization = cmb_specialization.getValue();
+	public String getDoctorDetails() {
+		String name = txt_ptName.getText();
+		String email = cmb_email.getValue();
+		String consultant = cmb_consultant.getValue();
 
+		return null;
 //		return firstName + " " + lastName + " " + gender + " " + dob + " " + email + " " + password;
-//	}
+	}
 
 	public static void main(String[] args) {
 		launch(args);
@@ -67,8 +63,10 @@ public class AddAppointment extends Application {
 
 		Text mainHeading = new Text("Add Appointment");
 		mainHeading.setStyle("-fx-font-size: 30px");
+		mainHeading.setFill(Color.WHITE);
 
 		Label lbl_ptName = new Label("Patient Name");
+		lbl_ptName.setTextFill(Color.WHITE);
 		txt_ptName = new TextField();
 		txt_ptName.setPromptText("Enter Patient Name");
 
@@ -77,6 +75,7 @@ public class AddAppointment extends Application {
 //		txt_docName.setPromptText("Enter Doctor Name");
 		
 		Label lbl_email = new Label("Email");
+		lbl_email.setTextFill(Color.WHITE);
         cmb_email = new ComboBox<>();
         try {
         	cmb_email.getItems().addAll(Database.getColDataFromDb("user", "email"));
@@ -112,6 +111,7 @@ public class AddAppointment extends Application {
 //		}
 
 		Label lbl_consultant = new Label("Consultant");
+		lbl_consultant.setTextFill(Color.WHITE);
         cmb_consultant = new ComboBox<>();
         try {
         	cmb_consultant.getItems().addAll(Database.getColDataFromDb("specializations", "specializationNames"));
@@ -122,6 +122,7 @@ public class AddAppointment extends Application {
         cmb_consultant.setPromptText("Select Consultant");
         
         Label lbl_docName = new Label("Doctor Name");
+        lbl_docName.setTextFill(Color.WHITE);
         cmb_docName = new ComboBox<>();
         try {
         	cmb_docName.getItems().addAll(Database.getColDataFromDb("doctor", "name"));
@@ -131,6 +132,30 @@ public class AddAppointment extends Application {
 
         cmb_docName.setPromptText("Select Doctor");
 		
+        cmb_consultant.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String selectedConsultant = cmb_consultant.getValue();
+
+                // Fetch specialization ID based on selected consultant
+                int specializationId = -1; // Set a default value
+                try {
+                    specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames", selectedConsultant);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                // Fetch doctor names based on specialization ID
+                if (specializationId != -1) {
+                    try {
+                        cmb_docName.getItems().clear();
+                        cmb_docName.getItems().addAll(Database.getDataFromDb("doctor", "name", "specializations", "s_id", "s_id", String.valueOf(specializationId), "INNER JOIN"));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 //		Label lbl_date = new Label("Date");
 //
 //		cmb_date = new ComboBox<>();
@@ -152,6 +177,7 @@ public class AddAppointment extends Application {
 //        
 
 		Label lbl_disease = new Label("Disease");
+		lbl_disease.setTextFill(Color.WHITE);
 		txt_disease = new PasswordField();
 		txt_disease.setPromptText("Enter Disease");
 

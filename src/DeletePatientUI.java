@@ -86,7 +86,7 @@
 //		HBox goBack = new HBox(backBtn);
 //		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 //		backBtn.setTextFill(Color.WHITE);
-//		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+//		backBtn.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
 //		backBtn.setPadding(new Insets(0, 20, 0, 20));
 //		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 //
@@ -126,7 +126,7 @@
 //
 //		txt_email.setMaxWidth(200);
 //		deleteBtn.setPadding(new Insets(5, 50, 5, 50));
-//		deleteBtn.setStyle("-fx-font-size: 30px;-fx-background-color: #7d1211;");
+//		deleteBtn.setStyle("-fx-font-size: 30px;-fx-background-color: black;");
 //		deleteBtn.setTextFill(Color.WHITE);
 //		DropShadow shade1 = new DropShadow();
 //		deleteBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {

@@ -89,7 +89,7 @@ public class DeleteDoctor extends Application {
         HBox goBack = new HBox(backBtn);
         backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
         backBtn.setTextFill(Color.WHITE);
-        backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+        backBtn.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
         backBtn.setPadding(new Insets(0, 20, 0, 20));
 
         DropShadow shadowBack = new DropShadow();
@@ -110,7 +110,7 @@ public class DeleteDoctor extends Application {
         deleteButton.setCursor(Cursor.HAND);
         deleteButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
         deleteButton.setTextFill(Color.WHITE);
-        deleteButton.setStyle("-fx-background-color: red; -fx-background-radius: 20px;");
+        deleteButton.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
         deleteButton.setPadding(new Insets(0, 20, 0, 20));
 
         DropShadow shadowDelete = new DropShadow();
