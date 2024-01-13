@@ -122,7 +122,7 @@ public class Neurologist extends Application {
 
 		try {
 		    ArrayList<String> neurologistNames = Database.getDataFromDb("doctor", "name", 
-		        "specializations", "s_id", "specializationNames", "Neurologist");
+		        "specializations", "s_id", "specializationNames", "Neurologist", "INNER JOIN");
 		    
 		    dr_names.getItems().addAll(neurologistNames);
 		} catch (SQLException e) {
@@ -161,7 +161,7 @@ public class Neurologist extends Application {
 		HBox save = new HBox(saveBtn);
 		saveBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		saveBtn.setTextFill(Color.WHITE);
-		saveBtn.setStyle("-fx-background-color: blue;-fx-background-radius: 20px;");
+		saveBtn.setStyle("-fx-background-color: black;-fx-background-radius: 20px;");
 		saveBtn.setPadding(new Insets(10, 40, 10, 40));
 
 		DropShadow shadowsave = new DropShadow();
@@ -185,7 +185,7 @@ public class Neurologist extends Application {
 		HBox cancel = new HBox(cancelBtn);
 		cancelBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		cancelBtn.setTextFill(Color.WHITE);
-		cancelBtn.setStyle("-fx-background-color: red;-fx-background-radius: 20px;");
+		cancelBtn.setStyle("-fx-background-color: black ;-fx-background-radius: 20px;");
 		cancelBtn.setPadding(new Insets(10, 30, 10, 30));
 
 		cancelBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -229,7 +229,7 @@ public class Neurologist extends Application {
 		HBox goBack = new HBox(backBtn);
 		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		backBtn.setTextFill(Color.WHITE);
-		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+		backBtn.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
 		backBtn.setPadding(new Insets(0, 20, 0, 20));
 		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 

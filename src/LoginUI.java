@@ -144,6 +144,7 @@ public class LoginUI extends Application {
 		login_stage = primaryStage;
 
 		Text mainHeading = new Text("Login");
+		mainHeading.setFill(Color.WHITE);
 		mainHeading.setStyle("-fx-font-size: 30px");
 
 		Image loginImage = new Image("images/login.png", 60, 60, false, false);
@@ -161,6 +162,7 @@ public class LoginUI extends Application {
 		pass = new PasswordField();
 		pass.setPromptText("Enter Password");
 		CheckBox chk = new CheckBox("Show password");
+		chk.setTextFill(Color.WHITE);
 		TextField passwordText = new TextField();
 		passwordText.setPromptText("Enter Password");
 		chk.setOnAction(new EventHandler<ActionEvent>() {
@@ -251,7 +253,8 @@ public class LoginUI extends Application {
 		login_btn.setCursor(Cursor.HAND);
 
 		signup_btn.setPadding(new Insets(5, 40, 5, 40));
-		signup_btn.setStyle("-fx-font-size: 30px;-fx-background-color: #FFE5B4;");
+		signup_btn.setTextFill(Color.WHITE);
+		signup_btn.setStyle("-fx-font-size: 30px;-fx-background-color: black");
 		DropShadow shade2 = new DropShadow();
 		signup_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 

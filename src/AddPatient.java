@@ -128,6 +128,7 @@ public class AddPatient extends Application {
 //		userData = new User();
 
 		Text mainHeading = new Text("ADD PATIENT");
+		mainHeading.setFill(Color.WHITE);
 		mainHeading.setStyle("-fx-font-size: 30px");
 
 //		Image signupImage = new Image("images/signup.png", 100, 100, false, false);
@@ -144,7 +145,9 @@ public class AddPatient extends Application {
 		Label lbl_gender = new Label("Gender");
 		ToggleGroup rb_group = new ToggleGroup();
 		rb_female = new RadioButton("Female");
+		rb_female.setTextFill(Color.WHITE);
 		rb_male = new RadioButton("Male");
+		rb_male.setTextFill(Color.WHITE);
 		rb_female.setToggleGroup(rb_group);
 		rb_male.setToggleGroup(rb_group);
 
@@ -175,6 +178,8 @@ public class AddPatient extends Application {
 		pass = new PasswordField();
 		pass.setPromptText("Enter Password");
 		CheckBox chk1 = new CheckBox("Show password");
+		chk1.setTextFill(Color.WHITE);
+		
 		TextField passwordText1 = new TextField();
 		passwordText1.setPromptText("Enter Password");
 		chk1.setOnAction(new EventHandler<ActionEvent>() {
@@ -199,6 +204,7 @@ public class AddPatient extends Application {
 		rePass = new PasswordField();
 		rePass.setPromptText("Re-Enter Password");
 		CheckBox chk2 = new CheckBox("Show password");
+		chk2.setTextFill(Color.WHITE);
 		TextField passwordText2 = new TextField();
 		passwordText2.setPromptText("Re-Enter Password");
 		chk2.setOnAction(new EventHandler<ActionEvent>() {
@@ -304,7 +310,7 @@ public class AddPatient extends Application {
 		HBox goBack = new HBox(backBtn);
 		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		backBtn.setTextFill(Color.WHITE);
-		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+		backBtn.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
 		backBtn.setPadding(new Insets(0, 20, 0, 20));
 		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 

@@ -64,9 +64,11 @@ public class AddDoctor extends Application {
 		stage.setTitle("Add-Doctors");
 
 		Text mainHeading = new Text("ADD Doctor");
+		mainHeading.setFill(Color.WHITE);
 		mainHeading.setStyle("-fx-font-size: 30px");
 
 		Label lbl_firstName = new Label("Full Name");
+		lbl_firstName.setTextFill(Color.WHITE);
 		txt_name = new TextField();
 		txt_name.setPromptText("Enter Full Name");
 
@@ -75,13 +77,17 @@ public class AddDoctor extends Application {
 //		txt_lName.setPromptText("Enter Last Name");
 
 		Label lbl_gender = new Label("Gender");
+		lbl_gender.setTextFill(Color.WHITE);
 		ToggleGroup rb_group = new ToggleGroup();
 		rb_female = new RadioButton("Female");
+		rb_female.setTextFill(Color.WHITE);
 		rb_male = new RadioButton("Male");
+		rb_male.setTextFill(Color.WHITE);
 		rb_female.setToggleGroup(rb_group);
 		rb_male.setToggleGroup(rb_group);
 
 		Label lbl_dob = new Label("Date Of Birth");
+		lbl_dob.setTextFill(Color.WHITE);
 
 		cmb_date = new ComboBox<>();
 		cmb_date.setPromptText("Date");
@@ -101,6 +107,7 @@ public class AddDoctor extends Application {
 		}
 
 		Label lbl_specialization = new Label("Specialization");
+		lbl_specialization.setTextFill(Color.WHITE);
         cmb_specialization = new ComboBox<>();
         
         try {
@@ -113,6 +120,8 @@ public class AddDoctor extends Application {
 
 		Button btn_signup = new Button();
 		btn_signup.setText("ADD");
+		//btn_signup.setTextFill(Color.WHITE);
+		btn_signup.setStyle("-fx-background-color: #000000; -fx-text-fill: white;");
 		btn_signup.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -193,7 +202,7 @@ public class AddDoctor extends Application {
 		HBox goBack = new HBox(backBtn);
 		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		backBtn.setTextFill(Color.WHITE);
-		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+		backBtn.setStyle("-fx-background-color: #000000; -fx-text-fill: white; -fx-background-radius: 10px; -fx-shape: \"M 0 0 L 100 0 L 100 100 L 0 100 Z\";");
 		backBtn.setPadding(new Insets(0, 20, 0, 20));
 		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 

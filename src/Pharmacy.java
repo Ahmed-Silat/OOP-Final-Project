@@ -101,7 +101,7 @@ public class Pharmacy extends Application {
 		HBox goBack = new HBox(backBtn);
 		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		backBtn.setTextFill(Color.WHITE);
-		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
+		backBtn.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
 		backBtn.setPadding(new Insets(0, 20, 0, 20));
 		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 
@@ -137,17 +137,17 @@ public class Pharmacy extends Application {
 
 		// Main Heading
 		HBox heading = new HBox(20, mainHeading);
-		heading.setMargin(mainHeading, new Insets(0, 0, 0, 820));
+		heading.setMargin(mainHeading, new Insets(170, 0, -20, 820));
 
 		// Purchase button
 		Button purchaseBtn = new Button();
 		purchaseBtn.setText("Purchase");
 		purchaseBtn.setCursor(Cursor.HAND);
 		HBox purchaseButton = new HBox(purchaseBtn);
-		purchaseButton.setMargin(purchaseBtn, new Insets(50, 0, 0, 110));
+		purchaseButton.setMargin(purchaseBtn, new Insets(30, 10, 0, 50));
 		purchaseBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 30));
 		purchaseBtn.setTextFill(Color.WHITE);
-		purchaseBtn.setStyle("-fx-background-color: green; -fx-background-radius: 35px;");
+		purchaseBtn.setStyle("-fx-background-color: black; -fx-background-radius: 35px;");
 
 		purchaseBtn.setPadding(new Insets(10, 50, 10, 50));
 

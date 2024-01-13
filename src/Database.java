@@ -146,15 +146,15 @@ public class Database {
 	}
 	
 	// get doctors with join
-	public static ArrayList<String> getDataFromDb(String tableName, String targetColumn, 
-	        String joinTable, String joinColumn, String conditionColumn, String conditionValue) throws SQLException {
+	public static ArrayList<String> getDataFromDb(String tableName, String targetColumn,
+	        String joinTable, String joinColumn, String conditionColumn, String conditionValue, String join) throws SQLException {
 	    ArrayList<String> data = new ArrayList<>();
 	    try (Connection connection = getConnection()) {
 	        String query = "SELECT " + tableName + "." + targetColumn +
-	                       " FROM " + tableName +
-	                       " INNER JOIN " + joinTable +
-	                       " ON " + tableName + "." + joinColumn + " = " + joinTable + "." + joinColumn +
-	                       " WHERE " + joinTable + "." + conditionColumn + " = ?";
+	                " FROM " + tableName +
+	                " " + join + " " + joinTable +
+	                " ON " + tableName + "." + joinColumn + " = " + joinTable + "." + joinColumn +
+	                " WHERE " + joinTable + "." + conditionColumn + " = ?";
 	        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 	            preparedStatement.setString(1, conditionValue);
 	            try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -168,6 +168,7 @@ public class Database {
 	    }
 	    return data;
 	}
+
 
 	public static int getIdByCondition(String tableName, String idColumnName, String conditionColumnName, String conditionValue) throws SQLException {
 	    try (Connection connection = getConnection()) {
@@ -210,8 +211,6 @@ public class Database {
 		}
 		return arr;
 	}
-	
-	
 
 	public static String getErrorMessage(SQLException e) {
 		if (e.getMessage().contains("Duplicate entry")) {

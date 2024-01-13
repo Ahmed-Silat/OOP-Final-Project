@@ -30,6 +30,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class SignUpUI extends Application {
@@ -118,10 +119,12 @@ public class SignUpUI extends Application {
 //		userData = new User();
 
 		Text mainHeading = new Text("Signup");
+		mainHeading.setFill(Color.WHITE);
 		mainHeading.setStyle("-fx-font-size: 30px");
 
-		Image signupImage = new Image("images/signup.png", 100, 100, false, false);
+		Image signupImage = new Image("images/signup.png", 200, 60, false, false);
 		ImageView signupImageView = new ImageView(signupImage);
+		signupImageView.setFitWidth(100);
 
 		Label lbl_firstName = new Label("First Name");
 		txt_fName = new TextField();
@@ -134,7 +137,9 @@ public class SignUpUI extends Application {
 		Label lbl_gender = new Label("Gender");
 		ToggleGroup rb_group = new ToggleGroup();
 		rb_female = new RadioButton("Female");
+		rb_female.setTextFill(Color.WHITE);
 		rb_male = new RadioButton("Male");
+		rb_male.setTextFill(Color.WHITE);
 		rb_female.setToggleGroup(rb_group);
 		rb_male.setToggleGroup(rb_group);
 
@@ -165,6 +170,7 @@ public class SignUpUI extends Application {
 		pass = new PasswordField();
 		pass.setPromptText("Enter Password");
 		CheckBox chk1 = new CheckBox("Show password");
+		chk1.setTextFill(Color.WHITE);
 		TextField passwordText1 = new TextField();
 		passwordText1.setPromptText("Enter Password");
 		chk1.setOnAction(new EventHandler<ActionEvent>() {
@@ -189,6 +195,7 @@ public class SignUpUI extends Application {
 		rePass = new PasswordField();
 		rePass.setPromptText("Re-Enter Password");
 		CheckBox chk2 = new CheckBox("Show password");
+		chk2.setTextFill(Color.WHITE);
 		TextField passwordText2 = new TextField();
 		passwordText2.setPromptText("Re-Enter Password");
 		chk2.setOnAction(new EventHandler<ActionEvent>() {
@@ -296,8 +303,9 @@ public class SignUpUI extends Application {
 		layout.setMargin(rePass, new Insets(-51, 0, 0, 0));
 		layout.setMargin(chk2, new Insets(-18, 0, 0, -65));
 
-		btn_signup.setPadding(new Insets(5, 40, 5, 40));
-		btn_signup.setStyle("-fx-font-size: 30px;-fx-background-color: #FFE5B4;");
+		btn_signup.setPadding(new Insets(10, 40, 5, 40));
+		btn_signup.setStyle("-fx-font-size: 30px;-fx-background-color: black;");
+		btn_signup.setTextFill(Color.WHITE);
 		DropShadow shade2 = new DropShadow();
 		btn_signup.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 

@@ -123,9 +123,9 @@ public class Cardiologist extends Application {
 		lbl_doctor.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		dr_names = new ComboBox<>();
 		dr_names.setPromptText("Select Doctor");
-		try {
+		try {   
 		    ArrayList<String> cardiologistNames = Database.getDataFromDb("doctor", "name", 
-		        "specializations", "s_id", "specializationNames", "Cardiologist");
+		        "specializations", "s_id", "specializationNames", "Cardiologist", "INNER JOIN");
 		    
 		    dr_names.getItems().addAll(cardiologistNames);
 		} catch (SQLException e) {
