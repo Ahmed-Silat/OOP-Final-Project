@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -46,6 +47,15 @@ public class LoginUI extends Application {
 	PasswordField pass;
 	ComboBox cmb_users;
 	String loginEmail = "";
+	static String userName = "";
+
+	public String getUserName(String loginEmail) throws SQLException {
+		String patientName = "";
+		ArrayList<String> firstName = Database.getConditioinalDataFromDb("user", "first_name", "email", loginEmail);
+		ArrayList<String> lastName = Database.getConditioinalDataFromDb("user", "last_name", "email", loginEmail);
+
+		return patientName = firstName.get(0) + " " + lastName.get(0);
+	}
 
 	public String getLoginDetails() {
 		String user = cmb_users.getValue().toString();
@@ -56,35 +66,30 @@ public class LoginUI extends Application {
 	}
 
 	public void goToUserDashboard() {
-	    try {
-	        if (!UserAuthentication.isEmailUnique(txt_email.getText())
-	                && UserAuthentication.isPasswordCorrect(txt_email.getText(), pass.getText())) {
+		try {
+			if (!UserAuthentication.isEmailUnique(txt_email.getText())
+					&& UserAuthentication.isPasswordCorrect(txt_email.getText(), pass.getText())) {
 
-	            String username = UserAuthentication.getUsername(txt_email.getText());
+				Alert signInSuccessful = new Alert(Alert.AlertType.INFORMATION);
+				signInSuccessful.setContentText("You have successfully Logged In");
+				signInSuccessful.show();
 
-	            Alert signInSuccessful = new Alert(Alert.AlertType.INFORMATION);
-	            signInSuccessful.setContentText("You have successfully Logged In");
-	            signInSuccessful.show();
+				UserDashboard userDashboard = new UserDashboard();
 
-	            UserDashboard userDashboard = new UserDashboard();
-	            userDashboard.setLoggedInUser(username);
-
-	            try {
-	                userDashboard.start(login_stage);
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-	        } else {
-	            Alert loginError = new Alert(Alert.AlertType.ERROR);
-	            loginError.setContentText("Invalid Email or Password");
-	            loginError.show();
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+				try {
+					userDashboard.start(login_stage);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				Alert loginError = new Alert(Alert.AlertType.ERROR);
+				loginError.setContentText("Invalid Email or Password");
+				loginError.show();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
-
 
 	public void goToAdminDashboard() {
 //		AdminAuthentication admin = new AdminAuthentication();
@@ -185,7 +190,9 @@ public class LoginUI extends Application {
 //				goToUserDashboard(txt_email.getText(), pass.getText());
 				try {
 //					if (!Database.isEmptyFields(getLoginDetails())) {
-						dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
+					userName = getUserName(txt_email.getText());
+					dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
+					userName = "";
 //					} else {
 //						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 //						errorAlert.setContentText("Please fill out all the fields.");

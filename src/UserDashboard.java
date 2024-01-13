@@ -47,18 +47,18 @@ import javafx.scene.Cursor;
 public class UserDashboard extends Application {
 
 	Background background;
-    private String loggedInUser; 
-    
+//    private String loggedInUser; 
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	Stage stage;
 	Rectangle pharmacyBox;
-	
-	  public void setLoggedInUser(String username) {
-	        this.loggedInUser = username;
-	    }
+//	
+//	  public void setLoggedInUser(String username) {
+//	        this.loggedInUser = username;
+//	    }
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -68,10 +68,10 @@ public class UserDashboard extends Application {
 		mainHeading.setText("WELCOME TO HOSPITAL MANAGEMENT SYSTEM\n");
 		mainHeading.setFont(Font.font("Helvetica", FontWeight.BOLD, 60));
 		mainHeading.setFill(Color.WHITE);
-		
-		 Text userText = new Text("Logged in as: " + loggedInUser);
-	        userText.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-	        userText.setFill(Color.WHITE);
+
+		Text userText = new Text("Logged in as: " + UserAuthentication.getUsername());
+		userText.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		userText.setFill(Color.WHITE);
 
 		// Rectangle box 1
 		pharmacyBox = new Rectangle();
@@ -532,10 +532,8 @@ public class UserDashboard extends Application {
 		});
 		// Create a hand cursor on object
 		appointmentBtn.setCursor(Cursor.HAND);
-		
-		
-		
-		//BILING
+
+		// BILING
 		Rectangle bilingBox = new Rectangle();
 		bilingBox.setWidth(250);
 		bilingBox.setHeight(150);
@@ -545,7 +543,7 @@ public class UserDashboard extends Application {
 		bilingBox.setArcHeight(20);
 		bilingBox.setArcWidth(20);
 		Button bilingBtn = new Button("");
-		//bilingBtn.setPadding(new Insets(130, 250, 0, 0));
+		// bilingBtn.setPadding(new Insets(130, 250, 0, 0));
 		bilingBtn.setStyle("-fx-background-color: transparent;");
 		bilingBtn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -599,11 +597,6 @@ public class UserDashboard extends Application {
 		});
 		// Create a hand cursor on object
 		bilingBtn.setCursor(Cursor.HAND);
-		
-		
-		
-		
-		
 
 		// Logout Button
 		Image logout = new Image("images/Log-01.png");
@@ -658,7 +651,7 @@ public class UserDashboard extends Application {
 		HBox h2 = new HBox(10, box4, box5, box6);
 		h2.setAlignment(Pos.CENTER);
 
-		VBox layout = new VBox(10, mainHeading, h1, h2, center, logoutStack,userText);
+		VBox layout = new VBox(10, mainHeading, h1, h2, center, logoutStack, userText);
 		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout, 1800, 980);
 		layout.setStyle("-fx-background-color:#2B7490");
