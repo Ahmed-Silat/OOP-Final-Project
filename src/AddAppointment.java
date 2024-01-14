@@ -50,27 +50,30 @@ public class AddAppointment extends Application {
 //	PasswordField pass, rePass;
 
 	public String getAppointmentDetails() {
-	    String email = cmb_email.getValue();
-	    String disease = txt_disease.getText().trim();
-	    System.out.println("TextArea Input: " + disease);
+		String email = cmb_email.getValue();
+		String disease = txt_disease.getText();
 
-	    LocalDate currentDate = LocalDate.now();
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	    String formattedDate = currentDate.format(formatter);
+		String[] parts = disease.split("\\s+");
 
-	    try {
-	        int patientId = Database.getIdByCondition("user", "u_id", "email", cmb_email.getValue());
+		String formattedDisease = String.join("-", parts);
 
-	        int doctorId = Database.getIdByCondition("doctor", "d_id", "name", cmb_docName.getValue());
-	        int consultantId = Database.getIdByCondition("specializations", "s_id", "specializationNames", cmb_consultant.getValue());
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDate = currentDate.format(formatter);
 
-	        return patientId + " " + email + " " + doctorId + " " + consultantId + " " + formattedDate + " " + disease;
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return "";
-	    }
+		try {
+			int patientId = Database.getIdByCondition("user", "u_id", "email", cmb_email.getValue());
+			int doctorId = Database.getIdByCondition("doctor", "d_id", "name", cmb_docName.getValue());
+			int consultantId = Database.getIdByCondition("specializations", "s_id", "specializationNames",
+					cmb_consultant.getValue());
+
+			return patientId + " " + email + " " + doctorId + " " + consultantId + " " + formattedDate + " "
+					+ formattedDisease;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
-
 
 	public static void main(String[] args) {
 		launch(args);
@@ -146,7 +149,7 @@ public class AddAppointment extends Application {
 		Label lbl_docName = new Label("Doctor Name");
 		lbl_docName.setTextFill(Color.WHITE);
 		cmb_docName = new ComboBox<>();
-        	cmb_docName.getItems().addAll("Select Consultant");
+		cmb_docName.getItems().addAll("Select Consultant");
 
 		cmb_docName.setPromptText("Select Doctor");
 
@@ -174,24 +177,24 @@ public class AddAppointment extends Application {
 				}
 			}
 		});
-		
-		cmb_email.setOnAction(event -> {
-		    String selectedEmail = cmb_email.getValue();
-		    if (selectedEmail != null) {
-		        try {
-		            String columns = "CONCAT(first_name, ' ', last_name)";
-		            List<String> names = Database.getConditioinalDataFromDb("user", columns, "email", selectedEmail);
 
-		            if (!names.isEmpty()) {
-		                String fullName = names.get(0);
-		                txt_ptName.setText(fullName);
-		            } else {
-		            	txt_ptName.setText("");
-		            }
-		        } catch (SQLException e) {
-		            e.printStackTrace();
-		        }
-		    }
+		cmb_email.setOnAction(event -> {
+			String selectedEmail = cmb_email.getValue();
+			if (selectedEmail != null) {
+				try {
+					String columns = "CONCAT(first_name, ' ', last_name)";
+					List<String> names = Database.getConditioinalDataFromDb("user", columns, "email", selectedEmail);
+
+					if (!names.isEmpty()) {
+						String fullName = names.get(0);
+						txt_ptName.setText(fullName);
+					} else {
+						txt_ptName.setText("");
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		});
 
 //		Label lbl_date = new Label("Date");
