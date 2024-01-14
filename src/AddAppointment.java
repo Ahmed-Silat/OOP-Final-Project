@@ -53,7 +53,7 @@ public class AddAppointment extends Application {
 		String email = cmb_email.getValue();
 		String disease = txt_disease.getText();
 
-		String[] parts = disease.split("\\s+");
+		String[] parts = disease.split(" ");
 
 		String formattedDisease = String.join("-", parts);
 
