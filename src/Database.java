@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 public class Database {
 
 	// Database connection details
-	private static final String JDBC_URL = "jdbc:mysql://localhost:3308/hospitalManagementSystem";
+	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/hospitalManagementSystem";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "";
 	static String colName = "";
@@ -145,6 +145,8 @@ public class Database {
 		return colData;
 	}
 	
+	
+	
 	// get doctors with join
 	public static ArrayList<String> getDataFromDb(String tableName, String targetColumn,
 	        String joinTable, String joinColumn, String conditionColumn, String conditionValue, String join) throws SQLException {
@@ -170,9 +172,15 @@ public class Database {
 	}
 
 
-	public static int getIdByCondition(String tableName, String idColumnName, String conditionColumnName, String conditionValue) throws SQLException {
+	public static int getIdByCondition(String tableName, String idColumnName, String conditionColumnName, String conditionValue, boolean isConcatenation) throws SQLException {
 	    try (Connection connection = getConnection()) {
-	        String query = "SELECT " + idColumnName + " FROM " + tableName + " WHERE " + conditionColumnName + " = ?";
+	        String query;
+	        if (isConcatenation) {
+	            query = "SELECT " + idColumnName + " FROM " + tableName + " WHERE CONCAT(first_name, ' ', last_name) = ?";
+	        } else {
+	            query = "SELECT " + idColumnName + " FROM " + tableName + " WHERE " + conditionColumnName + " = ?";
+	        }
+
 	        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 	            preparedStatement.setString(1, conditionValue);
 	            try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -182,10 +190,8 @@ public class Database {
 	            }
 	        }
 	    }
-	    return -1; 
+	    return -1;
 	}
-
-
 
 	public static void deleteRecord(String tableName, String primaryKeyColumnName, String primaryKeyValue) {
 		try {

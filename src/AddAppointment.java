@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -44,16 +48,31 @@ public class AddAppointment extends Application {
 //	ComboBox<Integer> cmb_date;
 //	ComboBox<String> cmb_month, cmb_year;
 //	PasswordField pass, rePass;
-	
 
-	public String getDoctorDetails() {
-		String name = txt_ptName.getText();
-		String email = cmb_email.getValue();
-		String consultant = cmb_consultant.getValue();
+	public String getAppointmentDetails() {
+	    String email = cmb_email.getValue();
+	    String disease = txt_disease.getText();
 
-		return null;
-//		return firstName + " " + lastName + " " + gender + " " + dob + " " + email + " " + password;
+	    LocalDate currentDate = LocalDate.now();
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    String formattedDate = currentDate.format(formatter);
+
+	    try {
+	        // Assuming you have the full name as "John Doe" in txt_ptName.getText()
+	        String patientFullName = txt_ptName.getText();
+	        int patientId = Database.getIdByCondition("user", "u_id", "first_name", patientFullName, true);
+
+	        // Assuming you have the necessary values for doctorId and consultantId
+	        int doctorId = Database.getIdByCondition("doctor", "d_id", "name", cmb_docName.getValue(), false);
+	        int consultantId = Database.getIdByCondition("specializations", "s_id", "specializationNames", cmb_consultant.getValue(), false);
+
+	        return patientId + " " + email + " " + doctorId + " " + consultantId + " " + formattedDate + " " + disease;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return "";
+	    }
 	}
+
 
 	public static void main(String[] args) {
 		launch(args);
@@ -72,20 +91,22 @@ public class AddAppointment extends Application {
 		lbl_ptName.setTextFill(Color.WHITE);
 		txt_ptName = new TextField();
 		txt_ptName.setPromptText("Enter Patient Name");
+		// Disable the TextField
+		txt_ptName.setEditable(false);
 
 //		Label lbl_docName = new Label("Doctor Name");
 //		txt_docName = new TextField();
 //		txt_docName.setPromptText("Enter Doctor Name");
-		
+
 		Label lbl_email = new Label("Patient Email");
 		lbl_email.setTextFill(Color.WHITE);
-        cmb_email = new ComboBox<>();
-        try {
-        	cmb_email.getItems().addAll(Database.getColDataFromDb("user", "email"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        cmb_email.setPromptText("Select Email");
+		cmb_email = new ComboBox<>();
+		try {
+			cmb_email.getItems().addAll(Database.getColDataFromDb("user", "email"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		cmb_email.setPromptText("Select Email");
 
 //		Label lbl_gender = new Label("Gender");
 //		ToggleGroup rb_group = new ToggleGroup();
@@ -115,50 +136,66 @@ public class AddAppointment extends Application {
 
 		Label lbl_consultant = new Label("Consultant");
 		lbl_consultant.setTextFill(Color.WHITE);
-        cmb_consultant = new ComboBox<>();
-        try {
-        	cmb_consultant.getItems().addAll(Database.getColDataFromDb("specializations", "specializationNames"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+		cmb_consultant = new ComboBox<>();
+		try {
+			cmb_consultant.getItems().addAll(Database.getColDataFromDb("specializations", "specializationNames"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-        cmb_consultant.setPromptText("Select Consultant");
-        
-        Label lbl_docName = new Label("Doctor Name");
-        lbl_docName.setTextFill(Color.WHITE);
-        cmb_docName = new ComboBox<>();
-        try {
-        	cmb_docName.getItems().addAll(Database.getColDataFromDb("doctor", "name"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+		cmb_consultant.setPromptText("Select Consultant");
 
-        cmb_docName.setPromptText("Select Doctor");
+		Label lbl_docName = new Label("Doctor Name");
+		lbl_docName.setTextFill(Color.WHITE);
+		cmb_docName = new ComboBox<>();
+        	cmb_docName.getItems().addAll("Select Consultant");
+
+		cmb_docName.setPromptText("Select Doctor");
+
+		cmb_consultant.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				String selectedConsultant = cmb_consultant.getValue();
+
+				int specializationId = -1;
+				try {
+					specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames",
+							selectedConsultant, false);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+				if (specializationId != -1) {
+					try {
+						cmb_docName.getItems().clear();
+						cmb_docName.getItems().addAll(Database.getDataFromDb("doctor", "name", "specializations",
+								"s_id", "s_id", String.valueOf(specializationId), "INNER JOIN"));
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 		
-        cmb_consultant.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String selectedConsultant = cmb_consultant.getValue();
+		cmb_email.setOnAction(event -> {
+		    String selectedEmail = cmb_email.getValue();
+		    if (selectedEmail != null) {
+		        try {
+		            String columns = "CONCAT(first_name, ' ', last_name)";
+		            List<String> names = Database.getConditioinalDataFromDb("user", columns, "email", selectedEmail);
 
-                // Fetch specialization ID based on selected consultant
-                int specializationId = -1; // Set a default value
-                try {
-                    specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames", selectedConsultant);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+		            if (!names.isEmpty()) {
+		                String fullName = names.get(0);
+		                txt_ptName.setText(fullName);
+		            } else {
+		            	txt_ptName.setText("");
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		});
 
-                // Fetch doctor names based on specialization ID
-                if (specializationId != -1) {
-                    try {
-                        cmb_docName.getItems().clear();
-                        cmb_docName.getItems().addAll(Database.getDataFromDb("doctor", "name", "specializations", "s_id", "s_id", String.valueOf(specializationId), "INNER JOIN"));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
 //		Label lbl_date = new Label("Date");
 //
 //		cmb_date = new ComboBox<>();
@@ -178,13 +215,12 @@ public class AddAppointment extends Application {
 //			cmb_year.getItems().add(Integer.toString(i));
 //		}
 //        
-		
+
 		Label lbl_disease = new Label("Disease History");
 		lbl_disease.setTextFill(Color.WHITE);
 		lbl_disease.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		txt_disease = new TextArea();
 		txt_disease.setPromptText("Enter Your Disease");
-
 
 		Button btn_signup = new Button();
 		btn_signup.setText("ADD");
@@ -192,50 +228,40 @@ public class AddAppointment extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-//					if (validateFields()) {
-//						Database.insertIntoDb(getDoctorDetails(), "doctor");
+					if (validateFields()) {
+						Database.insertIntoDb(getAppointmentDetails(), "appointments");
 						Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
 						successAlert.setContentText("Appointment added successfully!");
 						successAlert.showAndWait();
-						
-						txt_ptName.clear();
-//		                txt_docName.clear();
-		                cmb_email.setValue(null);
-		                cmb_consultant.setValue(null);
-//		                rb_male.setSelected(false);
-//		                rb_female.setSelected(false);
-//		                cmb_date.setValue(null);
-//		                cmb_month.setValue(null);
-//		                cmb_year.setValue(null);
-//		                cmb_date.clear();
-		                txt_disease.clear();
-//		                cmb_consultant.setValue(null);
 
-//					} else {
+						txt_ptName.clear();
+						cmb_email.setValue(null);
+						cmb_consultant.setValue(null);
+						txt_disease.clear();
+
+					} else {
 						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 						errorAlert.setContentText("Please fill out all the fields.");
 						errorAlert.showAndWait();
-//					}
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//					Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-//					errorAlert.setContentText(Database.getErrorMessage(e));
-//					errorAlert.showAndWait();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+					errorAlert.setContentText(Database.getErrorMessage(e));
+					errorAlert.showAndWait();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-					errorAlert.setContentText("Error occurred while adding the doctor. Please try again.");
+					errorAlert.setContentText("Error occurred while adding the Appointment. Please try again.");
 					errorAlert.showAndWait();
 				}
 			}
 
-			// Validate
-//			private boolean validateFields() {
-//				return !txt_fName.getText().isEmpty() && !txt_lName.getText().isEmpty()
-//						&& (rb_male.isSelected() || rb_female.isSelected()) && cmb_date.getValue() != null
-//						&& cmb_month.getValue() != null && cmb_year.getValue() != null && !txt_email.getText().isEmpty()
-//						&& !pass.getText().isEmpty() && cmb_specialization.getValue() != null;
-//			}
+//			 Validate
+			private boolean validateFields() {
+				return !txt_ptName.getText().isEmpty() && cmb_email.getValue() != null
+						&& cmb_consultant.getValue() != null && !txt_disease.getText().isEmpty();
+			}
 		});
 
 //		HBox gender = new HBox(20, rb_female, rb_male);
@@ -246,9 +272,9 @@ public class AddAppointment extends Application {
 //		VBox layout = new VBox(20, mainHeading, lbl_firstName, txt_fName, lbl_lastName, txt_lName, lbl_gender, gender,
 //				lbl_dob, date, lbl_email, txt_email, lbl_password, pass, lbl_specialization, cmb_specialization,
 //				btn_signup);
-		VBox layout = new VBox(20, mainHeading, lbl_ptName, txt_ptName, lbl_email, cmb_email, lbl_consultant, cmb_consultant, lbl_docName, cmb_docName, lbl_disease, txt_disease,  
-				btn_signup);
-		
+		VBox layout = new VBox(20, mainHeading, lbl_email, cmb_email, lbl_ptName, txt_ptName, lbl_consultant,
+				cmb_consultant, lbl_docName, cmb_docName, lbl_disease, txt_disease, btn_signup);
+
 		txt_ptName.setMaxWidth(200);
 		txt_disease.setMaxWidth(230);
 		txt_disease.setMaxHeight(120);
