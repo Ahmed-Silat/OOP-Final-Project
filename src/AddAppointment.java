@@ -51,20 +51,18 @@ public class AddAppointment extends Application {
 
 	public String getAppointmentDetails() {
 	    String email = cmb_email.getValue();
-	    String disease = txt_disease.getText();
+	    String disease = txt_disease.getText().trim();
+	    System.out.println("TextArea Input: " + disease);
 
 	    LocalDate currentDate = LocalDate.now();
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	    String formattedDate = currentDate.format(formatter);
 
 	    try {
-	        // Assuming you have the full name as "John Doe" in txt_ptName.getText()
-	        String patientFullName = txt_ptName.getText();
-	        int patientId = Database.getIdByCondition("user", "u_id", "first_name", patientFullName, true);
+	        int patientId = Database.getIdByCondition("user", "u_id", "email", cmb_email.getValue());
 
-	        // Assuming you have the necessary values for doctorId and consultantId
-	        int doctorId = Database.getIdByCondition("doctor", "d_id", "name", cmb_docName.getValue(), false);
-	        int consultantId = Database.getIdByCondition("specializations", "s_id", "specializationNames", cmb_consultant.getValue(), false);
+	        int doctorId = Database.getIdByCondition("doctor", "d_id", "name", cmb_docName.getValue());
+	        int consultantId = Database.getIdByCondition("specializations", "s_id", "specializationNames", cmb_consultant.getValue());
 
 	        return patientId + " " + email + " " + doctorId + " " + consultantId + " " + formattedDate + " " + disease;
 	    } catch (SQLException e) {
@@ -160,7 +158,7 @@ public class AddAppointment extends Application {
 				int specializationId = -1;
 				try {
 					specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames",
-							selectedConsultant, false);
+							selectedConsultant);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

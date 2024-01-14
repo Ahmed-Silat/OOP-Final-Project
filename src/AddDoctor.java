@@ -43,7 +43,7 @@ public class AddDoctor extends Application {
 	            + cmb_date.getValue();
 	    
 	    try {
-	        int specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames", cmb_specialization.getValue(), false);
+	        int specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames", cmb_specialization.getValue());
 	        return name + " " + gender + " " + dob + " " + specializationId;
 	    } catch (SQLException e) {
 	        e.printStackTrace();
