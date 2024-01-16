@@ -216,12 +216,10 @@ public class AdminDashboard extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 				DeleteDoctor deleteDoctor = new DeleteDoctor();
 				try {
 					deleteDoctor.start(stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -268,14 +266,10 @@ public class AdminDashboard extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-//				DeletePatientUI deletePatient = new DeletePatientUI();
 				AddAppointment addAppointment = new AddAppointment();
 				try {
-//					deletePatient.start(stage);
 					addAppointment.start(stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -322,10 +316,9 @@ public class AdminDashboard extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-//				DeletePatientUI deletePatient = new DeletePatientUI();
+				DeleteAppointment deleteAppointment = new DeleteAppointment();
 				try {
-//					deletePatient.start(stage);
+					deleteAppointment.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -374,12 +367,10 @@ public class AdminDashboard extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 //				DeletePatientUI deletePatient = new DeletePatientUI();
 				try {
 //					deletePatient.start(stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
