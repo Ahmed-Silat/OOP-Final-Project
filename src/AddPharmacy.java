@@ -54,17 +54,14 @@ public class AddPharmacy extends Application {
 		String medicineName = txt_medicine.getText();
 		String companyName = txt_company.getText();
 		LocalDate dateOfManufacture = manufacture_date.getValue();
-		String formattedDateManufacture = dateOfManufacture.toString();
 		LocalDate dateOfExpiry = expiry_date.getValue();
-		String formattedDateExpiry = dateOfExpiry.toString();
-		String quantity = (String) spinner.getValue();
-		String price = txt_price.getText();
-		System.out.println(medicineName + " " + companyName + " " + formattedDateManufacture + " " + formattedDateExpiry
-				+ " " + quantity + " " + price);
+		int quantity = (int) spinner.getValue();
+		int price = Integer.parseInt(txt_price.getText());
+
 
 //	    try {
 //	        int specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames", cmb_specialization.getValue());
-		return medicineName + " " + companyName + " " + formattedDateManufacture + " " + formattedDateExpiry + " "
+		return medicineName + " " + companyName + " " + dateOfManufacture + " " + dateOfExpiry + " "
 				+ quantity + " " + price;
 	}
 
@@ -205,47 +202,22 @@ public class AddPharmacy extends Application {
 
 		addBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-//			public void handle(ActionEvent arg0) {
-//
-//				String data = "";
-//
-////				data += "\n\t\tMedicine Serial No: " + txt_medicineSN.getText() + "\n";
-//				data += "\t\tMedicine Name: " + txt_medicine.getText() + "\n";
-//				data += "\t\tCompany Name: " + txt_company.getText() + "\n";
-//				data += "\t\tDate Of Manufacture: " + manufacture_date.getValue() + "\n";
-//				data += "\t\tDate Of Expiry: " + expiry_date.getValue() + "\n";
-//				data += "\t\tPrice: " + txt_price.getText() + "\n";
-//
-//				Alert a = new Alert(AlertType.INFORMATION);
-//				a.setContentText("\t\t\tMedicines Purchased\n" + data);
-//				a.show();
-//
-//			}
 			public void handle(ActionEvent event) {
 				try {
 					if (validateFields()) {
 						Database.insertIntoDb(getPharmacyDetails(), "pharmacy");
-//						String data = "";
-//
-////						data += "\n\t\tMedicine Serial No: " + txt_medicineSN.getText() + "\n";
-//						data += "\t\tMedicine Name: " + txt_medicine.getText() + "\n";
-//						data += "\t\tCompany Name: " + txt_company.getText() + "\n";
-//						data += "\t\tDate Of Manufacture: " + manufacture_date.getValue() + "\n";
-//						data += "\t\tDate Of Expiry: " + expiry_date.getValue() + "\n";
-//						data += "\t\tPrice: " + txt_price.getText() + "\n";
-//
-//						Alert a = new Alert(AlertType.INFORMATION);
-//						a.setContentText("\t\t\tMedicines Purchased\n" + data);
-//						a.showAndWait();
 						Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-						successAlert.setContentText("Pharmacy added successfully!");
+						successAlert.setContentText("pharmacy added successfully!");
 						successAlert.showAndWait();
-
-//						txt_company.clear();
-//						txt_medicine.clear();
-//						manufacture_date.setValue(null);
-//						expiry_date.setValue(null);
-//						quantity.setValue(null);
+						
+						txt_medicine.clear();
+//		                txt_lName.clear();
+//		                rb_male.setSelected(false);
+//		                rb_female.setSelected(false);
+//		                cmb_date.setValue(null);
+//		                cmb_month.setValue(null);
+//		                cmb_year.setValue(null);
+//		                cmb_specialization.setValue(null);
 
 					} else {
 						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -260,15 +232,17 @@ public class AddPharmacy extends Application {
 				} catch (Exception e) {
 					e.printStackTrace();
 					Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-					errorAlert.setContentText("Error occurred while adding the Pharmacy. Please try again.");
+					errorAlert.setContentText("Error occurred while adding the doctor. Please try again.");
 					errorAlert.showAndWait();
 				}
 			}
 
-//			 Validate
+			// Validate
 			private boolean validateFields() {
-				return !txt_medicine.getText().isEmpty() && txt_company.getText().isEmpty();
-//						&& manufacture_date.getValue() != null && expiry_date.getValue() != null;
+				return !txt_medicine.getText().isEmpty();
+//						&& (rb_male.isSelected() || rb_female.isSelected()) && cmb_date.getValue() != null
+//						&& cmb_month.getValue() != null && cmb_year.getValue() != null
+//						 && cmb_specialization.getValue() != null;
 			}
 		});
 
