@@ -1,4 +1,7 @@
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+
 import javax.swing.GroupLayout.Alignment;
 
 import javafx.application.Application;
@@ -39,6 +42,32 @@ public class AddPharmacy extends Application {
 	Stage stage;
 	Scene scene;
 
+	TextField txt_medicine;
+	TextField txt_company;
+	DatePicker manufacture_date;
+	DatePicker expiry_date;
+	TextField txt_price;
+	@SuppressWarnings("rawtypes")
+	Spinner spinner;
+
+	public String getPharmacyDetails() {
+		String medicineName = txt_medicine.getText();
+		String companyName = txt_company.getText();
+		LocalDate dateOfManufacture = manufacture_date.getValue();
+		String formattedDateManufacture = dateOfManufacture.toString();
+		LocalDate dateOfExpiry = expiry_date.getValue();
+		String formattedDateExpiry = dateOfExpiry.toString();
+		String quantity = (String) spinner.getValue();
+		String price = txt_price.getText();
+		System.out.println(medicineName + " " + companyName + " " + formattedDateManufacture + " " + formattedDateExpiry
+				+ " " + quantity + " " + price);
+
+//	    try {
+//	        int specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames", cmb_specialization.getValue());
+		return medicineName + " " + companyName + " " + formattedDateManufacture + " " + formattedDateExpiry + " "
+				+ quantity + " " + price;
+	}
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
@@ -49,45 +78,42 @@ public class AddPharmacy extends Application {
 		mainHeading.setFont(Font.font("Helvetica", FontWeight.BOLD, 50));
 		mainHeading.setFill(Color.WHITE);
 
-
 		Label lbl_medicine = new Label("Medicine Name");
 		lbl_medicine.setTextFill(Color.WHITE);
 		lbl_medicine.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
-		TextField txt_medicine = new TextField();
+		txt_medicine = new TextField();
 		txt_medicine.setPromptText("Enter Medicine Name");
 
-		
 		Label lbl_company = new Label("Company Name");
 		lbl_company.setTextFill(Color.WHITE);
 		lbl_company.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
-		TextField txt_company = new TextField();
+		txt_company = new TextField();
 		txt_company.setPromptText("Enter Medicine Name");
 
 		Label lbl_manufacture = new Label("Date of Manufacture");
 		lbl_manufacture.setTextFill(Color.WHITE);
 		lbl_manufacture.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
-		DatePicker manufacture_date = new DatePicker();
+		manufacture_date = new DatePicker();
 		manufacture_date.setPromptText("Enter DOB");
 
 		Label lbl_expiry = new Label("Date of Expiry");
 		lbl_expiry.setTextFill(Color.WHITE);
 		lbl_expiry.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
-		DatePicker expiry_date = new DatePicker();
+		expiry_date = new DatePicker();
 		expiry_date.setPromptText("Enter DOE");
 
 		Label lbl_quantity = new Label("Quantity");
 		lbl_quantity.setTextFill(Color.WHITE);
 		lbl_quantity.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
-		
+
 		Label lbl_price = new Label("Price");
 		lbl_price.setTextFill(Color.WHITE);
 		lbl_price.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
-		TextField txt_price = new TextField();
+		txt_price = new TextField();
 		txt_price.setPromptText("Enter Price");
 
-
 		// Quantity Spinner
-		final Spinner spinner = new Spinner();
+		spinner = new Spinner();
 		spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10000));
 		spinner.setEditable(true);
 
@@ -179,21 +205,70 @@ public class AddPharmacy extends Application {
 
 		addBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent arg0) {
+//			public void handle(ActionEvent arg0) {
+//
+//				String data = "";
+//
+////				data += "\n\t\tMedicine Serial No: " + txt_medicineSN.getText() + "\n";
+//				data += "\t\tMedicine Name: " + txt_medicine.getText() + "\n";
+//				data += "\t\tCompany Name: " + txt_company.getText() + "\n";
+//				data += "\t\tDate Of Manufacture: " + manufacture_date.getValue() + "\n";
+//				data += "\t\tDate Of Expiry: " + expiry_date.getValue() + "\n";
+//				data += "\t\tPrice: " + txt_price.getText() + "\n";
+//
+//				Alert a = new Alert(AlertType.INFORMATION);
+//				a.setContentText("\t\t\tMedicines Purchased\n" + data);
+//				a.show();
+//
+//			}
+			public void handle(ActionEvent event) {
+				try {
+					if (validateFields()) {
+						Database.insertIntoDb(getPharmacyDetails(), "pharmacy");
+//						String data = "";
+//
+////						data += "\n\t\tMedicine Serial No: " + txt_medicineSN.getText() + "\n";
+//						data += "\t\tMedicine Name: " + txt_medicine.getText() + "\n";
+//						data += "\t\tCompany Name: " + txt_company.getText() + "\n";
+//						data += "\t\tDate Of Manufacture: " + manufacture_date.getValue() + "\n";
+//						data += "\t\tDate Of Expiry: " + expiry_date.getValue() + "\n";
+//						data += "\t\tPrice: " + txt_price.getText() + "\n";
+//
+//						Alert a = new Alert(AlertType.INFORMATION);
+//						a.setContentText("\t\t\tMedicines Purchased\n" + data);
+//						a.showAndWait();
+						Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+						successAlert.setContentText("Pharmacy added successfully!");
+						successAlert.showAndWait();
 
-				String data = "";
+//						txt_company.clear();
+//						txt_medicine.clear();
+//						manufacture_date.setValue(null);
+//						expiry_date.setValue(null);
+//						quantity.setValue(null);
 
-//				data += "\n\t\tMedicine Serial No: " + txt_medicineSN.getText() + "\n";
-				data += "\t\tMedicine Name: " + txt_medicine.getText() + "\n";
-				data += "\t\tCompany Name: " + txt_company.getText() + "\n";
-				data += "\t\tDate Of Manufacture: " + manufacture_date.getValue() + "\n";
-				data += "\t\tDate Of Expiry: " + expiry_date.getValue() + "\n";
-				data += "\t\tPrice: " + txt_price.getText() + "\n";
+					} else {
+						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+						errorAlert.setContentText("Please fill out all the fields.");
+						errorAlert.showAndWait();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+					errorAlert.setContentText(Database.getErrorMessage(e));
+					errorAlert.showAndWait();
+				} catch (Exception e) {
+					e.printStackTrace();
+					Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+					errorAlert.setContentText("Error occurred while adding the Pharmacy. Please try again.");
+					errorAlert.showAndWait();
+				}
+			}
 
-				Alert a = new Alert(AlertType.INFORMATION);
-				a.setContentText("\t\t\tMedicines Purchased\n" + data);
-				a.show();
-
+//			 Validate
+			private boolean validateFields() {
+				return !txt_medicine.getText().isEmpty() && txt_company.getText().isEmpty();
+//						&& manufacture_date.getValue() != null && expiry_date.getValue() != null;
 			}
 		});
 
