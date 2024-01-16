@@ -24,26 +24,22 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-public class UserAppointments extends Application {
+public class DeleteAppointment extends Application {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
+	@Override
 	public void start(Stage primaryStage) {
 		TableView<ObservableList<String>> tableView = new TableView<>();
 
 		try {
 			Connection connection = Database.getConnection();
 
-			String tableName = "appointments";
+			String tableName = "doctor";
 			String colName = Database.getColumnNames(tableName, 2);
 
 			String query = "SELECT a.app_id, CONCAT(u.first_name, ' ' ,u.last_name) AS patientName, a.patient_email,"
 					+ " d.name, s.specializationNames, a.DATE, a.disease FROM appointments a"
 					+ " JOIN user u ON a.patient_id = u.u_id JOIN doctor d ON d.d_id = a.doctor_name"
-					+ " JOIN specializations s ON s.s_id = a.consultant" + " WHERE a.patient_email = " + "\""
-					+ UserAuthentication.getUserEmail() + "\"";
+					+ " JOIN specializations s ON s.s_id = a.consultant";
 
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
@@ -97,19 +93,53 @@ public class UserAppointments extends Application {
 		backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, event -> backBtn.setEffect(null));
 
 		backBtn.setOnAction(event -> {
-			UserDashboard userDashboard = new UserDashboard();
+			AdminDashboard adminDashboard = new AdminDashboard();
 			try {
-				userDashboard.start(primaryStage);
+				adminDashboard.start(primaryStage);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
 
+		// Delete button
+		Button deleteButton = new Button("Delete");
+		deleteButton.setCursor(Cursor.HAND);
+		deleteButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		deleteButton.setTextFill(Color.WHITE);
+		deleteButton.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
+		deleteButton.setPadding(new Insets(0, 20, 0, 20));
+
+		DropShadow shadowDelete = new DropShadow();
+		deleteButton.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> deleteButton.setEffect(shadowDelete));
+		deleteButton.addEventHandler(MouseEvent.MOUSE_EXITED, event -> deleteButton.setEffect(null));
+
+		deleteButton.setOnAction(event -> {
+			ObservableList<String> selectedItem = tableView.getSelectionModel().getSelectedItem();
+
+			if (selectedItem != null) {
+				String primaryKeyColumnName = tableView.getColumns().get(0).getText();
+				String primaryKeyValue = selectedItem.get(0); // Assuming the first column is the primary key
+
+				// Call the generalization method for deletion
+				Database.deleteRecord("appointments", primaryKeyColumnName, primaryKeyValue);
+
+				// Remove the selected item from the TableView
+				tableView.getItems().remove(selectedItem);
+			} else {
+				// Display a message or handle the case where no item is selected
+				System.out.println("No item selected for deletion.");
+			}
+		});
+
 		HBox backButton = new HBox(10, goBack);
 
-		VBox root = new VBox(10, backButton, tableView);
+		VBox root = new VBox(10, backButton, tableView, deleteButton);
 		Scene scene = new Scene(root, 1800, 980);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
 	}
 }
