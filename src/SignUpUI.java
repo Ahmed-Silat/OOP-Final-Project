@@ -43,8 +43,9 @@ public class SignUpUI extends Application {
 	RadioButton rb_male, rb_female;
 	ComboBox cmb_date, cmb_month, cmb_year;
 	PasswordField pass, rePass;
-	
+
 	static String patientName = "";
+	static String signUpEmail = "";
 
 	public static void main(String[] args) {
 		launch(args);
@@ -58,16 +59,16 @@ public class SignUpUI extends Application {
 				Alert signUpSuccessful = new Alert(Alert.AlertType.INFORMATION);
 				signUpSuccessful.setContentText("You have successfully created Your Account");
 				signUpSuccessful.show();
-				
+
 				UserDashboard userDashboard = new UserDashboard();
-				patientName = patientName + txt_fName.getText() + " " + txt_lName.getText(); 
-				
-	            try {
-	                userDashboard.start(stage);
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-	           
+				patientName = patientName + txt_fName.getText() + " " + txt_lName.getText();
+
+				try {
+					userDashboard.start(stage);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 			} else {
 //				auth.signUp(getUserDetails());
 				Alert loginError = new Alert(Alert.AlertType.ERROR);
@@ -227,6 +228,7 @@ public class SignUpUI extends Application {
 //					if(!Database.isEmptyFields(getPatientDetails())) {
 						goToDashboard();
 						Database.insertIntoDb(getPatientDetails(), "user");
+						signUpEmail = txt_email.getText();
 						txt_fName.clear();
 						txt_lName.clear();
 						rb_male.setSelected(false);
