@@ -1,4 +1,6 @@
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -36,100 +38,52 @@ public class Cardiologist extends Application {
 
 	Stage stage;
 	Scene scene;
-//	TextField txt_patient, txt_name, txt_father;
-//	RadioButton rb_male, rb_female;
-//	DatePicker dob;
 	ComboBox<String> dr_names;
 	TextArea txt_disease;
-//	Patients patient;
 
-//	LoginUI login = new LoginUI();
+	public String getAppointmentDetails() throws SQLException {
+		String disease = txt_disease.getText();
 
-//	AppointmentDataValidation adv = new AppointmentDataValidation();
+		String[] parts = disease.split(" ");
 
-//	public Patients patientData() {
-//		patient.setEmail(adv.readData());
+		String formattedDisease = String.join("-", parts);
 
-//		patient.setPatientId(txt_patient.getText());
-////		System.out.println(txt_patient.getText());
-//		patient.setUserName(txt_name.getText());
-//		patient.setFatherName(txt_father.getText());
-//		if (rb_male.isSelected()) {
-//			patient.setGender("Male");
-//		} else if (rb_female.isSelected()) {
-//			patient.setGender("Female");
-//		}
-//		patient.setDOB(dob.getValue().toString());
-//		patient.setDoctorName(dr_names.getValue().toString());
-//		patient.setDisease(txt_disease.getText());
-//		return patient;
-//	}
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDate = currentDate.format(formatter);
+		String patientEmail = UserAuthentication.getUserEmail();
+		int patientId = Database.getIdByCondition("user", "u_id", "email", UserAuthentication.getUserEmail());
+		int doctorId = Database.getIdByCondition("doctor", "d_id", "name", dr_names.getValue());
+		int specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames",
+				"Cardiologist");
+
+		return patientId + " " + patientEmail + " " + doctorId + " " + specializationId + " " + formattedDate + " "
+				+ formattedDisease;
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
 		stage = primaryStage;
 		stage.setTitle("Book An Appointment");
-//		patient = new Patients();
 
 		Text mainHeading = new Text();
 		mainHeading.setText("CARDIOLOGIST\n");
 		mainHeading.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
 		mainHeading.setFill(Color.WHITESMOKE);
 
-//		Label lbl_patient = new Label("Patient ID");
-//		lbl_patient.setTextFill(Color.WHITE);
-//		lbl_patient.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		txt_patient = new TextField();
-//		txt_patient.setPromptText("Enter Patient ID");
-
-//		Label lbl_name = new Label("Name");
-//		lbl_name.setTextFill(Color.WHITE);
-//		lbl_name.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		txt_name = new TextField();
-//		txt_name.setPromptText("Enter Your Name");
-
-//		Label lbl_father = new Label("Father Name");
-//		lbl_father.setTextFill(Color.WHITE);
-//		lbl_father.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		txt_father = new TextField();
-//		txt_father.setPromptText("Enter Father Name");
-
-//		Label lbl_gender = new Label("Gender");
-//		lbl_gender.setTextFill(Color.WHITE);
-//		lbl_gender.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		ToggleGroup rb_gp = new ToggleGroup();
-//		rb_male = new RadioButton("Male");
-//		rb_female = new RadioButton("Female");
-//		rb_male.setToggleGroup(rb_gp);
-//		rb_female.setToggleGroup(rb_gp);
-//		rb_male.setTextFill(Color.WHITE);
-//		rb_male.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		rb_female.setTextFill(Color.WHITE);
-//		rb_female.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-
-//		Label lbl_date = new Label("Date of Birth");
-//		lbl_date.setTextFill(Color.WHITE);
-//		lbl_date.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		dob = new DatePicker();
-//		dob.setPromptText("Enter DOB");
-
-//		Label lbl_ptName = new Label(UserAuthentication.patientName());
-//		lbl_ptName.setTextFill(Color.WHITE);
-//		lbl_ptName.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-
 		Label lbl_doctor = new Label("Doctor Name");
 		lbl_doctor.setTextFill(Color.WHITE);
 		lbl_doctor.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
 		dr_names = new ComboBox<>();
 		dr_names.setPromptText("Select Doctor");
-		try {   
-		    ArrayList<String> cardiologistNames = Database.getDataFromDb("doctor", "name", 
-		        "specializations", "s_id", "specializationNames", "Cardiologist", "INNER JOIN");
-		    
-		    dr_names.getItems().addAll(cardiologistNames);
+		try {
+			ArrayList<String> cardiologistNames = Database.getDataFromDb("doctor", "name", "specializations", "s_id",
+					"specializationNames", "Cardiologist", "INNER JOIN");
+
+			dr_names.getItems().addAll(cardiologistNames);
 		} catch (SQLException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		Label lbl_disease = new Label("Disease History");
@@ -138,13 +92,6 @@ public class Cardiologist extends Application {
 		txt_disease = new TextArea();
 		txt_disease.setPromptText("Enter Your Disease");
 
-//		HBox h1 = new HBox(75, lbl_patient, txt_patient);
-//		HBox h2 = new HBox(115, lbl_name, txt_name);
-//		HBox h3 = new HBox(45, lbl_father, txt_father);
-//		HBox h4 = new HBox(98, lbl_gender, rb_male, rb_female);
-//		h4.setMargin(rb_male, new Insets(-3, 0, 5, 0));
-//		h4.setMargin(rb_female, new Insets(-3, 0, 5, -80));
-//		HBox h5 = new HBox(50, lbl_ptName);
 		HBox h6 = new HBox(45, lbl_doctor, dr_names);
 
 		VBox points = new VBox(40, h6);
@@ -198,7 +145,6 @@ public class Cardiologist extends Application {
 				try {
 					userDashboard.start(stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -259,43 +205,19 @@ public class Cardiologist extends Application {
 					String info = "";
 					String gender = "";
 
-//					info = "Patient ID: " + txt_patient.getText() + "\n";
-//					info += "Patient Name: " + txt_name.getText() + "\n";
-//					info += "Father Name: " + txt_father.getText() + "\n";
-
-//					if (rb_male.isSelected()) {
-//						gender = "Male";
-//					} else if (rb_female.isSelected()) {
-//						gender = "Female";
-//					} else {
-//						gender = "";
-//					}
-
-//					info += "Gender: " + gender + "\n";
-//
-//					info += "Date Of Birth: " + dob.getValue() + "\n";
-
 					info += "Doctor: " + dr_names.getSelectionModel().getSelectedItem() + "\n";
 
 					info += "Disease History: " + txt_disease.getText();
-
-//					info += "doctor fees:  500";
 
 					if (txt_disease.getText().equals("")) {
 						Alert nullError = new Alert(Alert.AlertType.ERROR);
 						nullError.setContentText("Fill out the Disease History Field");
 						nullError.show();
 					} else {
-
+						Database.insertIntoDb(getAppointmentDetails(), "appointments");
 						Alert a = new Alert(AlertType.INFORMATION);
 						a.setContentText("Your appointment has been booked successfully!\n\n" + info);
 						a.show();
-
-//						PatientDataFiling pdf = new PatientDataFiling();
-//					System.out.println("coming here");
-//						patientData();
-//						pdf.writeData(patient.toString());
-//					System.out.println(patient.toString());
 					}
 
 				} catch (Exception e) {
@@ -315,7 +237,6 @@ public class Cardiologist extends Application {
 				try {
 					userDashboard.start(stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 

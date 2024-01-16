@@ -55,21 +55,19 @@ public class UserDashboard extends Application {
 
 	Stage stage;
 	Rectangle pharmacyBox;
-//	
-//	  public void setLoggedInUser(String username) {
-//	        this.loggedInUser = username;
-//	    }
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
+		String userName = UserAuthentication.getUsername();
 
 		Text mainHeading = new Text();
 		mainHeading.setText("WELCOME TO HOSPITAL MANAGEMENT SYSTEM\n");
 		mainHeading.setFont(Font.font("Helvetica", FontWeight.BOLD, 60));
 		mainHeading.setFill(Color.WHITE);
 
-		Text userText = new Text("Logged in as: " + UserAuthentication.getUsername());
+		Text userText = new Text("Logged in as: " + userName);
 		userText.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		userText.setFill(Color.WHITE);
 
@@ -484,12 +482,10 @@ public class UserDashboard extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				Appointments appointments = new Appointments();
+				UserAppointments userAppointments = new UserAppointments();
 				try {
-					appointments.start(stage);
+					userAppointments.start(stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -550,9 +546,9 @@ public class UserDashboard extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				Appointments appointments = new Appointments();
+//				Appointments appointments = new Appointments();
 				try {
-					appointments.start(stage);
+//					appointments.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -615,6 +611,7 @@ public class UserDashboard extends Application {
 				// TODO Auto-generated method stub
 				LoginUI login = new LoginUI();
 				try {
+//					userName = "";
 					login.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

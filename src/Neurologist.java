@@ -1,4 +1,6 @@
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -36,99 +38,53 @@ public class Neurologist extends Application {
 
 	Stage stage;
 	Scene scene;
-//	TextField txt_patient, txt_name, txt_father;
-//	RadioButton rb_male, rb_female;
-//	DatePicker dob;
 	ComboBox<String> dr_names;
 	TextArea txt_disease;
-//	Patients patient;
 
-//	LoginUI login = new LoginUI();
+	public String getAppointmentDetails() throws SQLException {
+		String disease = txt_disease.getText();
 
-//	AppointmentDataValidation adv = new AppointmentDataValidation();
+		String[] parts = disease.split(" ");
 
-//	public Patients patientData() {
-//		patient.setEmail(adv.readData());
-//
-//		patient.setPatientId(txt_patient.getText());
-//		System.out.println(txt_patient.getText());
-//		patient.setUserName(txt_name.getText());
-//		patient.setFatherName(txt_father.getText());
-//		if (rb_male.isSelected()) {
-//			patient.setGender("Male");
-//		} else if (rb_female.isSelected()) {
-//			patient.setGender("Female");
-//		}
-//		patient.setDOB(dob.getValue().toString());
-//		patient.setDoctorName(dr_names.getValue().toString());
-//		patient.setDisease(txt_disease.getText());
-//		return patient;
-//	}
+		String formattedDisease = String.join("-", parts);
+
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDate = currentDate.format(formatter);
+		String patientEmail = UserAuthentication.getUserEmail();
+		int patientId = Database.getIdByCondition("user", "u_id", "email", UserAuthentication.getUserEmail());
+		int doctorId = Database.getIdByCondition("doctor", "d_id", "name", dr_names.getValue());
+		int specializationId = Database.getIdByCondition("specializations", "s_id", "specializationNames",
+				"Neurologist");
+
+		return patientId + " " + patientEmail + " " + doctorId + " " + specializationId + " " + formattedDate + " "
+				+ formattedDisease;
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+
 		stage = primaryStage;
 		stage.setTitle("Book An Appointment");
-//		patient = new Patients();
 
 		Text mainHeading = new Text();
 		mainHeading.setText("NEUROLOGIST\n");
 		mainHeading.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
 		mainHeading.setFill(Color.WHITESMOKE);
 
-//		Label lbl_patient = new Label("Patient ID");
-//		lbl_patient.setTextFill(Color.WHITE);
-//		lbl_patient.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		txt_patient = new TextField();
-//		txt_patient.setPromptText("Enter Patient ID");
-
-//		Label lbl_name = new Label("Name");
-//		lbl_name.setTextFill(Color.WHITE);
-//		lbl_name.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		txt_name = new TextField();
-//		txt_name.setPromptText("Enter Your Name");
-
-//		Label lbl_father = new Label("Father Name");
-//		lbl_father.setTextFill(Color.WHITE);
-//		lbl_father.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		txt_father = new TextField();
-//		txt_father.setPromptText("Enter Father Name");
-
-//		Label lbl_gender = new Label("Gender");
-//		lbl_gender.setTextFill(Color.WHITE);
-//		lbl_gender.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		ToggleGroup rb_gp = new ToggleGroup();
-//		rb_male = new RadioButton("Male");
-//		rb_female = new RadioButton("Female");
-//		rb_male.setToggleGroup(rb_gp);
-//		rb_female.setToggleGroup(rb_gp);
-//		rb_male.setTextFill(Color.WHITE);
-//		rb_male.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		rb_female.setTextFill(Color.WHITE);
-//		rb_female.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-
-//		Label lbl_date = new Label("Date of Birth");
-//		lbl_date.setTextFill(Color.WHITE);
-//		lbl_date.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-//		dob = new DatePicker();
-//		dob.setPromptText("Enter DOB");
-
 		Label lbl_doctor = new Label("Doctor Name");
 		lbl_doctor.setTextFill(Color.WHITE);
 		lbl_doctor.setFont(Font.font("Verdana", FontWeight.SEMI_BOLD, 20));
-
-		ComboBox<String> dr_names = new ComboBox<>();
+		dr_names = new ComboBox<>();
 		dr_names.setPromptText("Select Doctor");
-
 		try {
-		    ArrayList<String> neurologistNames = Database.getDataFromDb("doctor", "name", 
-		        "specializations", "s_id", "specializationNames", "Neurologist", "INNER JOIN");
-		    
-		    dr_names.getItems().addAll(neurologistNames);
-		} catch (SQLException e) {
-		    e.printStackTrace();
-		}
+			ArrayList<String> cardiologistNames = Database.getDataFromDb("doctor", "name", "specializations", "s_id",
+					"specializationNames", "Neurologist", "INNER JOIN");
 
+			dr_names.getItems().addAll(cardiologistNames);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		Label lbl_disease = new Label("Disease History");
 		lbl_disease.setTextFill(Color.WHITE);
@@ -136,13 +92,6 @@ public class Neurologist extends Application {
 		txt_disease = new TextArea();
 		txt_disease.setPromptText("Enter Your Disease");
 
-//		HBox h1 = new HBox(75, lbl_patient, txt_patient);
-//		HBox h2 = new HBox(115, lbl_name, txt_name);
-//		HBox h3 = new HBox(45, lbl_father, txt_father);
-//		HBox h4 = new HBox(98, lbl_gender, rb_male, rb_female);
-//		h4.setMargin(rb_male, new Insets(-3, 0, 5, 0));
-//		h4.setMargin(rb_female, new Insets(-3, 0, 5, -80));
-//		HBox h5 = new HBox(50, lbl_date, dob);
 		HBox h6 = new HBox(45, lbl_doctor, dr_names);
 
 		VBox points = new VBox(40, h6);
@@ -156,12 +105,12 @@ public class Neurologist extends Application {
 		heading.setAlignment(Pos.CENTER);
 
 		// save Button
-		Button saveBtn = new Button("Book An Appointment");
+		Button saveBtn = new Button("Book Appointment");
 		saveBtn.setCursor(Cursor.HAND);
 		HBox save = new HBox(saveBtn);
 		saveBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		saveBtn.setTextFill(Color.WHITE);
-		saveBtn.setStyle("-fx-background-color: black;-fx-background-radius: 20px;");
+		saveBtn.setStyle("-fx-background-color: blue;-fx-background-radius: 20px;");
 		saveBtn.setPadding(new Insets(10, 40, 10, 40));
 
 		DropShadow shadowsave = new DropShadow();
@@ -185,7 +134,7 @@ public class Neurologist extends Application {
 		HBox cancel = new HBox(cancelBtn);
 		cancelBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		cancelBtn.setTextFill(Color.WHITE);
-		cancelBtn.setStyle("-fx-background-color: black ;-fx-background-radius: 20px;");
+		cancelBtn.setStyle("-fx-background-color: red;-fx-background-radius: 20px;");
 		cancelBtn.setPadding(new Insets(10, 30, 10, 30));
 
 		cancelBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -196,7 +145,6 @@ public class Neurologist extends Application {
 				try {
 					userDashboard.start(stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -229,7 +177,7 @@ public class Neurologist extends Application {
 		HBox goBack = new HBox(backBtn);
 		backBtn.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 		backBtn.setTextFill(Color.WHITE);
-		backBtn.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
+		backBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 20px;");
 		backBtn.setPadding(new Insets(0, 20, 0, 20));
 		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
 
@@ -257,43 +205,19 @@ public class Neurologist extends Application {
 					String info = "";
 					String gender = "";
 
-//					info = "Patient ID: " + txt_patient.getText() + "\n";
-//					info += "Patient Name: " + txt_name.getText() + "\n";
-//					info += "Father Name: " + txt_father.getText() + "\n";
-
-//					if (rb_male.isSelected()) {
-//						gender = "Male";
-//					} else if (rb_female.isSelected()) {
-//						gender = "Female";
-//					} else {
-//						gender = "";
-//					}
-
-//					info += "Gender: " + gender + "\n";
-//
-//					info += "Date Of Birth: " + dob.getValue() + "\n";
-
 					info += "Doctor: " + dr_names.getSelectionModel().getSelectedItem() + "\n";
 
 					info += "Disease History: " + txt_disease.getText();
-
-//					info += "doctor fees:  500";
 
 					if (txt_disease.getText().equals("")) {
 						Alert nullError = new Alert(Alert.AlertType.ERROR);
 						nullError.setContentText("Fill out the Disease History Field");
 						nullError.show();
 					} else {
-
+						Database.insertIntoDb(getAppointmentDetails(), "appointments");
 						Alert a = new Alert(AlertType.INFORMATION);
 						a.setContentText("Your appointment has been booked successfully!\n\n" + info);
 						a.show();
-
-//						PatientDataFiling pdf = new PatientDataFiling();
-//					System.out.println("coming here");
-//						patientData();
-//						pdf.writeData(patient.toString());
-//					System.out.println(patient.toString());
 					}
 
 				} catch (Exception e) {
@@ -313,7 +237,6 @@ public class Neurologist extends Application {
 				try {
 					userDashboard.start(stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 

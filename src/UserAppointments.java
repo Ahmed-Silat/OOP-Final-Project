@@ -24,20 +24,28 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-public class DeleteDoctor extends Application {
+public class UserAppointments extends Application {
 
-	@Override
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 	public void start(Stage primaryStage) {
 		TableView<ObservableList<String>> tableView = new TableView<>();
 
 		try {
 			Connection connection = Database.getConnection();
 
-			String tableName = "doctor";
+			String tableName = "appointments";
 			String colName = Database.getColumnNames(tableName, 2);
 
-			String query = "SELECT d.d_id, d.name, d.gender, d.dob, s.specializationNames " + "FROM doctor d "
-					+ "JOIN specializations s ON d.s_id=s.s_id";
+//			String query = "SELECT d.d_id, d.name, d.gender, d.dob, s.specializationNames " + "FROM doctor d "
+//					+ "JOIN specializations s ON d.s_id=s.s_id";
+			String query = "SELECT a.app_id, CONCAT(u.first_name, ' ' ,u.last_name) AS patientName, a.patient_email,"
+					+ " d.name, s.specializationNames, a.DATE, a.disease FROM appointments a"
+					+ " JOIN user u ON a.patient_id = u.u_id JOIN doctor d ON d.d_id = a.doctor_name"
+					+ " JOIN specializations s ON s.s_id = a.consultant" + " WHERE a.patient_email = " + "\""
+					+ UserAuthentication.getUserEmail() + "\"";
 
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
@@ -56,18 +64,20 @@ public class DeleteDoctor extends Application {
 			}
 
 			while (resultSet.next()) {
-				int doctorId = resultSet.getInt("d_id");
+				int doctorId = resultSet.getInt("app_id");
+				String patientName = resultSet.getString("patientName");
+				String patientEmail = resultSet.getString("patient_email");
 				String doctorName = resultSet.getString("name");
-//                String doctorFirstName = resultSet.getString("first_name");
-//                String doctorLastName = resultSet.getString("last_name");
-				String doctorGender = resultSet.getString("gender");
-				String doctorDob = resultSet.getString("dob");
+				String specialization = resultSet.getString("specializationNames");
+				String date = resultSet.getString("DATE");
+				String disease = resultSet.getString("disease");
+//				String doctorGender = resultSet.getString("gender");
+//				String doctorDob = resultSet.getString("dob");
 //                String doctorEmail = resultSet.getString("email");
 //                String doctorPassword = resultSet.getString("password");
-				String specialization = resultSet.getString("specializationNames");
 
-				tableView.getItems().add(FXCollections.observableArrayList(String.valueOf(doctorId), doctorName,
-						doctorGender, doctorDob, specialization));
+				tableView.getItems().add(FXCollections.observableArrayList(String.valueOf(doctorId), patientName,
+						patientEmail, doctorName, specialization, date, disease));
 			}
 
 			resultSet.close();
@@ -93,60 +103,19 @@ public class DeleteDoctor extends Application {
 		backBtn.addEventHandler(MouseEvent.MOUSE_EXITED, event -> backBtn.setEffect(null));
 
 		backBtn.setOnAction(event -> {
-			AdminDashboard adminDashboard = new AdminDashboard();
+			UserDashboard userDashboard = new UserDashboard();
 			try {
-				adminDashboard.start(primaryStage);
+				userDashboard.start(primaryStage);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
 
-		// Delete button
-		Button deleteButton = new Button("Delete");
-		deleteButton.setCursor(Cursor.HAND);
-		deleteButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-		deleteButton.setTextFill(Color.WHITE);
-		deleteButton.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
-		deleteButton.setPadding(new Insets(0, 20, 0, 20));
-
-		DropShadow shadowDelete = new DropShadow();
-		deleteButton.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> deleteButton.setEffect(shadowDelete));
-		deleteButton.addEventHandler(MouseEvent.MOUSE_EXITED, event -> deleteButton.setEffect(null));
-
-		deleteButton.setOnAction(event -> {
-			// AdminDashboard adminDashboard = new AdminDashboard();
-			// try {
-			// adminDashboard.start(primaryStage);
-			// } catch (Exception e) {
-			// e.printStackTrace();
-			// }
-			ObservableList<String> selectedItem = tableView.getSelectionModel().getSelectedItem();
-
-			if (selectedItem != null) {
-				String primaryKeyColumnName = tableView.getColumns().get(0).getText();
-				String primaryKeyValue = selectedItem.get(0); // Assuming the first column is the primary key
-
-				// Call the generalization method for deletion
-				Database.deleteRecord("doctor", primaryKeyColumnName, primaryKeyValue);
-
-				// Remove the selected item from the TableView
-				tableView.getItems().remove(selectedItem);
-			} else {
-				// Display a message or handle the case where no item is selected
-				System.out.println("No item selected for deletion.");
-			}
-		});
-
 		HBox backButton = new HBox(10, goBack);
 
-		VBox root = new VBox(10, backButton, tableView, deleteButton);
+		VBox root = new VBox(10, backButton, tableView);
 		Scene scene = new Scene(root, 1800, 980);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
-
-	public static void main(String[] args) {
-//        launch(args);
-		launch(args);
 	}
 }

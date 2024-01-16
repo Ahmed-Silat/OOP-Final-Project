@@ -134,14 +134,24 @@ public class UserAuthentication {
 		}
 		return false;
 	}
-	
-	 public static String getUsername() throws SQLException {
-//	        ArrayList<String> userData = Database.getConditioinalDataFromDb("user", "first_name", "email", email);
 
-		 if(LoginUI.userName.length() > 0) {
-			 return LoginUI.userName;
-		 }
+	public static String getUsername() {
+		String userName = "";
+		if (SignUpUI.patientName.length() > 0) {
+			userName = SignUpUI.patientName;
+		} else {
+			userName = LoginUI.userName;
+		}
 
-	        return SignUpUI.patientName;
-	    }
+		return userName;
+	}
+
+	public static String getUserEmail() {
+		if (SignUpUI.signUpEmail.length() > 0) {
+			System.out.println(SignUpUI.signUpEmail);
+			return SignUpUI.signUpEmail;
+		}
+		System.out.println(LoginUI.loginEmail);
+		return LoginUI.loginEmail;
+	}
 }

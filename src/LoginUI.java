@@ -46,7 +46,7 @@ public class LoginUI extends Application {
 	TextField txt_email;
 	PasswordField pass;
 	ComboBox cmb_users;
-	String loginEmail = "";
+	static String loginEmail = "";
 	static String userName = "";
 
 	public String getUserName(String loginEmail) throws SQLException {
@@ -92,20 +92,8 @@ public class LoginUI extends Application {
 	}
 
 	public void goToAdminDashboard() {
-//		AdminAuthentication admin = new AdminAuthentication();
-//		if (admin.signIn(email, password) == true) {
-//			AdminDashboard adminDashboard = new AdminDashboard();
-//			try {
-//				adminDashboard.start(login_stage);
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
 		String adminEmail = "ahmedsilat95@gmail.com";
 		try {
-//			System.out.println("login");
-//			System.out.println(UserAuthentication.isPasswordCorrect(adminEmail, pass.getText()));
 			if (adminEmail.equals(txt_email.getText())
 					&& UserAuthentication.isPasswordCorrect(adminEmail, pass.getText())) {
 				Alert signInSuccessful = new Alert(Alert.AlertType.INFORMATION);
@@ -115,7 +103,6 @@ public class LoginUI extends Application {
 				try {
 					adminDashboard.start(login_stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else {
@@ -124,7 +111,6 @@ public class LoginUI extends Application {
 				loginError.show();
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -132,10 +118,8 @@ public class LoginUI extends Application {
 	public void dashboardSelection(String cmbValue, String email, String password) {
 		if (cmbValue == "User") {
 			goToUserDashboard();
-//			System.out.println("user");
 		} else if (cmbValue == "Admin") {
 			goToAdminDashboard();
-//			System.out.println("admin");
 		}
 	}
 
@@ -189,19 +173,14 @@ public class LoginUI extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-//				goToUserDashboard(txt_email.getText(), pass.getText());
 				try {
-//					if (!Database.isEmptyFields(getLoginDetails())) {
 					userName = getUserName(txt_email.getText());
+					loginEmail = txt_email.getText();
 					dashboardSelection(cmb_users.getValue().toString(), txt_email.getText(), pass.getText());
-					userName = "";
-//					} else {
-//						Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-//						errorAlert.setContentText("Please fill out all the fields.");
-//						errorAlert.showAndWait();
-//					}
-//					AppointmentDataValidation adv = new AppointmentDataValidation();
-//					adv.writeData(txt_email.getText());
+					txt_email.clear();
+//					userName = "";
+//					loginEmail = "";
+//					
 				} catch (Exception e) {
 					Alert loginError = new Alert(Alert.AlertType.ERROR);
 					loginError.setContentText("Please fill out all the fields");
@@ -276,11 +255,8 @@ public class LoginUI extends Application {
 		layout.setStyle("-fx-background-color: #2B7490");
 
 		scene = new Scene(layout, 1800, 980);
-//		scene.setFill(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE, new Stop(0, Color.web("#90B1D8")),
-//				new Stop(1, Color.web("#3E7786"))));
 
 		login_stage.setTitle("Login-page");
-//		login_stage.setMaximized(true);
 		login_stage.setResizable(false);
 		login_stage.setScene(scene);
 		login_stage.show();
