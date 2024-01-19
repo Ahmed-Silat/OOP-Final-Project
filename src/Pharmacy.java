@@ -49,7 +49,10 @@ public class Pharmacy extends Application {
 	TextField manufacture_date;
 	TextField expiry_date;
 	TextField quantities;
+	TextField price;
+
 	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
@@ -65,12 +68,12 @@ public class Pharmacy extends Application {
 		lbl_medicine.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
 		cmb_medicine = new ComboBox<>();
 		cmb_medicine.setPromptText("Select Medicine");
-        
-        try {
-        	cmb_medicine.getItems().addAll(Database.getColDataFromDb("pharmacy", "medicineName"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+		try {
+			cmb_medicine.getItems().addAll(Database.getColDataFromDb("pharmacy", "medicineName"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		Label lbl_company = new Label("Company Name");
 		lbl_company.setTextFill(Color.WHITE);
@@ -78,7 +81,7 @@ public class Pharmacy extends Application {
 		company_name = new TextField();
 		company_name.setCursor(Cursor.HAND);
 		company_name.setEditable(false);
-		
+
 		Label lbl_manufacture = new Label("Date of Manufacture");
 		lbl_manufacture.setTextFill(Color.WHITE);
 		lbl_manufacture.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
@@ -98,10 +101,12 @@ public class Pharmacy extends Application {
 		quantities.setCursor(Cursor.HAND);
 		quantities.setEditable(false);
 
-//		// Quantity Spinner
-//		final Spinner spinner = new Spinner();
-//		spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10000));
-//		spinner.setEditable(true);
+		Label lbl_price = new Label("Price");
+		lbl_company.setTextFill(Color.WHITE);
+		lbl_company.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		price = new TextField();
+		price.setCursor(Cursor.HAND);
+		price.setEditable(false);
 
 		// Go back button
 		Button backBtn = new Button("Go Back");
@@ -112,15 +117,28 @@ public class Pharmacy extends Application {
 		backBtn.setStyle("-fx-background-color: black; -fx-background-radius: 20px;");
 		backBtn.setPadding(new Insets(0, 20, 0, 20));
 		goBack.setMargin(backBtn, new Insets(5, 0, 0, 3));
-		
+
 		cmb_medicine.setOnAction(event -> {
 			String selectedMedicine = cmb_medicine.getValue();
 			if (selectedMedicine != null) {
 				try {
-					List<String> companyName = Database.getConditioinalDataFromDb("pharmacy", "companyName", "medicineName", selectedMedicine);
-					List<String> dateOfManufacture = Database.getConditioinalDataFromDb("pharmacy", "dateOfManufacture", "medicineName", selectedMedicine);
-					List<String> dateOfExpiry = Database.getConditioinalDataFromDb("pharmacy", "dateOfManufacture", "medicineName", selectedMedicine);
-					List<String> quantityyy = Database.getConditioinalDataFromDb("pharmacy", "quantity", "medicineName", selectedMedicine);
+					List<String> companyName = Database.getConditioinalDataFromDb("pharmacy", "companyName",
+							"medicineName", selectedMedicine);
+					List<String> dateOfManufacture = Database.getConditioinalDataFromDb("pharmacy", "dateOfManufacture",
+							"medicineName", selectedMedicine);
+					List<String> dateOfExpiry = Database.getConditioinalDataFromDb("pharmacy", "dateOfManufacture",
+							"medicineName", selectedMedicine);
+					List<String> quantityyy = Database.getConditioinalDataFromDb("pharmacy", "quantity", "medicineName",
+							selectedMedicine);
+					List<String> prices = Database.getConditioinalDataFromDb("pharmacy", "price", "medicineName",
+							selectedMedicine);
+					if (!prices.isEmpty()) {
+						String p = prices.get(0);
+						price.setText(null);
+						price.setText(p);
+					} else {
+						quantities.setText("");
+					}
 					if (!quantityyy.isEmpty()) {
 						String q = quantityyy.get(0);
 						quantities.setText(null);
@@ -128,7 +146,7 @@ public class Pharmacy extends Application {
 					} else {
 						quantities.setText("");
 					}
-					
+
 					if (!dateOfExpiry.isEmpty()) {
 						String dateExpiry = dateOfExpiry.get(0);
 						expiry_date.setText(null);
@@ -155,7 +173,6 @@ public class Pharmacy extends Application {
 				}
 			}
 		});
-		
 
 		backBtn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -224,8 +241,9 @@ public class Pharmacy extends Application {
 		HBox dateOfManufacture = new HBox(20, lbl_manufacture, manufacture_date);
 		HBox dateOfExpiry = new HBox(80, lbl_expiry, expiry_date);
 		HBox quantity = new HBox(80, lbl_quantity, quantities);
+		HBox pricing = new HBox(80, lbl_price, price);
 
-		VBox lbl_txt = new VBox(30, medicineName, companyName, dateOfManufacture, dateOfExpiry, quantity,
+		VBox lbl_txt = new VBox(30, medicineName, companyName, dateOfManufacture, dateOfExpiry, quantity, pricing,
 				purchaseButton);
 
 		// Final Vertical Box
