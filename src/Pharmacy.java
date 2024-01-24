@@ -51,7 +51,6 @@ public class Pharmacy extends Application {
 	TextField quantities;
 	TextField price;
 
-	
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

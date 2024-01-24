@@ -44,10 +44,6 @@ public class AddAppointment extends Application {
 	ComboBox<String> cmb_consultant;
 	ComboBox<String> cmb_docName;
 	TextArea txt_disease;
-//	RadioButton rb_male, rb_female;
-//	ComboBox<Integer> cmb_date;
-//	ComboBox<String> cmb_month, cmb_year;
-//	PasswordField pass, rePass;
 
 	public String getAppointmentDetails() {
 		String email = cmb_email.getValue();
