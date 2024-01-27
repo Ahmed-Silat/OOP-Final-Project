@@ -56,7 +56,6 @@ public class UserDashboard extends Application {
 	Stage stage;
 	Rectangle pharmacyBox;
 
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
@@ -545,12 +544,10 @@ public class UserDashboard extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-//				Appointments appointments = new Appointments();
+				BillingUI billing = new BillingUI();
 				try {
-//					appointments.start(stage);
+					billing.start(stage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

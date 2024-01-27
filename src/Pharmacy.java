@@ -93,7 +93,7 @@ public class Pharmacy extends Application {
 		expiry_date = new TextField();
 		expiry_date.setPromptText("Enter DOE");
 
-		Label lbl_quantity = new Label("Company Name");
+		Label lbl_quantity = new Label("Quantity");
 		lbl_quantity.setTextFill(Color.WHITE);
 		lbl_quantity.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
 		quantities = new TextField();
@@ -101,8 +101,8 @@ public class Pharmacy extends Application {
 		quantities.setEditable(false);
 
 		Label lbl_price = new Label("Price");
-		lbl_company.setTextFill(Color.WHITE);
-		lbl_company.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
+		lbl_price.setTextFill(Color.WHITE);
+		lbl_price.setFont(Font.font("Helvetica", FontWeight.LIGHT, 20));
 		price = new TextField();
 		price.setCursor(Cursor.HAND);
 		price.setEditable(false);
