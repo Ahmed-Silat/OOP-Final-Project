@@ -367,9 +367,9 @@ public class AdminDashboard extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-//				DeletePatientUI deletePatient = new DeletePatientUI();
+				AddPharmacy addPharmacy = new AddPharmacy();
 				try {
-//					deletePatient.start(stage);
+					addPharmacy.start(stage);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

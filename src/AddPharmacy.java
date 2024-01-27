@@ -128,9 +128,9 @@ public class AddPharmacy extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				UserDashboard userDashboard = new UserDashboard();
+				AdminDashboard adminDashboard = new AdminDashboard();
 				try {
-					userDashboard.start(stage);
+					adminDashboard.start(stage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

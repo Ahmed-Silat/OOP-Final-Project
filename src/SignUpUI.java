@@ -84,23 +84,6 @@ public class SignUpUI extends Application {
 	String month[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
 			"November", "December" };
 
-//	public User getUserDetails() {
-//		userData.setFirstName(txt_fName.getText());
-//		userData.setLastName(txt_lName.getText());
-//		if (rb_male.isSelected()) {
-//			userData.setGender("Male");
-//		} else if (rb_female.isSelected()) {
-//			userData.setGender("Female");
-//		}
-//		userData.setDate(cmb_date.getValue().toString());
-//		userData.setMonth(cmb_month.getValue().toString());
-//		userData.setYear(cmb_year.getValue().toString());
-//		userData.setEmail(txt_email.getText());
-//		userData.setPassword(pass.getText());
-//		userData.setConfirmPassword(rePass.getText());
-//		return userData;
-//	}
-
 	public String getPatientDetails() {
 		String firstName = txt_fName.getText();
 		String lastName = txt_lName.getText();
@@ -117,7 +100,6 @@ public class SignUpUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		stage.setTitle("Signup-page");
-//		userData = new User();
 
 		Text mainHeading = new Text("Signup");
 		mainHeading.setFill(Color.WHITE);

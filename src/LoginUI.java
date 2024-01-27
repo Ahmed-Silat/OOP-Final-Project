@@ -92,7 +92,7 @@ public class LoginUI extends Application {
 	}
 
 	public void goToAdminDashboard() {
-		String adminEmail = "ahmedsilat95@gmail.com";
+		String adminEmail = "admin@gmail.com";
 		try {
 			if (adminEmail.equals(txt_email.getText())
 					&& UserAuthentication.isPasswordCorrect(adminEmail, pass.getText())) {

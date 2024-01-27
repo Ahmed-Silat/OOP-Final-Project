@@ -42,18 +42,21 @@ public class BillingUI extends Application {
 	TextField txt_ptName;
 	ComboBox<String> cmb_email;
 	TextField billing;
+	TextField patientText;
 
 	public String getAppointmentDetails() {
 		String email = cmb_email.getValue();
 		String fullName = txt_ptName.getText();
-		
+
 		String[] parts = fullName.split(" ");
-		
+
 		String formattedName = String.join("-", parts);
-		
+
 		String bill = billing.getText();
 
-		return email + " " + formattedName + " " + bill;
+		String patient_id = patientText.getText();
+
+		return email + " " + formattedName + " " + bill + " " + patient_id;
 	}
 
 	public static void main(String[] args) {
@@ -91,6 +94,11 @@ public class BillingUI extends Application {
 		billing = new TextField();
 		billing.setPromptText("Amount");
 
+		Label patient_id = new Label("Patient Id");
+		patient_id.setTextFill(Color.WHITE);
+		patientText = new TextField();
+		patientText.setPromptText("Patient Id");
+
 		cmb_email.setOnAction(event -> {
 			String selectedEmail = cmb_email.getValue();
 			if (selectedEmail != null) {
@@ -111,7 +119,7 @@ public class BillingUI extends Application {
 		});
 
 		Button btn_signup = new Button("GENERATE BILL");
-	
+
 		btn_signup.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -150,10 +158,11 @@ public class BillingUI extends Application {
 			}
 		});
 		VBox layout = new VBox(20, mainHeading, lbl_email, cmb_email, lbl_ptName, txt_ptName, lbl_docName, billing,
-				btn_signup);
+				patient_id, patientText, btn_signup);
 
 		txt_ptName.setMaxWidth(200);
 		billing.setMaxWidth(200);
+		patientText.setMaxWidth(200);
 		layout.setAlignment(Pos.CENTER);
 
 		btn_signup.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
@@ -201,9 +210,9 @@ public class BillingUI extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				AdminDashboard adminDashboard = new AdminDashboard();
+				UserDashboard userDashboard = new UserDashboard();
 				try {
-					adminDashboard.start(stage);
+					userDashboard.start(stage);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
